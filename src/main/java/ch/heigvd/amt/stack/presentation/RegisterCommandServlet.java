@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "/RegisterCommandServlet", urlPatterns= "/register.do")
+@WebServlet(name = "/RegisterCommandServlet", urlPatterns= "/registerold.do")
 public class RegisterCommandServlet extends HttpServlet {
     public static final Map<String,String> users = new HashMap<>();
 
