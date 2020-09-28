@@ -20,21 +20,22 @@ public abstract class InMemoryRepository<ENTITY extends IEntity<ENTITY, ID>, ID 
         store.put(entity.getId(), entity);
     }
 
-    public void remove(ID id) {store.remove(id);}
+    public void remove(ID id) {
+        store.remove(id);
+    }
 
-    public Optional<ENTITY> findById(ID id){
+    public Optional<ENTITY> findById(ID id) {
         ENTITY existingEntity = store.get(id);
-        if(existingEntity == null){
+        if(existingEntity == null) {
             return Optional.empty();
         }
         ENTITY clonedEntity = existingEntity.deepClone();
         return Optional.of(clonedEntity);
     }
 
-    public Collection<ENTITY> findAll(){
+    public Collection<ENTITY> findAll() {
         return store.values().stream()
-                .map(entity -> entity.deepClone())
-                .collect(Collectors.toList());
+            .map(entity -> entity.deepClone())
+            .collect(Collectors.toList());
     }
-
 }

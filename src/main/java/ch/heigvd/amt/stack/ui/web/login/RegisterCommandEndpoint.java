@@ -25,23 +25,20 @@ public class RegisterCommandEndpoint extends HttpServlet {
         request.getSession().removeAttribute("errors");
 
         RegisterCommand registerCommand = RegisterCommand.builder()
-                .userName(request.getParameter("userName"))
-                .firstName(request.getParameter("firstName"))
-                .lastName(request.getParameter("lastName"))
-                .email(request.getParameter("email"))
-                .clearTextPassword(request.getParameter("password"))
-                .build();
-        try{
+            .username(request.getParameter("username"))
+            .firstName(request.getParameter("firstName"))
+            .lastName(request.getParameter("lastName"))
+            .email(request.getParameter("email"))
+            .clearTextPassword(request.getParameter("password"))
+            .build();
+        try {
             identityManagementFacade.register(registerCommand);
-            request.getRequestDispatcher("/login.do").forward(request,response);
+            request.getRequestDispatcher("/login.do").forward(request, response);
             return;
-        }catch (RegistrationFailedException e){
+        } catch(RegistrationFailedException e) {
             request.getSession().setAttribute("errors", List.of(e.getMessage()));
             response.sendRedirect("/login");
             return;
         }
-
     }
-
-
 }

@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class RegisterCommand {
-    private String userName;
+    private String username;
     private String firstName;
     private String lastName;
     private String email;

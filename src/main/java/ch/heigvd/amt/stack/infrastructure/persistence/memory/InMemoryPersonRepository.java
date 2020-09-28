@@ -11,14 +11,13 @@ import java.util.Optional;
 public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonId> implements IPersonRepository {
 
     public void save(Person entity) throws SQLIntegrityConstraintViolationException {
-        synchronized (entity.getUserName()){
-            if(!findByUsername(entity.getUserName()).isEmpty()){
+        synchronized(entity.getUsername()) {
+            if(!findByUsername(entity.getUsername()).isEmpty()) {
                 throw new SQLIntegrityConstraintViolationException("Cannot save/udpate person. Integrity constraint violation");
             }
             super.save(entity);
         }
     }
-
 
     @Override
     public Optional<Person> findByUsername(String username) {

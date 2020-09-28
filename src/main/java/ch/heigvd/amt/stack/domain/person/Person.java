@@ -11,9 +11,8 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 public class Person implements IEntity<Person, PersonId> {
-
     private PersonId id;
-    private String userName;
+    private String username;
     private String email;
     private String firstName;
     private String lastName;
@@ -21,10 +20,9 @@ public class Person implements IEntity<Person, PersonId> {
     @EqualsAndHashCode.Exclude
     private String encryptedPassword;
 
-    public boolean authenticate(String clearTextPassword){
+    public boolean authenticate(String clearTextPassword) {
         return clearTextPassword.toUpperCase().equals(encryptedPassword);
     }
-
 
     @Override
     public PersonId getId() {
@@ -34,16 +32,14 @@ public class Person implements IEntity<Person, PersonId> {
     @Override
     public Person deepClone() {
         return this.toBuilder().
-                id(new PersonId(id.asString())).
-                build();
-
-
+            id(new PersonId(id.asString())).
+            build();
     }
 
-    public static class PersonBuilder{
-        public PersonBuilder clearTextPassword(String clearTextPassword){
+    public static class PersonBuilder {
+        public PersonBuilder clearTextPassword(String clearTextPassword) {
 
-            if(clearTextPassword == null || clearTextPassword.isEmpty()){
+            if(clearTextPassword == null || clearTextPassword.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Password is mandatory");
             }
 
@@ -51,14 +47,14 @@ public class Person implements IEntity<Person, PersonId> {
             return this;
         }
 
-        public Person build(){
-            if(id == null){
+        public Person build() {
+            if(id == null) {
                 id = new PersonId();
             }
 
             //TODO ADD CONDITIONS
 
-            Person newPerson = new Person(id, userName, email, firstName, lastName, encryptedPassword);
+            Person newPerson = new Person(id, username, email, firstName, lastName, encryptedPassword);
             return newPerson;
         }
     }

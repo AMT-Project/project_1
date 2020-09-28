@@ -11,18 +11,18 @@ public class ServiceRegistry {
     private static IPersonRepository personRepository;
     private static IdentityManagementFacade identityManagementFacade;
 
-    public static ServiceRegistry getServiceRegistry(){
-        if(singleton == null){
+    public static ServiceRegistry getServiceRegistry() {
+        if(singleton == null) {
             singleton = new ServiceRegistry();
         }
         return singleton;
     }
 
-    public IdentityManagementFacade getIdentifyManagementFacade(){
+    public IdentityManagementFacade getIdentifyManagementFacade() {
         return identityManagementFacade;
     }
 
-    private ServiceRegistry(){
+    private ServiceRegistry() {
         singleton = this;
         personRepository = new InMemoryPersonRepository();
         identityManagementFacade = new IdentityManagementFacade(personRepository);

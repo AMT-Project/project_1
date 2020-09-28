@@ -14,7 +14,7 @@
 <h1>Register Account</h1>
     <form action="${pageContext.request.contextPath}/register.do" method="post">
         <p>Username</p>
-        <input type="text" placeholder="username" name="userName" required/>
+        <input type="text" placeholder="username" name="username" required/>
         <p>First name</p>
         <input type="text" placeholder="firstname" name="firstName" required/>
         <p>Last name</p>
