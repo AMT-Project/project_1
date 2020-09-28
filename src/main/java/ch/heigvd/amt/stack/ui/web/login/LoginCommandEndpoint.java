@@ -1,10 +1,10 @@
 package ch.heigvd.amt.stack.ui.web.login;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
-import ch.heigvd.amt.stack.application.identifymgmt.IdentityManagementFacade;
-import ch.heigvd.amt.stack.application.identifymgmt.authenticate.AuthenticateCommand;
-import ch.heigvd.amt.stack.application.identifymgmt.authenticate.AuthenticationFailedException;
-import ch.heigvd.amt.stack.application.identifymgmt.authenticate.CurrentUserDTO;
+import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
+import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticateCommand;
+import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticationFailedException;
+import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,8 +39,8 @@ public class LoginCommandEndpoint extends HttpServlet {
             response.sendRedirect(targetUrl);
             return;
         } catch(AuthenticationFailedException e) {
-            request.getSession().setAttribute("errors", List.of(e.getMessage()));
-            response.sendRedirect("/login");
+            //request.getSession().setAttribute("errors", List.of(e.getMessage()));
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
     }

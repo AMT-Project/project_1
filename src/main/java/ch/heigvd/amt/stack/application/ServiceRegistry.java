@@ -18,7 +18,7 @@ public class ServiceRegistry {
         return singleton;
     }
 
-    public IdentityManagementFacade getIdentifyManagementFacade() {
+    public IdentityManagementFacade getIdentityManagementFacade() {
         return identityManagementFacade;
     }
 
