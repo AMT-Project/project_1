@@ -1,0 +1,47 @@
+package ch.heigvd.amt.stack.ui.web.login;
+
+import ch.heigvd.amt.stack.application.ServiceRegistry;
+import ch.heigvd.amt.stack.application.identifymgmt.IdentityManagementFacade;
+import ch.heigvd.amt.stack.application.identifymgmt.authenticate.AuthenticateCommand;
+import ch.heigvd.amt.stack.application.identifymgmt.authenticate.AuthenticationFailedException;
+import ch.heigvd.amt.stack.application.identifymgmt.authenticate.CurrentUserDTO;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+@WebServlet(name = "LoginCommandEndpoint", urlPatterns = "/login.do")
+public class LoginCommandEndpoint extends HttpServlet {
+
+    private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
+    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("errors");
+
+        CurrentUserDTO currentUser = null;
+
+        AuthenticateCommand authenticateCommand = AuthenticateCommand.builder()
+            .username(request.getParameter("username"))
+            .clearTextPassword(request.getParameter("clearTextPassword"))
+            .build();
+
+        try {
+            currentUser = identityManagementFacade.authenticate(authenticateCommand);
+            request.getSession().setAttribute("currentUser", currentUser);
+            String targetUrl = (String) request.getSession().getAttribute("targetUrl");
+            targetUrl = (targetUrl != null) ? targetUrl : "/questions";
+            response.sendRedirect(targetUrl);
+            return;
+        } catch(AuthenticationFailedException e) {
+            request.getSession().setAttribute("errors", List.of(e.getMessage()));
+            response.sendRedirect("/login");
+            return;
+        }
+    }
+}
