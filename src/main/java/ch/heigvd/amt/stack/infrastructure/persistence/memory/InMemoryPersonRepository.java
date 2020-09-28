@@ -15,7 +15,7 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
 
     public void save(Person entity) throws SQLIntegrityConstraintViolationException {
         synchronized(entity.getUsername()) {
-            if(!findByUsername(entity.getUsername()).isEmpty()) {
+            if(findByUsername(entity.getUsername()).isPresent()) {
                 throw new SQLIntegrityConstraintViolationException("Cannot save/udpate person. Integrity constraint violation");
             }
             super.save(entity);
@@ -32,7 +32,7 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
             return Optional.empty();
         }
         if(matchingEntities.size() > 1) {
-            //throw new DataCorruptionException("Your data store is corrupted");
+            throw new DataCorruptionException("Your data store is corrupted");
         }
 
         return Optional.of(matchingEntities.get(0).deepClone());

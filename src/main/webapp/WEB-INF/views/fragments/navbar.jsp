@@ -21,13 +21,14 @@
             </div>
         </c:when>
         <c:otherwise>
-            <div>
-                <button onclick="window.location.href='/stack/';">Home</button>
-                <button onclick="window.location.href='/stack/register';">Registration</button>
-                <button onclick="window.location.href='/stack/login';">Sign-in</button>
-            </div>
+
         </c:otherwise>
     </c:choose>
+    <div>
+        <button onclick="window.location.href='/stack/questions';">Home</button>
+        <button onclick="window.location.href='/stack/register';">Registration</button>
+        <button onclick="window.location.href='/stack/login';">Sign-in</button>
+    </div>
 </div>
 </body>
 </html>

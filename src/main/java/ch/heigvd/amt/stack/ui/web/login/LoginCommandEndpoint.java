@@ -28,17 +28,18 @@ public class LoginCommandEndpoint extends HttpServlet {
 
         AuthenticateCommand authenticateCommand = AuthenticateCommand.builder()
             .username(request.getParameter("username"))
-            .clearTextPassword(request.getParameter("clearTextPassword"))
+            .clearTextPassword(request.getParameter("password"))
             .build();
 
         try {
             currentUser = identityManagementFacade.authenticate(authenticateCommand);
             request.getSession().setAttribute("currentUser", currentUser);
             String targetUrl = (String) request.getSession().getAttribute("targetUrl");
-            targetUrl = (targetUrl != null) ? targetUrl : "/questions";
+            targetUrl = (targetUrl != null) ? targetUrl : (request.getContextPath() + "/questions");
             response.sendRedirect(targetUrl);
             return;
         } catch(AuthenticationFailedException e) {
+            // TODO: problèmes avec la gestion des exceptions
             //request.getSession().setAttribute("errors", List.of(e.getMessage()));
             response.sendRedirect(request.getContextPath() + "/login");
             return;
