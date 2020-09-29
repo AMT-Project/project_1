@@ -1,24 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Login Account</title>
-</head>
-<body>
+<c:set var="pageTitle" scope="session" value="Login"/>
 
 <div id="navbar">
-    <%@ include file="fragments/navbar.jsp" %>
+    <%@ include file="fragments/header.jsp" %>
 </div>
-
+<div class="content">
 <h1>Login Account</h1>
-<form action="${pageContext.request.contextPath}/login.do" method="POST">
+<form class="form-login" action="${pageContext.request.contextPath}/login.do" method="POST">
     <p>Username</p>
-    <input type="text" placeholder="username" name="username" required/>
+    <input class="form-control" type="text" placeholder="username" name="username" required/>
     <p>Password</p>
-    <input type="password" placeholder="password" name="password" required/>
-    <input type="submit" value="Login">
+    <input class="form-control" ype="password" placeholder="password" name="password" required/>
+    <input class="form-btn" type="submit" value="Login">
 </form>
 
 <div class="messages">
@@ -26,6 +19,9 @@
         <div class="error">${error}</div>
     </c:forEach>
 </div>
-
+</div>
 </body>
-</html>
+
+<div id="footer">
+    <%@ include file="fragments/footer.jsp" %>
+</div>
