@@ -52,7 +52,21 @@ public class Person implements IEntity<Person, PersonId> {
                 id = new PersonId();
             }
 
-            //TODO ADD CONDITIONS
+            if (username == null || username.isEmpty()){
+                throw new java.lang.IllegalArgumentException("Username is mandatory");
+            }
+            if (encryptedPassword == null || encryptedPassword.isEmpty()){
+                throw new java.lang.IllegalArgumentException("Password is mandatory");
+            }
+            if (firstName == null || firstName.isEmpty()){
+                throw new java.lang.IllegalArgumentException("First name is mandatory");
+            }
+            if (lastName == null || lastName.isEmpty()){
+                throw new java.lang.IllegalArgumentException("Last name is mandatory");
+            }
+            if (email == null || email.isEmpty()){
+                throw new java.lang.IllegalArgumentException("Email is mandatory");
+            }
 
             Person newPerson = new Person(id, username, email, firstName, lastName, encryptedPassword);
             return newPerson;
