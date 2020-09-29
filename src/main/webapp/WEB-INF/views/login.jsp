@@ -10,7 +10,7 @@
     <p>Username</p>
     <input class="form-control" type="text" placeholder="username" name="username" required/>
     <p>Password</p>
-    <input class="form-control" ype="password" placeholder="password" name="password" required/>
+    <input class="form-control" type="password" placeholder="password" name="password" required/>
     <input class="form-btn" type="submit" value="Login">
 </form>
 
