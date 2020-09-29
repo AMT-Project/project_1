@@ -48,7 +48,7 @@ public class IdentityManagementFacade {
 
         CurrentUserDTO currentUser = CurrentUserDTO.builder()
             .username(person.getUsername())
-            .firstname(person.getFirstName())
+            .firstName(person.getFirstName())
             .lastName(person.getLastName())
             .email(person.getEmail())
             .build();

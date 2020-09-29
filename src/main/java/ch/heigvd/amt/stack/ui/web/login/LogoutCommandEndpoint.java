@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "LogoutCOmmandEndpoint", urlPatterns = "/logout.do")
+@WebServlet(name = "LogoutCommandEndpoint", urlPatterns = "/logout.do")
 public class LogoutCommandEndpoint extends HttpServlet {
 
     @Override

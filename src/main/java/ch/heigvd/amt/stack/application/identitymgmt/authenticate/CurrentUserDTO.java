@@ -7,7 +7,7 @@ import lombok.Value;
 @Builder
 public class CurrentUserDTO {
     private String username;
-    private String firstname;
+    private String firstName;
     private String lastName;
     private String email;
 
