@@ -14,8 +14,6 @@ public class IdentityManagementFacade {
         this.personRepository = personRepository;
     }
 
-    // TODO ADD EXCEPTION !
-    // I'm not able to add a the same exception than the podcast...
     public void register(RegisterCommand command) throws RegistrationFailedException {
         Person existingPersonWithSameUsername = personRepository.findByUsername(command.getUsername()).orElse(null);
 
