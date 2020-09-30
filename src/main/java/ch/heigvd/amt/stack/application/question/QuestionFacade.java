@@ -19,13 +19,16 @@ public class QuestionFacade {
 
         try{
             Question submittedQuestion = Question.builder()
-                    .author(command.getAuthor())
-                    .title(command.getTitle())
-                    .description(command.getText())
+//                    .author(command.getAuthor())
+//                    .title(command.getTitle())
+//                    .description(command.getText())
+                    .author("testau")
+                    .title("testit")
+                    .description("testdesc")
                     .build();
             questionRepository.save(submittedQuestion);
         } catch(Exception e) {
-            System.out.println("QuestionFacade error");
+            System.out.println("QuestionFacade error: "  + e.toString());
         }
 
     }
