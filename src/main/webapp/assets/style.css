@@ -32,6 +32,22 @@ p {
     margin-top: 24px;
 }
 
+li{
+    list-style: none;
+    background-color: #091739;
+    margin: 5%;
+    padding: 3%;
+
+    color: white;
+}
+
+ul{
+    /*background-color: blueviolet;*/
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 /* Utils */
 /*.container {
     position: relative;
@@ -82,7 +98,7 @@ p {
     margin-right: 16px;
 }
 
-.navbar__link:hover {
+.navbar__link:hover, .form-btn:hover {  /*TODO plus propre séparé?*/
     background-color: #1d49bf;
 }
 
@@ -116,14 +132,18 @@ p {
     font-weight: 400;
     text-align: center;
     user-select: none;
-    border: 1px solid transparent;
+    border: 1px solid #0e0f16;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
     color: #fff;
     background-color: #272c40;
-    border-color: #0e0f16;
 
     display: block;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5%;
+    padding: 3%;
+}
+
+#logoutForm{    /*TODO sale! Comment gérer form?*/
+    margin: 0;
 }
