@@ -1,0 +1,35 @@
+package ch.heigvd.amt.stack.ui.web.question;
+
+
+
+import ch.heigvd.amt.stack.application.ServiceRegistry;
+import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
+import ch.heigvd.amt.stack.application.question.QuestionFacade;
+import ch.heigvd.amt.stack.application.question.SubmitQuestionCommand;
+import ch.heigvd.amt.stack.domain.question.Question;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet(name = "SubmitQuestionCommandEndpoint", urlPatterns = "/submitQuestion.do")
+public class SubmitQuestionCommandEndpoint extends HttpServlet {
+
+    private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
+    private QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SubmitQuestionCommand command = SubmitQuestionCommand.builder()
+                .title(request.getParameter("title"))
+                .author(request.getParameter("author"))
+                .text(request.getParameter("description"))
+                .build();
+
+        questionFacade.registerQuestion(command);
+        response.sendRedirect(request.getContextPath() + "/questions");
+    }
+}
