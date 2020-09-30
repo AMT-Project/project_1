@@ -1,4 +1,7 @@
 package ch.heigvd.amt.stack.domain.question;
 
-public class IQuestionRepository {
+import ch.heigvd.amt.stack.domain.IRepository;
+
+public interface IQuestionRepository extends IRepository<Question, QuestionId> {
+
 }

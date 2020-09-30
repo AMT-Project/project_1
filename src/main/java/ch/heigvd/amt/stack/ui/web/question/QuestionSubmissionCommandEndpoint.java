@@ -4,10 +4,7 @@ package ch.heigvd.amt.stack.ui.web.question;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
-import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticateCommand;
-import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticationFailedException;
-import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
-import ch.heigvd.amt.stack.model.Question;
+import ch.heigvd.amt.stack.domain.question.Question;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "QuestionSubmissionCommandEndpoint", urlPatterns = "/submitQuestion.do")
 public class QuestionSubmissionCommandEndpoint extends HttpServlet {

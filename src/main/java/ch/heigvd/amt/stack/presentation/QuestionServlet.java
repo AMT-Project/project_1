@@ -1,7 +1,7 @@
 package ch.heigvd.amt.stack.presentation;
 
 import ch.heigvd.amt.stack.business.QuestionGenerator;
-import ch.heigvd.amt.stack.model.Question;
+import ch.heigvd.amt.stack.domain.question.Question;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
