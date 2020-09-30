@@ -16,10 +16,10 @@
 
         </c:when>
         <c:otherwise>
-            <div class="navbar__buttons">
-                <button class="navbar__link" onclick="window.location.href='/stack/questions';">Home</button>
-                <button class="navbar__link" onclick="window.location.href='/stack/register';">Registration</button>
+            <button class="navbar__link" onclick="window.location.href='/stack/questions';">Home</button>
+            <div class="navbar__user-interaction">
                 <button class="navbar__link" onclick="window.location.href='/stack/login';">Sign-in</button>
+                <button class="navbar__link" onclick="window.location.href='/stack/register';">Registration</button>
             </div>
         </c:otherwise>
     </c:choose>
