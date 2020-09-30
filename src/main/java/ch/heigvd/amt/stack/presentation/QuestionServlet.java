@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "QuestionServlet", urlPatterns = "/home")
+@WebServlet(name = "QuestionServlet", urlPatterns = "/questions")
 public class QuestionServlet extends HttpServlet {
   private QuestionGenerator service; // we will see later how to replace this with dependency injection
 
