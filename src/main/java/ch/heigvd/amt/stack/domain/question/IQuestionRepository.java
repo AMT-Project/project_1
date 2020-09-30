@@ -1,7 +1,10 @@
 package ch.heigvd.amt.stack.domain.question;
 
+import ch.heigvd.amt.stack.application.question.QuestionsQuery;
 import ch.heigvd.amt.stack.domain.IRepository;
 
-public interface IQuestionRepository extends IRepository<Question, QuestionId> {
+import java.util.Collection;
 
+public interface IQuestionRepository extends IRepository<Question, QuestionId> {
+    public Collection<Question> find(QuestionsQuery query);
 }
