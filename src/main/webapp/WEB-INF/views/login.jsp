@@ -14,9 +14,9 @@
     </div>
     <form class="form-login" action="${pageContext.request.contextPath}/login.do" method="POST">
         <p>Username</p>
-        <input class="form-control" type="text" placeholder="username" name="username" required/>
+        <input class="form-control" type="text" placeholder="username" name="username"/>
         <p>Password</p>
-        <input class="form-control" type="password" placeholder="password" name="password" required/>
+        <input class="form-control" type="password" placeholder="password" name="password"/>
         <input class="form-btn" type="submit" value="Login">
     </form>
 
