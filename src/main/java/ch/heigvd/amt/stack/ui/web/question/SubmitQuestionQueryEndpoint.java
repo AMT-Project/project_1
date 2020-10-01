@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "QuestionsQueryEndpoint", urlPatterns = "/submitQuestion")
-public class QuestionsQueryEndpoint extends HttpServlet {
+@WebServlet(name = "SubmitQuestionQueryEndpoint", urlPatterns = "/submitQuestion")
+public class SubmitQuestionQueryEndpoint extends HttpServlet {
 
     private ServiceRegistry serviceRegistry;
     private QuestionFacade questionFacade;

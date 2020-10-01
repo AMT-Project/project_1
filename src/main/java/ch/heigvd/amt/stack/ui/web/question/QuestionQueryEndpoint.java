@@ -1,4 +1,4 @@
-package ch.heigvd.amt.stack.presentation;
+package ch.heigvd.amt.stack.ui.web.question;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "QuestionServlet", urlPatterns = "/questions")
-public class QuestionServlet extends HttpServlet {
+@WebServlet(name = "QuestionQueryEndpoint", urlPatterns = "/questions")
+public class QuestionQueryEndpoint extends HttpServlet {
   /*private QuestionGenerator service; // we will see later how to replace this with dependency injection
 
   @Override
