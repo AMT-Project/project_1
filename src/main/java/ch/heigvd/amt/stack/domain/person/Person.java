@@ -52,20 +52,22 @@ public class Person implements IEntity<Person, PersonId> {
                 id = new PersonId();
             }
 
-            if (username == null || username.isEmpty()){
+            if(username == null || username.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Username is mandatory");
             }
-            if (encryptedPassword == null || encryptedPassword.isEmpty()){
+            if(encryptedPassword == null || encryptedPassword.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Password is mandatory");
             }
-            if (firstName == null || firstName.isEmpty()){
+            if(firstName == null || firstName.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("First name is mandatory");
             }
-            if (lastName == null || lastName.isEmpty()){
+            if(lastName == null || lastName.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Last name is mandatory");
             }
-            if (email == null || email.isEmpty()){
+            if(email == null || email.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Email is mandatory");
+            } else if(!email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")) {
+                throw new java.lang.IllegalArgumentException("Email is misformatted");
             }
 
             Person newPerson = new Person(id, username, email, firstName, lastName, encryptedPassword);
