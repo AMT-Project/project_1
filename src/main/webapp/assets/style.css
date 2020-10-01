@@ -147,3 +147,10 @@ ul{
 #logoutForm{    /*TODO sale! Comment gérer form?*/
     margin: 0;
 }
+
+.error {
+    background-color: #B00020;
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+}
