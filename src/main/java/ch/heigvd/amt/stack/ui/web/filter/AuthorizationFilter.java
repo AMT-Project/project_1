@@ -35,7 +35,6 @@ public class AuthorizationFilter implements Filter {
             request.getSession().setAttribute("targetUrl", targetUrl);
 
             response.sendRedirect(request.getContextPath() + "/login");
-            //response.sendRedirect( "/stack/login");
             return;
         }
         filterChain.doFilter(request, response);
@@ -52,6 +51,9 @@ public class AuthorizationFilter implements Filter {
             return true;
         }
         if(URI.startsWith("/stack/register")) {
+            return true;
+        }
+        if(URI.startsWith("/stack/questions")) {
             return true;
         }
         return false;
