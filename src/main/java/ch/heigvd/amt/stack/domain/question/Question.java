@@ -12,41 +12,38 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 
 public class Question implements IEntity<Question, QuestionId> {
-  private QuestionId id = new QuestionId();
-  private String author;
-  private String title;
-  private String description;
+    private QuestionId id = new QuestionId();
+    private String author;
+    private String title;
+    private String description;
 
-  @Override
-  public QuestionId getId() {
-    return id;
-  }
+    @Override
+    public QuestionId getId() {
+        return id;
+    }
 
-  @Override
-  public Question deepClone() {
-    return this.toBuilder().
+    @Override
+    public Question deepClone() {
+        return this.toBuilder().
             id(new QuestionId(id.asString())).
             build();
-  }
-
-  public static class QuestionBuilder{
-    public Question build(){
-      if(id == null){
-        id = new QuestionId();
-      }
-
-      if(author == null){
-        author = "nullAuth";
-      }
-
-      if(title == null){
-        title = "nullTit";
-      }
-
-      if(description == null){
-        description = "nullDesc";
-      }
-      return new Question(id, author, title, description);
     }
-  }
+
+    public static class QuestionBuilder {
+        public Question build() {
+            if(id == null) {
+                id = new QuestionId();
+            }
+            if(author == null) {
+                author = "nullAuth";
+            }
+            if(title == null) {
+                title = "nullTit";
+            }
+            if(description == null) {
+                description = "nullDesc";
+            }
+            return new Question(id, author, title, description);
+        }
+    }
 }
