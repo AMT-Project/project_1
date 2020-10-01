@@ -21,6 +21,8 @@
         <input class="form-btn" type="submit" value="Register">
     </form>
 
+
+
     <div id="footer">
         <%@ include file="fragments/footer.jsp" %>
     </div>

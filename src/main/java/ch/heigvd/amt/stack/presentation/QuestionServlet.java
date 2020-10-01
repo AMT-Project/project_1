@@ -4,7 +4,6 @@ import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.QuestionsDTO;
 import ch.heigvd.amt.stack.application.question.QuestionsQuery;
-import ch.heigvd.amt.stack.business.QuestionGenerator;
 import ch.heigvd.amt.stack.domain.question.Question;
 
 import javax.servlet.ServletConfig;
