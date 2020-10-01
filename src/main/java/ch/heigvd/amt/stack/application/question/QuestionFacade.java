@@ -19,12 +19,9 @@ public class QuestionFacade {
 
         try{
             Question submittedQuestion = Question.builder()
-//                    .author(command.getAuthor())
-//                    .title(command.getTitle())
-//                    .description(command.getText())
-                    .author("testau")
-                    .title("testit")
-                    .description("testdesc")
+                    .author(command.getAuthor())
+                    .title(command.getTitle())
+                    .description(command.getText())
                     .build();
             questionRepository.save(submittedQuestion);
         } catch(Exception e) {

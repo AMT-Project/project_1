@@ -28,4 +28,25 @@ public class Question implements IEntity<Question, QuestionId> {
             id(new QuestionId(id.asString())).
             build();
   }
+
+  public static class QuestionBuilder{
+    public Question build(){
+      if(id == null){
+        id = new QuestionId();
+      }
+
+      if(author == null){
+        author = "nullAuth";
+      }
+
+      if(title == null){
+        title = "nullTit";
+      }
+
+      if(description == null){
+        description = "nullDesc";
+      }
+      return new Question(id, author, title, description);
+    }
+  }
 }
