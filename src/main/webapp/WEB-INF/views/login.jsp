@@ -1,23 +1,28 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Login Account</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="pageTitle" scope="session" value="Login"/>
 
 <div id="navbar">
-    <%@ include file="fragments/navbar.jsp" %>
+    <%@ include file="fragments/header.jsp" %>
 </div>
+<div class="content">
+    <h1>Login Account</h1>
 
-<h1>Login Account</h1>
-<form action="${pageContext.request.contextPath}/login.do" method="post">
-    <p>Username</p>
-    <input type="text" placeholder="username" name="username" required/>
-    <p>Password</p>
-    <input type="password" placeholder="password" name="password" required/>
-    <input type="submit" value="Login">
-</form>
+    <div class="messages">
+        <c:forEach var="error" items="${errors}">
+            <div class="error">${error}</div>
+        </c:forEach>
+    </div>
+    <form class="form-login" action="${pageContext.request.contextPath}/login.do" method="POST">
+        <p>Username</p>
+        <input class="form-control" type="text" placeholder="username" name="username"/>
+        <p>Password</p>
+        <input class="form-control" type="password" placeholder="password" name="password"/>
+        <input class="form-btn" type="submit" value="Login">
+    </form>
+
+</div>
 </body>
-</html>
+
+<div id="footer">
+    <%@ include file="fragments/footer.jsp" %>
+</div>

@@ -1,0 +1,181 @@
+/* Base */
+@font-face {
+    font-family: "Montserrat";
+    src: url("../stack/assets/fonts/Montserrat-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../stack/assets/fonts/Roboto-Regular.ttf");
+}
+
+body {
+    background-color: cornsilk;
+}
+
+input {
+    background-color: lightsteelblue;
+}
+
+h1 {
+    font-family: Montserrat;
+    font-size: 60px;
+    color: #272c40;
+}
+
+p {
+    font-family: Roboto;
+    font-size: 24px;
+    color: #272c40;
+    margin: 0;
+    margin-bottom: 8px;
+    margin-top: 24px;
+}
+
+/* Utils */
+/*.container {
+    position: relative;
+    width: 100%;
+    flex: 1 0 auto;
+    margin: 0 auto;
+    text-align: left;
+}*/
+
+.content {
+    margin: 20px;
+}
+
+/* Layout */
+.navbar {
+    background-color: #272c40;
+    min-height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__buttons {
+    display: flex;
+}
+
+.navbar__user-interaction {
+    display: flex;
+}
+
+.navbar__user-info {
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.navbar__link {
+    background-color: #091739;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-right: 16px;
+}
+
+.navbar__link:hover, .form-btn:hover {
+    background-color: #1d49bf;
+}
+
+/* Forms */
+.error {
+    background-color: #B00020;
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.form-login, .form-register {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    text-align: center;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-btn {
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+    border: 1px solid #0e0f16;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    color: #fff;
+    background-color: #272c40;
+
+    display: block;
+    width: 100%;
+    margin-top: 5%;
+    padding: 3%;
+}
+
+#logoutForm {
+    margin: 0;
+}
+
+/* Questions */
+.questions-list__list-element {
+    list-style: none;
+    background-color: #272c40;
+    margin: 5%;
+    padding: 3%;
+
+    color: white;
+}
+
+.questions-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.question__title {
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid;
+    font-size: 20px;
+    padding-bottom: 8px;
+}
+
+.question__description {
+    padding-top: 8px;
+}
+
+.question__author {
+    padding-top: 16px;
+    text-align: right;
+    font-style: italic;
+}

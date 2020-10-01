@@ -1,20 +1,29 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ludovicbonzon
-  Date: 24.09.20
-  Time: 17:22
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Navbar</title>
-</head>
-<body>
-<div>
-    <button onclick="window.location.href='/stack/';">Home</button>
-    <button onclick="window.location.href='/stack/register';">Registration</button>
-    <button onclick="window.location.href='/stack/login';">Sign in</button>
-</div>
-</body>
-</html>
+<div class="navbar">
+    <c:choose>
+        <c:when test="${currentUser != null}">
+            <div class="navbar__buttons">
+                <button class="navbar__link" onclick="window.location.href='/stack/questions';">Home</button>
+            </div>
+
+            <div class="navbar__user-interaction">
+                <div class="navbar__user-info">
+                        ${currentUser.firstName} ${currentUser.lastName}
+                </div>
+
+                <button class="navbar__link" onclick="window.location.href='/stack/submitQuestion';">New Question</button>
+
+                <form id="logoutForm" method="POST" action="logout.do">
+                    <button class="navbar__link" type="submit">Logout</button>
+                </form>
+            </div>
+
+        </c:when>
+        <c:otherwise>
+            <button class="navbar__link" onclick="window.location.href='/stack/questions';">Home</button>
+            <div class="navbar__user-interaction">
+                <button class="navbar__link" onclick="window.location.href='/stack/login';">Sign-in</button>
+                <button class="navbar__link" onclick="window.location.href='/stack/register';">Registration</button>
+            </div>
+        </c:otherwise>
+    </c:choose>
+

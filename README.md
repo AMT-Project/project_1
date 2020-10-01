@@ -1,15 +1,20 @@
 # StackOverflow
 
-pull the image from ghcr.io:
-
-```shell
-docker pull ghcr.io/pabloheigvd/flow:latest
+## Build image
+Run inside projet folder the command:
+```bash
+  ./build-image.sh
 ```
 
-Run the image with:
-
-```shell
-docker run -p 8080:8080 ghcr.io/pabloheigvd/flow
+If everything goes well, you can run
+```bash
+docker-compose up
 ```
 
-Access http://localhost:8080/stack to view the website
+Now, your terminal is stuck. Great. Open <http://localhost:9080>
+Additionnaly, you can open <http://localhost:9443>
+
+# run locally
+```bash
+  ./build-run-locally.sh
+```

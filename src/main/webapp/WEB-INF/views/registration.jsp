@@ -1,23 +1,32 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Register Account</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="pageTitle" scope="session" value="Register"/>
 
 <div id="navbar">
-    <%@ include file="fragments/navbar.jsp" %>
+    <%@ include file="fragments/header.jsp" %>
 </div>
 
-<h1>Register Account</h1>
-    <form action="${pageContext.request.contextPath}/register.do" method="post">
+<div class="content">
+    <h1>Register Account</h1>
+    <div class="messages">
+        <c:forEach var="error" items="${errors}">
+            <div class="error">${error}</div>
+        </c:forEach>
+    </div>
+    <form class="form-register" action="${pageContext.request.contextPath}/register.do" method="POST">
         <p>Username</p>
-        <input type="text" placeholder="username" name="username" required/>
+        <input class="form-control" type="text" placeholder="username" name="username"/>
+        <p>First name</p>
+        <input class="form-control" type="text" placeholder="firstname" name="firstName"/>
+        <p>Last name</p>
+        <input class="form-control" type="text" placeholder="lastname" name="lastName"/>
+        <p>Email</p>
+        <input class="form-control" type="text" placeholder="email" name="email"/>
         <p>Password</p>
-        <input type="password" placeholder="password" name="password" required/>
-        <input type="submit" value="Register">
+        <input class="form-control" type="password" placeholder="password" name="password"/>
+        <input class="form-btn" type="submit" value="Register">
     </form>
-</body>
-</html>
+
+    <div id="footer">
+        <%@ include file="fragments/footer.jsp" %>
+    </div>
+</div>
