@@ -10,9 +10,9 @@
     <h1>List of questions</h1>
     <ul>
         <c:forEach var="question" items="${questions.questions}">
-            <div>
-                ${question.text}
-            </div>
+            <li>
+                ${question.author} - ${question.title} -${question.description}
+            </li>
         </c:forEach>
     </ul>
     <div id="footer">
