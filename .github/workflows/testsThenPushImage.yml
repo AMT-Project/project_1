@@ -48,8 +48,7 @@ jobs:
 
       - name: Build Docker image and push it to ghcr
         run: |
-          mv ./target/stack.war ./docker/images/flow/stack.war
           echo ${{ secrets.PUSH_IMAGES_TO_GHCR_SECRET }} | docker login ghcr.io -u pabloheigvd --password-stdin
-          docker build -t pabloheigvd/flow ./docker/images/flow
+          docker build -t pabloheigvd/flow .
           docker tag pabloheigvd/flow ghcr.io/pabloheigvd/flow
           docker push ghcr.io/pabloheigvd/flow
