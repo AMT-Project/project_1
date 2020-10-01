@@ -17,19 +17,6 @@ import java.util.List;
 
 @WebServlet(name = "QuestionQueryEndpoint", urlPatterns = "/questions")
 public class QuestionQueryEndpoint extends HttpServlet {
-  /*private QuestionGenerator service; // we will see later how to replace this with dependency injection
-
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    service = new QuestionGenerator();
-  }
-
-  protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-    List<Question> model = service.generateQuestions();
-    request.setAttribute("questions", model);
-    request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
-  }*/
   private ServiceRegistry serviceRegistry;
   private QuestionFacade questionFacade;
 
