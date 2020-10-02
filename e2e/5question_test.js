@@ -29,8 +29,9 @@ Scenario("Submit question and redirect to /questions to display", (I) => {
     I.click("Submit");
 
     I.seeInCurrentUrl("/questions");
-    I.see(title);
+    I.see(title.toUpperCase());
     I.see(description);
+    I.see(uniqueUsername);
 });
 
 Scenario("Cannot submit without filling title and description", (I) => {
