@@ -1,6 +1,6 @@
 .idea/*
 target/*
-docker/images/payara/stack.war
+stack.war
 
 ### macOS template
 # General

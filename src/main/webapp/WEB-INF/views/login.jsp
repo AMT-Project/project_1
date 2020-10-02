@@ -5,20 +5,21 @@
     <%@ include file="fragments/header.jsp" %>
 </div>
 <div class="content">
-<h1>Login Account</h1>
-<form class="form-login" action="${pageContext.request.contextPath}/login.do" method="POST">
-    <p>Username</p>
-    <input class="form-control" type="text" placeholder="username" name="username" required/>
-    <p>Password</p>
-    <input class="form-control" type="password" placeholder="password" name="password" required/>
-    <input class="form-btn" type="submit" value="Login">
-</form>
+    <h1>Login Account</h1>
 
-<div class="messages">
-    <c:forEach var="error" items="${errors}">
-        <div class="error">${error}</div>
-    </c:forEach>
-</div>
+    <div class="messages">
+        <c:forEach var="error" items="${errors}">
+            <div class="error">${error}</div>
+        </c:forEach>
+    </div>
+    <form class="form-login" action="${pageContext.request.contextPath}/login.do" method="POST">
+        <p>Username</p>
+        <input class="form-control" type="text" placeholder="username" name="username"/>
+        <p>Password</p>
+        <input class="form-control" type="password" placeholder="password" name="password"/>
+        <input class="form-btn" type="submit" value="Login">
+    </form>
+
 </div>
 </body>
 

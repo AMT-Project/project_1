@@ -1,6 +1,6 @@
 # StackOverflow
 
-## Build
+## Build image
 Run inside projet folder the command:
 ```bash
   ./build-image.sh
@@ -11,9 +11,10 @@ If everything goes well, you can run
 docker-compose up
 ```
 
-Now, your terminal is stuck. Great. Open <http://localhost:4848>
+Now, your terminal is stuck. Great. Open <http://localhost:9080>
+Additionnaly, you can open <http://localhost:9443>
 
-1. Accept the risks
-2. Click on ```Applications``` in sidebar
-3. Look for ```launch```
-4. Forget the opened window, click [this](http://localhost:8080/stack) to see our app
+# run locally
+```bash
+  ./build-run-locally.sh
+```

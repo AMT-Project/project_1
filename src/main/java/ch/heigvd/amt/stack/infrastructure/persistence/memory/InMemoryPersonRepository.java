@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonId> implements IPersonRepository {
 
     public void save(Person entity) throws SQLIntegrityConstraintViolationException {

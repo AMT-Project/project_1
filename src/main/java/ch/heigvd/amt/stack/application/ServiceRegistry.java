@@ -27,7 +27,10 @@ public class ServiceRegistry {
     public IdentityManagementFacade getIdentityManagementFacade() {
         return identityManagementFacade;
     }
-    public QuestionFacade getQuestionFacade(){ return questionFacade;}
+
+    public QuestionFacade getQuestionFacade() {
+        return questionFacade;
+    }
 
     private ServiceRegistry() {
         singleton = this;

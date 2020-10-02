@@ -1,12 +1,9 @@
 package ch.heigvd.amt.stack.ui.web.question;
 
-
-
 import ch.heigvd.amt.stack.application.ServiceRegistry;
-import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
+import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.SubmitQuestionCommand;
-import ch.heigvd.amt.stack.domain.question.Question;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,11 +20,13 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
+
         SubmitQuestionCommand command = SubmitQuestionCommand.builder()
-                .title(request.getParameter("title"))
-                .author(request.getParameter("author"))
-                .text(request.getParameter("description"))
-                .build();
+            .title(request.getParameter("title"))
+            .author(currentUserDTO.getUsername())
+            .text(request.getParameter("description"))
+            .build();
 
         questionFacade.registerQuestion(command);
         response.sendRedirect(request.getContextPath() + "/questions");

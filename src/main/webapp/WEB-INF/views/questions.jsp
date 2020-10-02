@@ -8,10 +8,20 @@
 </div>
 <div class="content">
     <h1>List of questions</h1>
-    <ul>
+    <ul class="questions-list">
         <c:forEach var="question" items="${questions.questions}">
-            <li>
-                ${question.author} - ${question.title} -${question.description}
+            <li class="questions-list__list-element">
+                <div class="question">
+                    <div class="question__title">
+                            ${question.title}
+                    </div>
+                    <div class="question__description">
+                            ${question.description}
+                    </div>
+                    <div class="question__author">
+                            ${question.author}
+                    </div>
+                </div>
             </li>
         </c:forEach>
     </ul>

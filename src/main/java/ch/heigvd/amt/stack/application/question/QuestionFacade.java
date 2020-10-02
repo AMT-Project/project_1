@@ -1,6 +1,5 @@
 package ch.heigvd.amt.stack.application.question;
 
-
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import ch.heigvd.amt.stack.domain.question.Question;
 
@@ -16,35 +15,31 @@ public class QuestionFacade {
     }
 
     public void registerQuestion(SubmitQuestionCommand command) {
-
-        try{
+        try {
             Question submittedQuestion = Question.builder()
-                    .author(command.getAuthor())
-                    .title(command.getTitle())
-                    .description(command.getText())
-                    .build();
+                .author(command.getAuthor())
+                .title(command.getTitle())
+                .description(command.getText())
+                .build();
             questionRepository.save(submittedQuestion);
         } catch(Exception e) {
-            System.out.println("QuestionFacade error: "  + e.toString());
+            System.out.println("QuestionFacade error: " + e.toString());
         }
-
     }
 
-    public QuestionsDTO getQuestions(QuestionsQuery query){
+    public QuestionsDTO getQuestions(QuestionsQuery query) {
         Collection<Question> allQuestions = questionRepository.find(query);
 
         List<QuestionsDTO.QuestionDTO> allQuestionsDTO = allQuestions.stream()
-                .map(question -> QuestionsDTO.QuestionDTO.builder()
-                        .author(question.getAuthor())
-                        .title(question.getTitle())
-                        .description(question.getDescription())
-                        .build())
-                .collect(Collectors.toList());
-
+            .map(question -> QuestionsDTO.QuestionDTO.builder()
+                .author(question.getAuthor())
+                .title(question.getTitle())
+                .description(question.getDescription())
+                .build())
+            .collect(Collectors.toList());
 
         return QuestionsDTO.builder()
-                .questions(allQuestionsDTO)
-                .build();
+            .questions(allQuestionsDTO)
+            .build();
     }
-
 }

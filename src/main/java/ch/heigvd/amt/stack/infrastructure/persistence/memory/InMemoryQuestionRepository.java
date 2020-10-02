@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class InMemoryQuestionRepository extends InMemoryRepository<Question, QuestionId> implements IQuestionRepository {
     @Override
-    public Collection<Question> find(QuestionsQuery query){
+    public Collection<Question> find(QuestionsQuery query) {
         return findAll();
     }
 }

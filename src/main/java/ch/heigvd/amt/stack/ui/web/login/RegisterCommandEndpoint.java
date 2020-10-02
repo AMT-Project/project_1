@@ -36,9 +36,8 @@ public class RegisterCommandEndpoint extends HttpServlet {
             request.getRequestDispatcher("/login.do").forward(request, response);
             return;
         } catch(RegistrationFailedException e) {
-            // TODO: problèmes avec la gestion des exceptions
-            //request.getSession().setAttribute("errors", List.of(e.getMessage()));
-            response.sendRedirect(request.getContextPath() + "/login");
+            request.getSession().setAttribute("errors", List.of(e.getMessage()));
+            response.sendRedirect(request.getContextPath() + "/register");
             return;
         }
     }
