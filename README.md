@@ -33,3 +33,8 @@ docker run -p 9000:9080 ghcr.io/pabloheigvd/flow
 ```
 
 Access <http://localhost:9000/stack/login> to view the website
+
+# Run test suite
+```bash
+./runTestsLocally.sh
+```
