@@ -33,3 +33,10 @@ docker run -p 9000:9080 ghcr.io/pabloheigvd/flow
 ```
 
 Access <http://localhost:9000/stack/login> to view the website
+
+# Run test suite
+```bash
+./runTestsLocally.sh
+```
+
+**Note**: You may want to rerun the script since the script assumes you already have downloaded *openliberty/open-liberty:kernel-java11-openj9-ubi* image. The script waits 10s for the image to be built and launches the server. 

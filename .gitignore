@@ -33,3 +33,5 @@ Temporary Items
 # node_modules
 /node_modules
 
+# E2E testing
+output
