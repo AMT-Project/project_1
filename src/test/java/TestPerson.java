@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UTPerson {
+public class TestPerson {
 
     private static final String USER = "wasadigi";
     private static final String FIRSTNAME = "Olivier";
