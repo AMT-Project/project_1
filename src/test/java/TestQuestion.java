@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UTQuestion {
+public class TestQuestion {
     private static final String TITLE = "Comment faire des tests unitaires?";
     private static final String DESC = "Bonjour! Je suis une pive et j'ai besoin d'aide.";
     private static final String AUTHOR = "octocat3000";
