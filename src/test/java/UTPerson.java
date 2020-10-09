@@ -38,13 +38,13 @@ public class UTPerson {
     @Test
     public void mandatoryUsername(){
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-        Person p = Person.builder()
-                .clearTextPassword(PASSWORD)
+            Person p = Person.builder()
+                    .clearTextPassword(PASSWORD)
 //                .username(USER)
-                .firstName(FIRSTNAME)
-                .lastName(LASTNAME)
-                .email(EMAIL)
-                .build();
+                    .firstName(FIRSTNAME)
+                    .lastName(LASTNAME)
+                    .email(EMAIL)
+                    .build();
         });
     }
 
@@ -53,7 +53,7 @@ public class UTPerson {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Person p = Person.builder()
                     .clearTextPassword(PASSWORD)
-                .username(USER)
+                    .username(USER)
 //                    .firstName(FIRSTNAME)
                     .lastName(LASTNAME)
                     .email(EMAIL)
@@ -66,7 +66,7 @@ public class UTPerson {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Person p = Person.builder()
                     .clearTextPassword(PASSWORD)
-                .username(USER)
+                    .username(USER)
                     .firstName(FIRSTNAME)
 //                    .lastName(LASTNAME)
                     .email(EMAIL)
@@ -117,5 +117,38 @@ public class UTPerson {
         });
     }
 
+    @Test
+    public void authentication(){
+        Person p = Person.builder()
+                .clearTextPassword(PASSWORD)
+                .username(USER)
+                .firstName(FIRSTNAME)
+                .lastName(LASTNAME)
+                .email(EMAIL)
+                .build();
+        assertTrue(p.authenticate(PASSWORD));
+        assertFalse(p.authenticate(PASSWORD + 1));
 
+    }
+
+    @Test
+    public void deepCloning(){
+        Person p = Person.builder()
+                .clearTextPassword(PASSWORD)
+                .username(USER)
+                .firstName(FIRSTNAME)
+                .lastName(LASTNAME)
+                .email(EMAIL)
+                .build();
+
+        Person clone = p.deepClone();
+
+        assertEquals(p.getUsername(), clone.getUsername());
+        assertEquals(p.getFirstName(),clone.getFirstName());
+        assertEquals(p.getLastName(),clone.getLastName());
+        assertEquals(p.getEmail(),clone.getEmail());
+        assertEquals(p.getEncryptedPassword(),clone.getEncryptedPassword());
+
+        assertNotEquals(p.getId(), clone.getId());
+    }
 }
