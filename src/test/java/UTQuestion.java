@@ -6,7 +6,6 @@ import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.infrastructure.persistence.memory.InMemoryQuestionRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
