@@ -23,10 +23,10 @@ public class RegisterCommandEndpoint extends HttpServlet {
     @Inject
     ServiceRegistry serviceRegistry;
 
-    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
-
     @SneakyThrows
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+
         request.getSession().removeAttribute("errors");
 
         RegisterCommand registerCommand = RegisterCommand.builder()

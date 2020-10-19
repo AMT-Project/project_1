@@ -15,11 +15,10 @@
         <fileset dir="${server.config.dir}" includes="*.jar" />
     </library>
 
-    <dataSource jndiName="jdbc/StackOverflowOS">
+    <dataSource jndiName="jdbc/StackDS">
         <jdbcDriver libraryRef="MySqlLib"/>
-        <properties databaseName="AMT_STACKOVERFLOW"
-                    serverName="localhost" portNumber="9906"
-                    user="root" password="root"/>
+        <properties databaseName="${DB_DATABASE}"
+                    serverName="${DB_HOST}" portNumber="${DB_PORT}"
+                    user="${DB_USERNAME}" password="${DB_PASSWORD}"/>
     </dataSource>
-
 </server>

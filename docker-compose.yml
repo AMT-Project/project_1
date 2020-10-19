@@ -3,20 +3,28 @@ version: '3.7'
 # https://medium.com/@hantsy/put-your-jakarta-ee-8-applications-to-production-77756d1967bf
 
 services:
-  openliberty:
+  web:
     build: .
     image: openliberty/stack
     container_name: stackoverflow
     ports:
       - "9080:9080"
       - "9443:9443" # HTTPS listener
+    volumes:
+      - ./src/main/liberty/config/server.env:/config/server.env
+    depends_on:
+      - db
   
-  mysql:
-    image: mysql:latest
+  db:
+    image: mysql:8.0.18
+    container_name: stack_db
+    restart: always
     ports:
       - 9906:3306
     volumes:
-      - ./db:/docker-entrypoint-initdb.d
+      - ./docker/init/db:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: pwd
-      MYSQL_DATABASE: AMT-test
+      MYSQL_DATABASE: AMT-db
+      MYSQL_USER: stackusr
+      MYSQL_PASSWORD: stackpwd

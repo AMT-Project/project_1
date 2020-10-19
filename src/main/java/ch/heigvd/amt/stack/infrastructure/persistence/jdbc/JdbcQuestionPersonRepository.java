@@ -17,7 +17,7 @@ import java.util.Optional;
 @Named("JdbcQuestionRepository")
 public class JdbcQuestionPersonRepository implements IQuestionRepository {
 
-    @Resource(lookup = "StackOverflowOS")
+    @Resource(lookup = "jdbc/StackDS")
     DataSource dataSource;
 
     public JdbcQuestionPersonRepository(){

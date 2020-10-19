@@ -12,41 +12,17 @@ import javax.inject.Named;
 @ApplicationScoped
 public class ServiceRegistry {
 
-    //private static ServiceRegistry singleton;
-
-    @Inject @Named("InMemoryQuestionRepository")
+    @Inject @Named("JdbcQuestionRepository")
     IQuestionRepository questionRepository;
 
-    @Inject @Named("InMemoryPersonRepository")
+    @Inject @Named("JdbcPersonRepository")
     IPersonRepository personRepository;
 
-    //private static QuestionFacade questionFacade;
-    //private static IdentityManagementFacade identityManagementFacade;
-
-    /*
-    public static ServiceRegistry getServiceRegistry() {
-        if(singleton == null) {
-            singleton = new ServiceRegistry();
-        }
-        return singleton;
-    }
-     */
-
     public IdentityManagementFacade getIdentityManagementFacade() {
-        return  new IdentityManagementFacade(personRepository);
+        return new IdentityManagementFacade(personRepository);
     }
 
     public QuestionFacade getQuestionFacade() {
         return new QuestionFacade(questionRepository);
     }
-
-    /*
-    private ServiceRegistry() {
-        singleton = this;
-        questionRepository = new InMemoryQuestionRepository();
-        questionFacade = new QuestionFacade(questionRepository);
-        personRepository = new InMemoryPersonRepository();
-        identityManagementFacade = new IdentityManagementFacade(personRepository);
-    }
-    */
 }
