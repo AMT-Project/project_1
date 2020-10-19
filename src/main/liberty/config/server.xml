@@ -11,4 +11,15 @@
     <httpEndpoint host="*" httpPort="${default.http.port}"
                   httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
 
+    <library id="MySqlLib">
+        <fileset dir="${server.config.dir}" includes="*.jar" />
+    </library>
+
+    <dataSource jndiName="jdbc/StackOverflowOS">
+        <jdbcDriver libraryRef="MySqlLib"/>
+        <properties databaseName="AMT_STACKOVERFLOW"
+                    serverName="localhost" portNumber="9906"
+                    user="root" password="root"/>
+    </dataSource>
+
 </server>

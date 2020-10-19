@@ -1,6 +1,7 @@
 .idea/*
 target/*
 stack.war
+src\main\liberty\config\mysql-connector-java-*
 
 ### macOS template
 # General

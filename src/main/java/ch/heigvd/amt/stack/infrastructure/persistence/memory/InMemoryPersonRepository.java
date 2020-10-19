@@ -5,12 +5,27 @@ import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.infrastructure.persistence.exception.DataCorruptionException;
 
+import javax.annotation.Resource;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+import javax.sql.DataSource;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
+@Named("InMemoryPersonRepository")
 public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonId> implements IPersonRepository {
+
+    @Resource(lookup = "StackOverflowOS")
+    DataSource dataSource;
+
+    public InMemoryPersonRepository(){
+
+    }
+
+    public InMemoryPersonRepository(DataSource dataSource) {this.dataSource = dataSource;}
 
     public void save(Person entity) throws SQLIntegrityConstraintViolationException {
         synchronized(entity.getUsername()) {

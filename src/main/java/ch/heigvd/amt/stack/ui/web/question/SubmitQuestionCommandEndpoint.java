@@ -5,6 +5,7 @@ import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.SubmitQuestionCommand;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,9 @@ import java.io.IOException;
 @WebServlet(name = "SubmitQuestionCommandEndpoint", urlPatterns = "/submitQuestion.do")
 public class SubmitQuestionCommandEndpoint extends HttpServlet {
 
-    private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
+    @Inject
+    ServiceRegistry serviceRegistry;
+    //private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
     private QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
 
     @Override
