@@ -26,7 +26,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     public JdbcQuestionRepository(DataSource dataSource) {this.dataSource = dataSource;}
 
     public Collection<Question> find(QuestionsQuery query) {
-        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         //   pas d'utilisation de query????
         try {
@@ -44,7 +43,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public void save(Question question) throws SQLIntegrityConstraintViolationException {
-        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
@@ -63,7 +61,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public void remove(QuestionId id) {
-        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
@@ -77,7 +74,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public Optional<Question> findById(QuestionId id) {
-        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
@@ -100,7 +96,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public Collection<Question> findAll() {
-        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
