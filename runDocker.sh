@@ -1,7 +1,6 @@
 echo "=============================="
 echo "=== Kill & stop containers ==="
 echo "=============================="
-# https://gist.github.com/evanscottgray/8571828#gistcomment-1830482
 docker kill stack_db stackoverflow
 
 docker rm stack_db stackoverflow
