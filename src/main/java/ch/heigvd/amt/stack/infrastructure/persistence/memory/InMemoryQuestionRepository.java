@@ -14,6 +14,7 @@ import java.util.Collection;
 public class InMemoryQuestionRepository extends InMemoryRepository<Question, QuestionId> implements IQuestionRepository {
     @Override
     public Collection<Question> find(QuestionsQuery query) {
+        //  FIXME trouve une entite ne devrait pas retourner tout le contenu de la table
         return findAll();
     }
 }

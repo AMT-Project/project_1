@@ -19,6 +19,6 @@ npx codeceptjs run --steps
 echo "=============================="
 echo "=== Kill & stop containers ==="
 echo "=============================="
-docker kill stack_db stackoverflow
+#docker kill stack_db stackoverflow
 
-docker rm stack_db stackoverflow
+#docker rm stack_db stackoverflow
