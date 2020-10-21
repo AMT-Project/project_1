@@ -18,10 +18,10 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
     @Inject
     ServiceRegistry serviceRegistry;
 
-    private QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
         
         SubmitQuestionCommand command = SubmitQuestionCommand.builder()
