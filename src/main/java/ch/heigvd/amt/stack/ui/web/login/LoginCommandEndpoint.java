@@ -39,7 +39,7 @@ public class LoginCommandEndpoint extends HttpServlet {
             response.sendRedirect(targetUrl);
             return;
         } catch(AuthenticationFailedException e) {
-//            request.getSession().setAttribute("errors", List.of(e.getMessage()));   //TODO
+            request.getSession().setAttribute("errors", List.of(e.getMessage()));   //TODO
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
