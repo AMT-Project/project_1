@@ -1,9 +1,9 @@
 <server description="Flow Open Liberty server">
     <featureManager>
         <feature>webProfile-8.0</feature>
-        <feature>appSecurity-3.0</feature> // DEBUG : Access ibm/api
-        <feature>restConnector-2.0</feature> // DEBUG : Access ibm/api
-        <feature>jdbc-4.2</feature> // DEBUG : Access ibm/api
+        <feature>appSecurity-3.0</feature> <!--FIXME : Access ibm/api (to remove)-->
+        <feature>restConnector-2.0</feature> <!--FIXME : Access ibm/api (to remove)-->
+        <feature>jdbc-4.2</feature> <!--FIXME : Access ibm/api (to remove)-->
     </featureManager>
 
     <quickStartSecurity userName="admin" userPassword="admin"/> // DEBUG : Access ibm/api
@@ -23,7 +23,6 @@
     <dataSource id="DefaultDataSource" jndiName="jdbc/StackDS">
         <jdbcDriver libraryRef="MySqlLib"/>
         <properties databaseName="${DB_DATABASE}"
-                    url="jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}"
                     serverName="${DB_HOST}" portNumber="${DB_PORT}"
                     user="${DB_USERNAME}" password="${DB_PASSWORD}"/>
     </dataSource>
