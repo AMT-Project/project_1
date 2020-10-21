@@ -7,9 +7,9 @@ import lombok.Value;
 @Value
 @Builder
 public class CurrentUserDTO {
+    private PersonId uuid;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
-    private PersonId uuid;
 }

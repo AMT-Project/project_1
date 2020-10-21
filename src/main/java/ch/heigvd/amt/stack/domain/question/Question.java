@@ -19,15 +19,10 @@ public class Question implements IEntity<Question, QuestionId> {
     private String description;
 
     @Override
-    public QuestionId getId() {
-        return id;
-    }
-
-    @Override
     public Question deepClone() {
-        return this.toBuilder().
-            id(new QuestionId(id.asString())).
-            build();
+        return this.toBuilder()
+            .id(new QuestionId(id.asString()))
+            .build();
     }
 
     public static class QuestionBuilder {
@@ -36,7 +31,7 @@ public class Question implements IEntity<Question, QuestionId> {
                 id = new QuestionId();
             }
             if(authorUUID == null) {
-                authorUUID = null;
+                throw new IllegalArgumentException("Author is mandatory"); // TODO : appliquer sur les autres champs
             }
             if(title == null) {
                 title = "nullTit";
