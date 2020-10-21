@@ -1,5 +1,6 @@
 package ch.heigvd.amt.stack.application.question;
 
+import ch.heigvd.amt.stack.domain.person.PersonId;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.Getter;
 
 public class SubmitQuestionCommand {
     @Builder.Default
-    private String author = "Anonymous";
+    private PersonId authorUUID = null;
 
     @Builder.Default
     private String title = "No title";
