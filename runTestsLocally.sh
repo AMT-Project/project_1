@@ -4,7 +4,7 @@
 echo "================================="
 echo "===== Wait 10s to run tests ====="
 echo "================================="
-sleep 13s
+sleep 30s
 
 echo "================================="
 echo "= Installing test environnement ="
