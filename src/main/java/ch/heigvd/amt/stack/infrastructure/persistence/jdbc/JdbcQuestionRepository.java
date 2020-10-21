@@ -12,10 +12,7 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.*;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -66,12 +63,13 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "INSERT INTO Question (uuid, title, description, person_uuid)" +
-                    "VALUES (?,?,?,?)");
+                    "INSERT INTO Question (uuid, title, description, person_uuid, created_at)" +
+                    "VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, question.getId().asString());
             preparedStatement.setString(2, question.getTitle());
             preparedStatement.setString(3, question.getDescription());
             preparedStatement.setString(4, question.getAuthorUUID().asString());
+            preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -83,7 +81,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "DELETE FROM Question * WHERE id=?");
+                    "DELETE FROM Question * WHERE uuid=?");
             preparedStatement.setString(1, id.asString());
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
@@ -96,7 +94,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question WHERE id=?");
+                    "SELECT * FROM Question WHERE uuid=?");
             preparedStatement.setString(1, id.asString());
             ResultSet rs = preparedStatement.executeQuery();
 

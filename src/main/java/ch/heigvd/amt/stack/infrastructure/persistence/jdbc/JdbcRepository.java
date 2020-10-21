@@ -13,25 +13,4 @@ import java.util.Collection;
 import java.util.Optional;
 
 public abstract class JdbcRepository<ENTITY extends IEntity<ENTITY, ID>, ID extends Id> implements IRepository<ENTITY, ID> {
-
-    @Resource(lookup = "jdbc/StackDS")
-    DataSource dataSource;
-
-    public void update(PreparedStatement saveStatement) throws SQLIntegrityConstraintViolationException {
-        try {
-            Connection conn = dataSource.getConnection();
-            saveStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    protected ResultSet getSet(PreparedStatement query) {
-        try {
-            return query.executeQuery();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
 }

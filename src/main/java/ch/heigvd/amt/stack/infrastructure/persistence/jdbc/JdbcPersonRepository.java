@@ -38,7 +38,6 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             preparedStatement.setString(4, person.getFirstName());
             preparedStatement.setString(5, person.getLastName());
             preparedStatement.setString(6, person.getEncryptedPassword());
-            System.out.println(preparedStatement.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

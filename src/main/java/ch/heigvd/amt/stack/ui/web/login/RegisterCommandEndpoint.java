@@ -18,8 +18,6 @@ import java.util.List;
 @WebServlet(name = "RegisterCommandEndpoint", urlPatterns = "/register.do")
 public class RegisterCommandEndpoint extends HttpServlet {
 
-    //private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
-
     @Inject
     ServiceRegistry serviceRegistry;
 

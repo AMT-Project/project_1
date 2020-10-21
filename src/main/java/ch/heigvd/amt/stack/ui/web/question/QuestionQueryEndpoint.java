@@ -24,7 +24,6 @@ public class QuestionQueryEndpoint extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        //serviceRegistry = ServiceRegistry.getServiceRegistry();
         questionFacade = serviceRegistry.getQuestionFacade();
     }
 

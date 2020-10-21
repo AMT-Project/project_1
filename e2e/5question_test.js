@@ -3,7 +3,7 @@ Feature("question");
 const submitQuestionURL = "/submitQuestion";
 
 const uniqueId = new Date().getTime();
-const uniqueUsername = "CodeceptJS-" + uniqueId;
+const uniqueUsername = "5question_test-" + uniqueId;
 const uniqueEmail = "CodeceptJS@" + uniqueId + ".ch";
 const pwd = "pwd";
 

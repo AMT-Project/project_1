@@ -18,7 +18,7 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
 
     @Inject
     ServiceRegistry serviceRegistry;
-    //private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
+
     private QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
 
     @Override
