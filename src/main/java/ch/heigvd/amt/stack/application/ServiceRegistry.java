@@ -8,6 +8,7 @@ import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Objects;
 
 @ApplicationScoped
 public class ServiceRegistry {

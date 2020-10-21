@@ -49,9 +49,9 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
         // TODO : implement
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = dataSource.getConnection().prepareStatement("DELETE FROM Person WHERE uuid=?");
+            preparedStatement = dataSource.getConnection().prepareStatement(
+                    "DELETE FROM Person WHERE uuid=?");
             preparedStatement.setInt(1, Integer.parseInt(id.asString()));
-            System.out.println(preparedStatement.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +64,6 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             PreparedStatement preparedStatement = dataSource.getConnection().
                     prepareStatement("SELECT * FROM Person WHERE uuid=?");
             preparedStatement.setString(1, id.asString());
-            System.out.println(preparedStatement.toString());
             ResultSet rs = preparedStatement.executeQuery();
 
             LinkedList<Person> matches = new LinkedList<>();

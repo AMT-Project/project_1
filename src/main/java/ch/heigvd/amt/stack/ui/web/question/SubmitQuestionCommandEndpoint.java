@@ -15,7 +15,6 @@ import java.io.IOException;
 
 @WebServlet(name = "SubmitQuestionCommandEndpoint", urlPatterns = "/submitQuestion.do")
 public class SubmitQuestionCommandEndpoint extends HttpServlet {
-
     @Inject
     ServiceRegistry serviceRegistry;
 
@@ -25,13 +24,16 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
 
+        System.out.println("getAttribute ok\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         SubmitQuestionCommand command = SubmitQuestionCommand.builder()
             .title(request.getParameter("title"))
             .authorUUID(currentUserDTO.getUuid())
             .text(request.getParameter("description"))
             .build();
 
+        System.out.println("SubmitQuestionCommand built\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         questionFacade.registerQuestion(command);
+        System.out.println("POSTED\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         response.sendRedirect(request.getContextPath() + "/questions");
     }
 }

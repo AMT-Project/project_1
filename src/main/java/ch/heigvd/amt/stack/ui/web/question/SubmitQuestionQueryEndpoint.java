@@ -19,13 +19,11 @@ public class SubmitQuestionQueryEndpoint extends HttpServlet {
     @Inject
     ServiceRegistry serviceRegistry;
 
-    //private ServiceRegistry serviceRegistry;
     private QuestionFacade questionFacade;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        //serviceRegistry = ServiceRegistry.getServiceRegistry();
         questionFacade = serviceRegistry.getQuestionFacade();
     }
 

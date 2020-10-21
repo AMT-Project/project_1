@@ -1,12 +1,10 @@
 package ch.heigvd.amt.stack.infrastructure.persistence.jdbc;
 
 import ch.heigvd.amt.stack.application.question.QuestionsQuery;
-import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import ch.heigvd.amt.stack.domain.question.Question;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
-import lombok.Setter;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
@@ -20,17 +18,15 @@ import java.util.Optional;
 @ApplicationScoped
 @Named("JdbcQuestionRepository")
 public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId> implements IQuestionRepository {
-
     @Resource(lookup = "jdbc/StackDS")
     DataSource dataSource;
 
-    public JdbcQuestionRepository(){
-    }
+    public JdbcQuestionRepository(){}
 
     public JdbcQuestionRepository(DataSource dataSource) {this.dataSource = dataSource;}
 
-    @Override
     public Collection<Question> find(QuestionsQuery query) {
+        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         //   pas d'utilisation de query????
         try {
@@ -38,19 +34,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
                     "SELECT * FROM Question");
             ResultSet rs = preparedStatement.executeQuery();
 
-            LinkedList<Question> questions = new LinkedList<>();
-
-            while(rs.next()){
-                Question question = Question.builder()
-                        .id(new QuestionId(rs.getString("uuid")))
-                        .title(rs.getString("title"))
-                        .description(rs.getString("description"))
-                        .authorUUID(new PersonId(rs.getString("person_uuid")))
-                        .build();
-                questions.add(question);
-            }
-
-            return questions;
+            return getQuestions(rs);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -60,6 +44,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public void save(Question question) throws SQLIntegrityConstraintViolationException {
+        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
@@ -78,6 +63,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public void remove(QuestionId id) {
+        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
@@ -91,6 +77,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public Optional<Question> findById(QuestionId id) {
+        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
@@ -98,23 +85,13 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             preparedStatement.setString(1, id.asString());
             ResultSet rs = preparedStatement.executeQuery();
 
-            LinkedList<Question> questions = new LinkedList<>();
-
-            while(rs.next()){
-                Question question = Question.builder()
-                        .id(new QuestionId(rs.getString("uuid")))
-                        .title(rs.getString("title"))
-                        .description(rs.getString("description"))
-                        .authorUUID(new PersonId(rs.getString("person_uuid")))
-                        .build();
-                questions.add(question);
-            }
+            Collection<Question> questions = getQuestions(rs);
 
             if(questions.size() != 1) {
                 return Optional.empty();
             }
 
-            return Optional.of(questions.get(0));
+            return Optional.of(questions.iterator().next());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -123,28 +100,33 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public Collection<Question> findAll() {
+        System.out.println("uihhhhhhhhhhhhhhhhhhhhhhhh\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                     "SELECT * FROM Question");
             ResultSet rs = preparedStatement.executeQuery();
 
-            LinkedList<Question> questions = new LinkedList<>();
-
-            while(rs.next()){
-                Question question = Question.builder()
-                        .id(new QuestionId(rs.getString("uuid")))
-                        .title(rs.getString("title"))
-                        .description(rs.getString("description"))
-                        .authorUUID(new PersonId(rs.getString("person_uuid")))
-                        .build();
-                questions.add(question);
-            }
-
-            return questions;
+            return getQuestions(rs);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    private Collection<Question> getQuestions(ResultSet rs) throws SQLException {
+        LinkedList<Question> questions = new LinkedList<>();
+
+        while (rs.next()) {
+            Question question = Question.builder()
+                    .id(new QuestionId(rs.getString("uuid")))
+                    .title(rs.getString("title"))
+                    .description(rs.getString("description"))
+                    .authorUUID(new PersonId(rs.getString("person_uuid")))
+                    .build();
+            questions.add(question);
+        }
+
+        return questions;
     }
 }
