@@ -1,6 +1,7 @@
 package ch.heigvd.amt.stack.domain.question;
 
 import ch.heigvd.amt.stack.domain.IEntity;
+import ch.heigvd.amt.stack.domain.person.PersonId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 
 public class Question implements IEntity<Question, QuestionId> {
     private QuestionId id = new QuestionId();
-    private String author;
+    private PersonId authorUUID;
     private String title;
     private String description;
 
@@ -34,8 +35,8 @@ public class Question implements IEntity<Question, QuestionId> {
             if(id == null) {
                 id = new QuestionId();
             }
-            if(author == null) {
-                author = "nullAuth";
+            if(authorUUID == null) {
+                authorUUID = null;
             }
             if(title == null) {
                 title = "nullTit";
@@ -43,7 +44,7 @@ public class Question implements IEntity<Question, QuestionId> {
             if(description == null) {
                 description = "nullDesc";
             }
-            return new Question(id, author, title, description);
+            return new Question(id, authorUUID, title, description);
         }
     }
 }

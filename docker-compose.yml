@@ -1,20 +1,8 @@
-version: '3.7'
+version: "3.7"
 
 # https://medium.com/@hantsy/put-your-jakarta-ee-8-applications-to-production-77756d1967bf
 
 services:
-  web:
-    build: .
-    image: openliberty/stack
-    container_name: stackoverflow
-    ports:
-      - "9080:9080"
-      - "9443:9443" # HTTPS listener
-    volumes:
-      - ./src/main/liberty/config/server.env:/config/server.env
-    depends_on:
-      - db
-  
   db:
     image: mysql:8.0.18
     container_name: stack_db
@@ -29,4 +17,15 @@ services:
       MYSQL_DATABASE: AMT-db
       MYSQL_USER: stackusr
       MYSQL_PASSWORD: stackpwd
+  web:
+    build: .
+    image: openliberty/stack
+    container_name: stackoverflow
+    ports:
+      - "9080:9080"
+      - "9443:9443" # HTTPS listener
+    volumes:
+      - ./src/main/liberty/config/server.env:/config/server.env
+    depends_on:
+      - db
 

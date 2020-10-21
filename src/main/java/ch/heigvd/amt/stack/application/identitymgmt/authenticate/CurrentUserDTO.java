@@ -1,5 +1,6 @@
 package ch.heigvd.amt.stack.application.identitymgmt.authenticate;
 
+import ch.heigvd.amt.stack.domain.person.PersonId;
 import lombok.Builder;
 import lombok.Value;
 
@@ -10,4 +11,5 @@ public class CurrentUserDTO {
     private String firstName;
     private String lastName;
     private String email;
+    private PersonId uuid;
 }

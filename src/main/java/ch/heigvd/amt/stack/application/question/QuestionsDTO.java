@@ -1,5 +1,6 @@
 package ch.heigvd.amt.stack.application.question;
 
+import ch.heigvd.amt.stack.domain.person.PersonId;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +16,7 @@ public class QuestionsDTO {
     @Getter
     @EqualsAndHashCode
     public static class QuestionDTO {
-        private String author;
+        private PersonId author;
         private String title;
         private String description;
     }

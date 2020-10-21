@@ -27,7 +27,7 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
 
         SubmitQuestionCommand command = SubmitQuestionCommand.builder()
             .title(request.getParameter("title"))
-            .author(currentUserDTO.getUsername())
+            .authorUUID(currentUserDTO.getUuid())
             .text(request.getParameter("description"))
             .build();
 
