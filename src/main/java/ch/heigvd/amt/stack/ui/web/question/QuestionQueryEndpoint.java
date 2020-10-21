@@ -8,6 +8,7 @@ import ch.heigvd.amt.stack.application.question.QuestionsDTO;
 import ch.heigvd.amt.stack.application.question.QuestionsQuery;
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.PersonsDTO;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,14 +18,16 @@ import java.io.IOException;
 
 @WebServlet(name = "QuestionQueryEndpoint", urlPatterns = "/questions")
 public class QuestionQueryEndpoint extends HttpServlet {
-    private ServiceRegistry serviceRegistry;
+
+    @Inject
+    ServiceRegistry serviceRegistry;
+
     private QuestionFacade questionFacade;
     private IdentityManagementFacade identityManagementFacade;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        serviceRegistry = ServiceRegistry.getServiceRegistry();
         questionFacade = serviceRegistry.getQuestionFacade();
         identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
     }

@@ -5,21 +5,16 @@ import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.infrastructure.persistence.exception.DataCorruptionException;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
+@Named("InMemoryPersonRepository")
 public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonId> implements IPersonRepository {
-
-    public void save(Person entity) throws SQLIntegrityConstraintViolationException {
-        synchronized(entity.getUsername()) {
-            if(findByUsername(entity.getUsername()).isPresent()) {
-                throw new SQLIntegrityConstraintViolationException("Cannot save/udpate person. Integrity constraint violation");
-            }
-            super.save(entity);
-        }
-    }
 
     @Override
     public Optional<Person> findByUsername(String username) {

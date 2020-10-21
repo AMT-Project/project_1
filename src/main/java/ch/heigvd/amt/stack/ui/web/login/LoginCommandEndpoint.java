@@ -6,22 +6,23 @@ import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticateCom
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticationFailedException;
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "LoginCommandEndpoint", urlPatterns = "/login.do")
 public class LoginCommandEndpoint extends HttpServlet {
-
-    private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
-    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+    @Inject
+    ServiceRegistry serviceRegistry;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+
         request.getSession().removeAttribute("errors");
 
         CurrentUserDTO currentUser = null;

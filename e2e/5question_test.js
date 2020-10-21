@@ -3,8 +3,8 @@ Feature("question");
 const submitQuestionURL = "/submitQuestion";
 
 const uniqueId = new Date().getTime();
-const uniqueUsername = "CodeceptJS-" + uniqueId;
-const uniqueEmail = "CodeceptJS@" + uniqueId + ".ch";
+const uniqueUsername = "5question_test-" + uniqueId;
+const uniqueEmail = "fivequestion@" + uniqueId + ".ch";
 const pwd = "pwd";
 
 Scenario("/submitQuestion redirects to /login for anonymous user", (I) => {
