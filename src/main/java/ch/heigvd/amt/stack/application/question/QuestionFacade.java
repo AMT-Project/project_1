@@ -1,5 +1,7 @@
 package ch.heigvd.amt.stack.application.question;
 
+import ch.heigvd.amt.stack.domain.person.IPersonRepository;
+import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import ch.heigvd.amt.stack.domain.question.Question;
 
@@ -9,15 +11,17 @@ import java.util.stream.Collectors;
 
 public class QuestionFacade {
     private IQuestionRepository questionRepository;
+    private IPersonRepository personRepository;
 
-    public QuestionFacade(IQuestionRepository questionRepository) {
+    public QuestionFacade(IQuestionRepository questionRepository, IPersonRepository personRepository) {
         this.questionRepository = questionRepository;
+        this.personRepository = personRepository;
     }
 
     public void registerQuestion(SubmitQuestionCommand command) {
         try {
             Question submittedQuestion = Question.builder()
-                .author(command.getAuthor())
+                .authorUUID(command.getAuthorUUID())
                 .title(command.getTitle())
                 .description(command.getText())
                 .build();
@@ -30,12 +34,15 @@ public class QuestionFacade {
     public QuestionsDTO getQuestions(QuestionsQuery query) {
         Collection<Question> allQuestions = questionRepository.find(query);
 
-        List<QuestionsDTO.QuestionDTO> allQuestionsDTO = allQuestions.stream()
-            .map(question -> QuestionsDTO.QuestionDTO.builder()
-                .author(question.getAuthor())
+        List<QuestionsDTO.QuestionDTO> allQuestionsDTO = allQuestions.stream().map(question -> {
+            Person author = personRepository.findById(question.getAuthorUUID()).get();
+
+            return QuestionsDTO.QuestionDTO.builder()
+                .author(author.getId())
                 .title(question.getTitle())
                 .description(question.getDescription())
-                .build())
+                .build();
+        })
             .collect(Collectors.toList());
 
         return QuestionsDTO.builder()

@@ -4,39 +4,26 @@ import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
-import ch.heigvd.amt.stack.infrastructure.persistence.memory.InMemoryPersonRepository;
-import ch.heigvd.amt.stack.infrastructure.persistence.memory.InMemoryQuestionRepository;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.Objects;
+
+@ApplicationScoped
 public class ServiceRegistry {
 
-    private static ServiceRegistry singleton;
+    @Inject @Named("JdbcQuestionRepository")
+    IQuestionRepository questionRepository;
 
-    private static IQuestionRepository questionRepository;
-    private static QuestionFacade questionFacade;
-
-    private static IPersonRepository personRepository;
-    private static IdentityManagementFacade identityManagementFacade;
-
-    public static ServiceRegistry getServiceRegistry() {
-        if(singleton == null) {
-            singleton = new ServiceRegistry();
-        }
-        return singleton;
-    }
+    @Inject @Named("JdbcPersonRepository")
+    IPersonRepository personRepository;
 
     public IdentityManagementFacade getIdentityManagementFacade() {
-        return identityManagementFacade;
+        return new IdentityManagementFacade(personRepository);
     }
 
     public QuestionFacade getQuestionFacade() {
-        return questionFacade;
-    }
-
-    private ServiceRegistry() {
-        singleton = this;
-        questionRepository = new InMemoryQuestionRepository();
-        questionFacade = new QuestionFacade(questionRepository);
-        personRepository = new InMemoryPersonRepository();
-        identityManagementFacade = new IdentityManagementFacade(personRepository);
+        return new QuestionFacade(questionRepository, personRepository);
     }
 }

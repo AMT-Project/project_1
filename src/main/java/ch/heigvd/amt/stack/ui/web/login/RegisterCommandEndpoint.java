@@ -6,6 +6,7 @@ import ch.heigvd.amt.stack.application.identitymgmt.RegistrationFailedException;
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
 import lombok.SneakyThrows;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +18,13 @@ import java.util.List;
 @WebServlet(name = "RegisterCommandEndpoint", urlPatterns = "/register.do")
 public class RegisterCommandEndpoint extends HttpServlet {
 
-    private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
-    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+    @Inject
+    ServiceRegistry serviceRegistry;
 
     @SneakyThrows
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+
         request.getSession().removeAttribute("errors");
 
         RegisterCommand registerCommand = RegisterCommand.builder()
