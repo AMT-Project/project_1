@@ -29,7 +29,7 @@ public class SubmitAnswerCommandEndpoint extends HttpServlet {
 
         AnswerCommand command = AnswerCommand.builder().authorUUID(currentUserDTO.getUuid()).
                 questionUUID(new QuestionId("5b078997-1882-4119-aa52-2cdb82232886"))
-                .content(request.getParameter("description"))
+                .content(request.getParameter("content"))
                 .build();
 
         answerFacade.registerAnswer(command);
