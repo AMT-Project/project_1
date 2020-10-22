@@ -13,7 +13,7 @@
         <c:forEach var="question" items="${questions.questions}">
             <c:forEach var="person" items="${persons.persons}">
                 <li class="questions-list__list-element">
-                    <div class="question">
+                    <div class="question" onclick="location.href='${pageContext.request.contextPath}/questions/question?uuid=${question.uuid}';">
                         <div class="question__title">
                                 ${question.title}
                         </div>

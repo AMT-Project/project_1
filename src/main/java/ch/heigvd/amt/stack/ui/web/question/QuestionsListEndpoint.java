@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "QuestionQueryEndpoint", urlPatterns = "/questions")
-public class QuestionQueryEndpoint extends HttpServlet {
+public class QuestionsListEndpoint extends HttpServlet {
 
     @Inject
     ServiceRegistry serviceRegistry;
