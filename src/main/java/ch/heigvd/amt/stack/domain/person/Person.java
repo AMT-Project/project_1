@@ -66,7 +66,7 @@ public class Person implements IEntity<Person, PersonId> {
             }
             if(email == null || email.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Email is mandatory");
-            } else if(!email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")) {
+            } else if(!email.matches("^.*(?=.{8,})[\\w.]+@[\\w.-]+[.][a-zA-Z0-9]+$")) {
                 throw new java.lang.IllegalArgumentException("Email is misformatted");  //TODO accept '-' for @heig-vd.ch
             }
 
