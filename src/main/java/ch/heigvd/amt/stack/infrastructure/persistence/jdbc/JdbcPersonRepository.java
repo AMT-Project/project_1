@@ -121,6 +121,19 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
     }
 
     @Override
+    public int count() {
+        try {
+            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) AS nbUsers FROM Person");
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("nbUsers");
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
     public Optional<Person> findByUsername(String username) {
         // TODO : implement
         try {

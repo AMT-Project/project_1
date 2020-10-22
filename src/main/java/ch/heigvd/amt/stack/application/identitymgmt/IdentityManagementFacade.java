@@ -76,4 +76,8 @@ public class IdentityManagementFacade {
             .persons(allPersonsDTO)
             .build();
     }
+
+    public int countUsers() {
+        return this.personRepository.count();
+    }
 }

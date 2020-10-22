@@ -112,6 +112,19 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         return null;
     }
 
+    @Override
+    public int count() {
+        try {
+            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) AS nbQuestions FROM Question");
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("nbQuestions");
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
     private Collection<Question> getQuestions(ResultSet rs) throws SQLException {
         LinkedList<Question> questions = new LinkedList<>();
 
@@ -127,16 +140,4 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
         return questions;
     }
-
-    /*private int countQuestions() {
-        try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) FROM Question");
-            ResultSet rs = preparedStatement.executeQuery();
-
-        } catch(SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-
-    }*/
 }

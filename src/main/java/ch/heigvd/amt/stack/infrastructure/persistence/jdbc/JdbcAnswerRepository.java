@@ -9,10 +9,7 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.*;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -22,6 +19,7 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
 
     @Resource(lookup = "jdbc/StackDS")
     DataSource dataSource;
+
     @Override
     public Collection<Answer> find(AnswersQuery query) {
         return null;
@@ -31,8 +29,8 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
     public void save(Answer answer) throws SQLIntegrityConstraintViolationException {
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_at)" +
-                            "VALUES (?,?,?,?,?)");
+                "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_at)" +
+                    "VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, answer.getId().asString());
             preparedStatement.setString(2, answer.getContent());
             preparedStatement.setString(3, answer.getQuestionUUID().asString());
@@ -57,5 +55,18 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
     @Override
     public Collection<Answer> findAll() {
         return null;
+    }
+
+    @Override
+    public int count() {
+        try {
+            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) AS nbAnswers FROM Answer");
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("nbAnswers");
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
     }
 }

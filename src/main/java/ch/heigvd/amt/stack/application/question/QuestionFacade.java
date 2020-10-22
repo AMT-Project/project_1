@@ -65,4 +65,8 @@ public class QuestionFacade {
             .createdOn(question.getCreatedOn())
             .build();
     }
+
+    public int countQuestions() {
+        return this.questionRepository.count();
+    }
 }

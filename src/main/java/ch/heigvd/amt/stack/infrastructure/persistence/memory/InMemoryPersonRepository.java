@@ -31,4 +31,9 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
 
         return Optional.of(matchingEntities.get(0).deepClone());
     }
+
+    @Override
+    public int count() {
+        return findAll().size();
+    }
 }

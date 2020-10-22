@@ -54,5 +54,8 @@ public class AnswerFacade {
                 .build();
     }
 
+    public int countAnswers() {
+        return this.answerRepository.count();
+    }
 }
 
