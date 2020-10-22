@@ -47,7 +47,8 @@ public class Answer implements IEntity<Answer, AnswerId> {
                 throw new java.lang.IllegalArgumentException("PersonUUID is mandatory");
             }
             if(created_at == null) {
-                throw new java.lang.IllegalArgumentException("Creation date/time is mandatory");
+                created_at = null;
+                //throw new java.lang.IllegalArgumentException("Creation date/time is mandatory");
             }
 
             return new Answer(id, content, questionUUID, personUUID, created_at);

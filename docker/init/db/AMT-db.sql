@@ -140,5 +140,5 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT INTO Person (uuid, username, email, firstname, lastname, password) VALUES ("c53ed5d3-1efd-409f-a139-8d3bdef43c96","test","t@u.com","test","user","AAA");
+INSERT INTO Person (uuid, username, email, firstname, lastname, password) VALUES ("c53ed5d3-1efd-409f-a139-8d3bdef43c96","test","test@user.com","test","user","AAA");
 INSERT INTO Question (uuid, title, description, person_uuid, created_at) VALUES ("5b078997-1882-4119-aa52-2cdb82232886","Comment fonctionne la vie?","Lorem ipsum dolor si amet","c53ed5d3-1efd-409f-a139-8d3bdef43c96","2020-10-22 00:00:00");

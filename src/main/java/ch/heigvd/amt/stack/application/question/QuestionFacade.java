@@ -5,6 +5,7 @@ import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import ch.heigvd.amt.stack.domain.question.Question;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ public class QuestionFacade {
                 .authorUUID(command.getAuthorUUID())
                 .title(command.getTitle())
                 .description(command.getText())
+                .createdOn(LocalDate.now())
                 .build();
             questionRepository.save(submittedQuestion);
         } catch(Exception e) {
@@ -43,6 +45,7 @@ public class QuestionFacade {
                 .username(author.getUsername())
                 .title(question.getTitle())
                 .description(question.getDescription())
+                .createdOn(question.getCreatedOn())
                 .build();
         })
             .collect(Collectors.toList());

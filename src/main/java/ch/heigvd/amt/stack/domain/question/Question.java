@@ -43,7 +43,8 @@ public class Question implements IEntity<Question, QuestionId> {
                 throw new IllegalArgumentException("Description is mandatory");
             }
             if(createdOn == null) {
-                throw new IllegalArgumentException("Creation date is mandatory");
+                createdOn = null;
+                //throw new IllegalArgumentException("Creation date is mandatory");
             }
             return new Question(id, authorUUID, title, description, createdOn);
         }

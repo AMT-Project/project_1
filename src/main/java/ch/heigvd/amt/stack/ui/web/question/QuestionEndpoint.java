@@ -29,7 +29,10 @@ public class QuestionEndpoint extends HttpServlet {
         QuestionId questionId = new QuestionId(request.getParameter("uuid"));
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
 
-        QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(GetQuestionQuery.builder().uuid(questionId).currentUser(currentUserDTO.getUuid()).build());
+        QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(GetQuestionQuery.builder()
+            .uuid(questionId)
+            .currentUser(currentUserDTO.getUuid())
+            .build());
         request.setAttribute("question", questionDTO);
 
         request.getRequestDispatcher("/WEB-INF/views/question.jsp").forward(request, response);
