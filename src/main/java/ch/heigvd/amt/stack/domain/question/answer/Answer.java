@@ -36,9 +36,9 @@ public class Answer implements IEntity<Answer, AnswerId> {
     public static class AnswerBuilder {
         public Answer build() {
             id = new AnswerId();
-            content = ""
+            content = "";
 
-            return new Answer(id, content, questionUUID, personUUID, created_at)
+            return new Answer(id, content, questionUUID, personUUID, created_at);
         }
     }
 }
