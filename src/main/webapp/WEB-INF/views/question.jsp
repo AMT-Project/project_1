@@ -2,9 +2,9 @@
 <c:set var="pageTitle" scope="session" value="Questions"/>
 
 <jsp:useBean id="question" scope="request" type="ch.heigvd.amt.stack.application.question.QuestionsDTO.QuestionDTO"/>
-<div id="navbar">
-    <%@ include file="fragments/header.jsp" %>
-</div>
+
+<%@ include file="fragments/header.jsp" %>
+
 <div class="content">
     <h1>Question details</h1>
     <div class="question">
@@ -19,7 +19,6 @@
         </div>
     </div>
     <button class="navbar__link" onclick="window.location.href='/stack/submitAnswer';">New Answer</button>
-    <div id="footer">
-        <%@ include file="fragments/footer.jsp" %>
-    </div>
 </div>
+
+<%@ include file="fragments/footer.jsp" %>

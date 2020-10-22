@@ -1,9 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageTitle" scope="session" value="Login"/>
 
-<div id="navbar">
-    <%@ include file="fragments/header.jsp" %>
-</div>
+<%@ include file="fragments/header.jsp" %>
+
 <div class="content">
     <h1>Login Account</h1>
 
@@ -22,6 +21,4 @@
 
 </div>
 
-<div id="footer">
-    <%@ include file="fragments/footer.jsp" %>
-</div>
+<%@ include file="fragments/footer.jsp" %>

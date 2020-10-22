@@ -11,6 +11,9 @@
 
 body {
     background-color: cornsilk;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 input {
@@ -44,6 +47,62 @@ p {
 .content {
     margin: 20px;
 }
+
+.footer {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    background-color: #272c40;
+}
+
+.footer__about {
+    margin: 24px;
+    font-family: Roboto;
+    color: white;
+    flex: 2;
+}
+
+.footer__about--title {
+    font-size: 24px;
+    font-family: Montserrat;
+    font-weight: bold;
+}
+
+.footer__about--details {
+    font-size: 14px;
+}
+
+.footer__about--members {
+    font-size: 12px;
+}
+
+.footer__stats {
+    flex: 1;
+    margin: 24px;
+}
+
+.footer__btn {
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+    border: 1px solid #0e0f16;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    text-transform: uppercase;
+    color: #000;
+    background-color: cornsilk;
+
+    display: block;
+    width: 100%;
+    margin-top: 5%;
+    padding: 3%;
+}
+
+.footer__btn:hover {
+    background-color: #1d49bf;
+    color: white;
+}
+
 
 /* Layout */
 .navbar {

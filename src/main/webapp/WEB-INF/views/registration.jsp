@@ -1,9 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="pageTitle" scope="session" value="Register"/>
 
-<div id="navbar">
-    <%@ include file="fragments/header.jsp" %>
-</div>
+<%@ include file="fragments/header.jsp" %>
 
 <div class="content">
     <h1>Register Account</h1>
@@ -25,8 +23,6 @@
         <input class="form-control" type="password" placeholder="password" name="password"/>
         <input class="form-btn" type="submit" value="Register">
     </form>
-
-    <div id="footer">
-        <%@ include file="fragments/footer.jsp" %>
-    </div>
 </div>
+
+<%@ include file="fragments/footer.jsp" %>
