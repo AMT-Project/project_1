@@ -35,6 +35,8 @@ public class SubmitAnswerPageEndpoint extends HttpServlet {
         QuestionsDTO questionsDTO = answerFacade.getAnswers(AnswersQuery.builder().build());
         request.setAttribute("questions", questionsDTO);
         */
+
+        request.setAttribute("questionUuid", request.getParameter("uuid"));
         request.getRequestDispatcher("/WEB-INF/views/submitAnswer.jsp").forward(request, response);
     }
 }
