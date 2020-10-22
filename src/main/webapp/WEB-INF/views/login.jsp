@@ -21,7 +21,6 @@
     </form>
 
 </div>
-</body>
 
 <div id="footer">
     <%@ include file="fragments/footer.jsp" %>

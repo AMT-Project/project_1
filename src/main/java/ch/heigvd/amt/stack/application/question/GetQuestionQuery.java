@@ -9,17 +9,9 @@ import lombok.Getter;
 @Builder
 @Getter
 @EqualsAndHashCode
-
-public class SubmitQuestionCommand {
-    @Builder.Default
-    private QuestionId questionUUID = null;
+public class GetQuestionQuery {
+    private QuestionId uuid;
 
     @Builder.Default
-    private PersonId authorUUID = null;
-
-    @Builder.Default
-    private String title = "No title";
-
-    @Builder.Default
-    private String text = "No content";
+    private PersonId currentUser = null;
 }

@@ -2,7 +2,6 @@
 <c:set var="pageTitle" scope="session" value="Questions"/>
 
 <jsp:useBean scope="request" id="questions" type="ch.heigvd.amt.stack.application.question.QuestionsDTO"/>
-<jsp:useBean scope="request" id="persons" type="ch.heigvd.amt.stack.application.identitymgmt.authenticate.PersonsDTO"/>
 
 <div id="navbar">
     <%@ include file="fragments/header.jsp" %>
@@ -11,23 +10,20 @@
     <h1>List of questions</h1>
     <ul class="questions-list">
         <c:forEach var="question" items="${questions.questions}">
-            <c:forEach var="person" items="${persons.persons}">
-                <li class="questions-list__list-element">
-                    <div class="question" onclick="location.href='${pageContext.request.contextPath}/questions/question?uuid=${question.uuid}';">
-                        <div class="question__title">
-                                ${question.title}
-                        </div>
-                        <div class="question__description">
-                                ${question.description}
-                        </div>
-                        <div class="question__author">
-                            <c:if test="${person.uuid.toString() == question.author.asString()}">
-                                ${person.username}
-                            </c:if>
-                        </div>
+            <li class="questions-list__list-element"
+                onclick="location.href='${pageContext.request.contextPath}/question?uuid=${question.uuid.asString()}';">
+                <div class="question">
+                    <div class="question__title">
+                            ${question.title}
                     </div>
-                </li>
-            </c:forEach>
+                    <div class="question__description">
+                            ${question.description}
+                    </div>
+                    <div class="question__author">
+                            ${question.username}
+                    </div>
+                </div>
+            </li>
         </c:forEach>
     </ul>
     <div id="footer">

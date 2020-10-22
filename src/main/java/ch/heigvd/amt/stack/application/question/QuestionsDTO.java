@@ -1,11 +1,13 @@
 package ch.heigvd.amt.stack.application.question;
 
 import ch.heigvd.amt.stack.domain.person.PersonId;
+import ch.heigvd.amt.stack.domain.question.QuestionId;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -16,9 +18,13 @@ public class QuestionsDTO {
     @Getter
     @EqualsAndHashCode
     public static class QuestionDTO {
-        private PersonId author;
+        private QuestionId uuid;
+        private PersonId authorUUID;
+        private String username;
         private String title;
         private String description;
+        private LocalDate createdOn;
+
     }
 
     @Singular

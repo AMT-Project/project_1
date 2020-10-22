@@ -18,27 +18,15 @@ import java.io.IOException;
 
 @WebServlet(name = "QuestionQueryEndpoint", urlPatterns = "/questions")
 public class QuestionsListEndpoint extends HttpServlet {
-
     @Inject
     ServiceRegistry serviceRegistry;
 
-    private QuestionFacade questionFacade;
-    private IdentityManagementFacade identityManagementFacade;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        questionFacade = serviceRegistry.getQuestionFacade();
-        identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PersonsDTO personsDTO = identityManagementFacade.getPersons(PersonsQuery.builder().build());
+        QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+
         QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder().build());
 
-
-        request.setAttribute("persons", personsDTO);
         request.setAttribute("questions", questionsDTO);
         request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
     }

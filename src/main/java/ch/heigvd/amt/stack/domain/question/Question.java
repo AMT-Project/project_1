@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,6 +19,7 @@ public class Question implements IEntity<Question, QuestionId> {
     private PersonId authorUUID;
     private String title;
     private String description;
+    private LocalDate createdOn;
 
     @Override
     public Question deepClone() {
@@ -39,7 +42,10 @@ public class Question implements IEntity<Question, QuestionId> {
             if(description == null) {
                 description = "nullDesc";
             }
-            return new Question(id, authorUUID, title, description);
+            if(createdOn == null) {
+                createdOn = null;
+            }
+            return new Question(id, authorUUID, title, description, createdOn);
         }
     }
 }

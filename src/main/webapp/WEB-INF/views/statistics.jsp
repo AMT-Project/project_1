@@ -14,7 +14,10 @@
     </div>
     <div class="questions">
         <div class="question__title">
-            Nombre de questions :
+            Nombre de questions : ${question.count}
+        </div>
+        <div class="users__title">
+            Nombre d'utilisateurs inscrits : ${users.count}
         </div>
     </div>
 

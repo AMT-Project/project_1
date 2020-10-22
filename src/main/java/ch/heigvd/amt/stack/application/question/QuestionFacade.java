@@ -38,7 +38,9 @@ public class QuestionFacade {
             Person author = personRepository.findById(question.getAuthorUUID()).get();
 
             return QuestionsDTO.QuestionDTO.builder()
-                .author(author.getId())
+                .uuid(question.getId())
+                .authorUUID(author.getId())
+                .username(author.getUsername())
                 .title(question.getTitle())
                 .description(question.getDescription())
                 .build();
@@ -47,6 +49,20 @@ public class QuestionFacade {
 
         return QuestionsDTO.builder()
             .questions(allQuestionsDTO)
+            .build();
+    }
+
+    public QuestionsDTO.QuestionDTO getQuestion(GetQuestionQuery query) {
+        Question question = questionRepository.findById(query.getUuid()).orElse(null);
+        Person author = personRepository.findById(question.getAuthorUUID()).get();
+
+        return QuestionsDTO.QuestionDTO.builder()
+            .uuid(question.getId())
+            .authorUUID(author.getId())
+            .username(author.getUsername())
+            .title(question.getTitle())
+            .description(question.getDescription())
+            .createdOn(question.getCreatedOn())
             .build();
     }
 }
