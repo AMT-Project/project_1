@@ -1,6 +1,5 @@
 package ch.heigvd.amt.stack.application.question.answer;
 
-
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
@@ -25,10 +24,10 @@ public class AnswerFacade {
     public void registerAnswer(AnswerCommand command) {
         try {
             Answer answer = Answer.builder()
-                    .personUUID(command.getAuthorUUID())
-                    .questionUUID(command.getQuestionUUID())
-                    .content(command.getContent())
-                    .build();
+                .personUUID(command.getAuthorUUID())
+                .questionUUID(command.getQuestionUUID())
+                .content(command.getContent())
+                .build();
             answerRepository.save(answer);
         } catch(Exception e) {
             System.out.println("AnswerFacade error: " + e.toString());
@@ -42,16 +41,16 @@ public class AnswerFacade {
             Person author = personRepository.findById(answer.getPersonUUID()).get();
 
             return AnswersDTO.AnswerDTO.builder()
-                    .authorUUID(author.getId())
-                    .questionId(answer.getQuestionUUID())
-                    .content(answer.getContent())
-                    .build();
+                .authorUUID(author.getId())
+                .questionId(answer.getQuestionUUID())
+                .content(answer.getContent())
+                .build();
         })
-                .collect(Collectors.toList());
+            .collect(Collectors.toList());
 
         return AnswersDTO.builder()
-                .answers(allAnswersDTO)
-                .build();
+            .answers(allAnswersDTO)
+            .build();
     }
 
     public int countAnswers() {

@@ -5,7 +5,6 @@ import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.answer.AnswerCommand;
 import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
-import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
 
 @WebServlet(name = "SubmitAnswerCommandEndpoint", urlPatterns = "/submitAnswer.do")
 public class SubmitAnswerCommandEndpoint extends HttpServlet {
@@ -26,11 +24,11 @@ public class SubmitAnswerCommandEndpoint extends HttpServlet {
         AnswerFacade answerFacade = serviceRegistry.getAnswerFacade();
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
-        
+
         AnswerCommand command = AnswerCommand.builder().authorUUID(currentUserDTO.getUuid()).
-                questionUUID(new QuestionId(request.getParameter("questionUuid")))
-                .content(request.getParameter("content"))
-                .build();
+            questionUUID(new QuestionId(request.getParameter("questionUuid")))
+            .content(request.getParameter("content"))
+            .build();
 
         answerFacade.registerAnswer(command);
         response.sendRedirect(request.getContextPath() + "/questions");

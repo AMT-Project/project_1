@@ -23,7 +23,7 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
-        
+
         SubmitQuestionCommand command = SubmitQuestionCommand.builder()
             .title(request.getParameter("title"))
             .authorUUID(currentUserDTO.getUuid())

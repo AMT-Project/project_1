@@ -9,7 +9,6 @@ import lombok.Getter;
 @Builder
 @Getter
 @EqualsAndHashCode
-
 public class AnswerCommand {
     @Builder.Default
     private PersonId authorUUID = null;

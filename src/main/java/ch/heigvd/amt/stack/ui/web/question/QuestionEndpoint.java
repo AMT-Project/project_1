@@ -5,8 +5,6 @@ import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.GetQuestionQuery;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.QuestionsDTO;
-import ch.heigvd.amt.stack.application.question.QuestionsQuery;
-import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 
 import javax.inject.Inject;

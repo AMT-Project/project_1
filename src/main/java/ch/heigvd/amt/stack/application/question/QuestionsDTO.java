@@ -24,7 +24,6 @@ public class QuestionsDTO {
         private String title;
         private String description;
         private LocalDate createdOn;
-
     }
 
     @Singular

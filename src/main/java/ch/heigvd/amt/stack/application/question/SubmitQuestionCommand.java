@@ -9,7 +9,6 @@ import lombok.Getter;
 @Builder
 @Getter
 @EqualsAndHashCode
-
 public class SubmitQuestionCommand {
     @Builder.Default
     private QuestionId questionUUID = null;
