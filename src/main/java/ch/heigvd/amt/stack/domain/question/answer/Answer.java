@@ -35,8 +35,14 @@ public class Answer implements IEntity<Answer, AnswerId> {
 
     public static class AnswerBuilder {
         public Answer build() {
-            id = new AnswerId();
-            content = "";
+            if(id == null) {
+                id = new AnswerId();
+            }
+
+            //TODO Lancer des excpetions si content , personUUID et QuestionUUID sont vides
+            if(content == null) {
+                content = "";
+            }
 
             return new Answer(id, content, questionUUID, personUUID, created_at);
         }

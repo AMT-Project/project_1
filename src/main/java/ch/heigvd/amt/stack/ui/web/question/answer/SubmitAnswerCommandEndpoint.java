@@ -26,10 +26,10 @@ public class SubmitAnswerCommandEndpoint extends HttpServlet {
         AnswerFacade answerFacade = serviceRegistry.getAnswerFacade();
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
-
+        
         AnswerCommand command = AnswerCommand.builder().authorUUID(currentUserDTO.getUuid()).
-                questionUUID(new QuestionId("5b078997-1882-4119-aa52-2cdb82232886"))
-                .content(request.getParameter("description"))
+                questionUUID(new QuestionId(request.getParameter("questionUuid")))
+                .content(request.getParameter("content"))
                 .build();
 
         answerFacade.registerAnswer(command);
