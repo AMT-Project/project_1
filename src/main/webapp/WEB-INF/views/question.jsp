@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" scope="session" value="Questions"/>
-
-<jsp:useBean id="question" scope="request" type="ch.heigvd.amt.stack.application.question.QuestionsDTO.QuestionDTO"/>
+<c:set var="pageTitle" scope="session" value="Question"/>
 
 <%@ include file="fragments/header.jsp" %>
 

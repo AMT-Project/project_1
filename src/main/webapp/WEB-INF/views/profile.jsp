@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pageTitle" scope="session" value="Statistics"/>
+<c:set var="pageTitle" scope="session" value="Profile"/>
 
 <%@ include file="fragments/header.jsp" %>
 

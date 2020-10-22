@@ -11,6 +11,10 @@
 
 body {
     background-color: cornsilk;
+
+}
+
+#page {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,6 +28,7 @@ h1 {
     font-family: Montserrat;
     font-size: 60px;
     color: #272c40;
+    margin: 16px 0;
 }
 
 p {
@@ -36,75 +41,13 @@ p {
 }
 
 /* Utils */
-/*.container {
-    position: relative;
-    width: 100%;
-    flex: 1 0 auto;
-    margin: 0 auto;
-    text-align: left;
-}*/
 
 .content {
     margin: 20px;
 }
 
-.footer {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    background-color: #272c40;
-}
-
-.footer__about {
-    margin: 24px;
-    font-family: Roboto;
-    color: white;
-    flex: 2;
-}
-
-.footer__about--title {
-    font-size: 24px;
-    font-family: Montserrat;
-    font-weight: bold;
-}
-
-.footer__about--details {
-    font-size: 14px;
-}
-
-.footer__about--members {
-    font-size: 12px;
-}
-
-.footer__stats {
-    flex: 1;
-    margin: 24px;
-}
-
-.footer__btn {
-    font-weight: 400;
-    text-align: center;
-    user-select: none;
-    border: 1px solid #0e0f16;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-
-    text-transform: uppercase;
-    color: #000;
-    background-color: cornsilk;
-
-    display: block;
-    width: 100%;
-    margin-top: 5%;
-    padding: 3%;
-}
-
-.footer__btn:hover {
-    background-color: #1d49bf;
-    color: white;
-}
-
-
 /* Layout */
+/* Navbar */
 .navbar {
     background-color: #272c40;
     min-height: 75px;
@@ -139,6 +82,8 @@ p {
     font-size: 16px;
     text-transform: uppercase;
     margin-right: 16px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
 }
 
 .navbar__link:hover, .form-btn:hover {
@@ -209,6 +154,10 @@ p {
     color: white;
 }
 
+.questions-list__list-element:hover {
+    cursor: pointer;
+}
+
 .questions-list {
     list-style-type: none;
     margin: 0;
@@ -237,4 +186,84 @@ p {
     padding-top: 16px;
     text-align: right;
     font-style: italic;
+}
+
+/* Statistics */
+.stat {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-bottom: 24px;
+}
+
+.circle {
+    width: 130px;
+    line-height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    border: 7px solid #272c40;
+}
+
+.stat__text {
+    margin-left: 24px;
+}
+
+/* Footer */
+.footer {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #272c40;
+}
+
+.footer__about {
+    margin: 24px;
+    font-family: Roboto;
+    color: white;
+    flex: 2;
+}
+
+.footer__about--title {
+    font-size: 24px;
+    font-family: Montserrat;
+    font-weight: bold;
+}
+
+.footer__about--details {
+    font-size: 14px;
+}
+
+.footer__about--members {
+    font-size: 12px;
+}
+
+.footer__stats {
+    flex: 1;
+    margin: 24px;
+}
+
+.footer__btn {
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+    border: 1px solid #0e0f16;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    text-transform: uppercase;
+    color: #000;
+    background-color: cornsilk;
+
+    display: block;
+    width: 100%;
+    margin-top: 5%;
+    padding: 3%;
+}
+
+.footer__btn:hover {
+    background-color: #1d49bf;
+    color: white;
 }

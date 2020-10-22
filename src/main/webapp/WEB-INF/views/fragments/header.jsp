@@ -12,6 +12,6 @@
     </style>
 </head>
 <body>
-
+<div id="page">
 
 <%@ include file="navbar.jsp" %>
