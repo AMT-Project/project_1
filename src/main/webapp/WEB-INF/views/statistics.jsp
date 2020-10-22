@@ -5,17 +5,18 @@
 
 <div class="content">
     <h1>Application statistics</h1>
-    <div class="messages">
-        <c:forEach var="error" items="${errors}">
-            <div class="error">${error}</div>
-        </c:forEach>
-    </div>
-    <div class="questions">
-        <div class="question__title">
-            Nombre de questions : ${question.count}
+    <div class="statistics">
+        <div class="stat">
+            <div class="circle">${usersCount}</div>
+            <p class="stat__text">Registered users</p>
         </div>
-        <div class="users__title">
-            Nombre d'utilisateurs inscrits : ${users.count}
+        <div class="stat">
+            <div class="circle">${questionsCount}</div>
+            <p class="stat__text">Questions asked</p>
+        </div>
+        <div class="stat">
+            <div class="circle">${answersCount}</div>
+            <p class="stat__text">Answers provided</p>
         </div>
     </div>
 </div>
