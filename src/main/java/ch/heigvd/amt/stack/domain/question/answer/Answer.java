@@ -2,7 +2,6 @@ package ch.heigvd.amt.stack.domain.question.answer;
 
 import ch.heigvd.amt.stack.domain.IEntity;
 import ch.heigvd.amt.stack.domain.person.PersonId;
-import ch.heigvd.amt.stack.domain.question.Question;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,10 +37,17 @@ public class Answer implements IEntity<Answer, AnswerId> {
             if(id == null) {
                 id = new AnswerId();
             }
-
-            //TODO Lancer des excpetions si content , personUUID et QuestionUUID sont vides
-            if(content == null) {
-                content = "";
+            if(content == null || content.isEmpty()) {
+                throw new java.lang.IllegalArgumentException("Content is mandatory");
+            }
+            if(questionUUID == null) {
+                throw new java.lang.IllegalArgumentException("QuestionUUID is mandatory");
+            }
+            if(personUUID == null) {
+                throw new java.lang.IllegalArgumentException("PersonUUID is mandatory");
+            }
+            if(created_at == null) {
+                throw new java.lang.IllegalArgumentException("Creation date/time is mandatory");
             }
 
             return new Answer(id, content, questionUUID, personUUID, created_at);

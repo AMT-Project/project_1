@@ -36,6 +36,7 @@ public class Person implements IEntity<Person, PersonId> {
             build();
     }
 
+    // FIXME : Jamais utilisé? A virer?
     public static class PersonBuilder {
         public PersonBuilder clearTextPassword(String clearTextPassword) {
 
@@ -67,11 +68,10 @@ public class Person implements IEntity<Person, PersonId> {
             if(email == null || email.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Email is mandatory");
             } else if(!email.matches("^.*(?=.{8,})[\\w.]+@[\\w.-]+[.][a-zA-Z0-9]+$")) {
-                throw new java.lang.IllegalArgumentException("Email is misformatted");  //TODO accept '-' for @heig-vd.ch
+                throw new java.lang.IllegalArgumentException("Email is misformatted");
             }
 
-            Person newPerson = new Person(id, username, email, firstName, lastName, encryptedPassword);
-            return newPerson;
+            return new Person(id, username, email, firstName, lastName, encryptedPassword);
         }
     }
 

@@ -34,16 +34,16 @@ public class Question implements IEntity<Question, QuestionId> {
                 id = new QuestionId();
             }
             if(authorUUID == null) {
-                throw new IllegalArgumentException("Author is mandatory"); // TODO : appliquer sur les autres champs
+                throw new IllegalArgumentException("Author is mandatory");
             }
-            if(title == null) {
-                title = "nullTit";
+            if(title == null || title.isEmpty()) {
+                throw new IllegalArgumentException("Title is mandatory");
             }
-            if(description == null) {
-                description = "nullDesc";
+            if(description == null || description.isEmpty()) {
+                throw new IllegalArgumentException("Description is mandatory");
             }
             if(createdOn == null) {
-                createdOn = null;
+                throw new IllegalArgumentException("Creation date is mandatory");
             }
             return new Question(id, authorUUID, title, description, createdOn);
         }
