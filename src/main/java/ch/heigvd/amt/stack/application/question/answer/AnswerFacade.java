@@ -22,7 +22,7 @@ public class AnswerFacade {
         this.personRepository = personRepository;
     }
 
-    public void giveAnswer(AnswerCommand command) {
+    public void registerAnswer(AnswerCommand command) {
         try {
             Answer answer = Answer.builder()
                     .personUUID(command.getAuthorUUID())

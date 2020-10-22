@@ -28,11 +28,11 @@ public class SubmitAnswerCommandEndpoint extends HttpServlet {
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
 
         AnswerCommand command = AnswerCommand.builder().authorUUID(currentUserDTO.getUuid()).
-                questionUUID(new QuestionId(new UUID(10,10))). // TODO: A CHANGER
-                content(request.getParameter("content"))
+                questionUUID(new QuestionId("5b078997-1882-4119-aa52-2cdb82232886"))
+                .content(request.getParameter("description"))
                 .build();
 
-        answerFacade.giveAnswer(command);
+        answerFacade.registerAnswer(command);
         response.sendRedirect(request.getContextPath() + "/questions");
     }
 }
