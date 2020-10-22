@@ -21,21 +21,24 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     @Resource(lookup = "jdbc/StackDS")
     DataSource dataSource;
 
-    public JdbcQuestionRepository(){}
+    public JdbcQuestionRepository() {
+    }
 
-    public JdbcQuestionRepository(DataSource dataSource) {this.dataSource = dataSource;}
+    public JdbcQuestionRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public Collection<Question> find(QuestionsQuery query) {
         //  TODO implement
         //   pas d'utilisation de query????
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question");
+                "SELECT * FROM Question");
             ResultSet rs = preparedStatement.executeQuery();
 
             return getQuestions(rs);
 
-        } catch (SQLException throwables) {
+        } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
@@ -46,7 +49,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "INSERT INTO Question (uuid, title, description, person_uuid, created_at)" +
+                "INSERT INTO Question (uuid, title, description, person_uuid, created_at)" +
                     "VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, question.getId().asString());
             preparedStatement.setString(2, question.getTitle());
@@ -54,7 +57,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             preparedStatement.setString(4, question.getAuthorUUID().asString());
             preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
             preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
+        } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -64,10 +67,10 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "DELETE FROM Question * WHERE uuid=?");
+                "DELETE FROM Question * WHERE uuid=?");
             preparedStatement.setString(1, id.asString());
             preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
+        } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -77,7 +80,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question WHERE uuid=?");
+                "SELECT * FROM Question WHERE uuid=?");
             preparedStatement.setString(1, id.asString());
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -88,7 +91,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             }
 
             return Optional.of(questions.iterator().next());
-        } catch (SQLException throwables) {
+        } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
         return Optional.empty();
@@ -99,11 +102,11 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question");
+                "SELECT * FROM Question");
             ResultSet rs = preparedStatement.executeQuery();
 
             return getQuestions(rs);
-        } catch (SQLException throwables) {
+        } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
@@ -112,16 +115,28 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     private Collection<Question> getQuestions(ResultSet rs) throws SQLException {
         LinkedList<Question> questions = new LinkedList<>();
 
-        while (rs.next()) {
+        while(rs.next()) {
             Question question = Question.builder()
-                    .id(new QuestionId(rs.getString("uuid")))
-                    .title(rs.getString("title"))
-                    .description(rs.getString("description"))
-                    .authorUUID(new PersonId(rs.getString("person_uuid")))
-                    .build();
+                .id(new QuestionId(rs.getString("uuid")))
+                .title(rs.getString("title"))
+                .description(rs.getString("description"))
+                .authorUUID(new PersonId(rs.getString("person_uuid")))
+                .build();
             questions.add(question);
         }
 
         return questions;
     }
+
+    /*private int countQuestions() {
+        try {
+            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) FROM Question");
+            ResultSet rs = preparedStatement.executeQuery();
+
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+
+    }*/
 }
