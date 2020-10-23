@@ -26,6 +26,18 @@
         </div>
     </div>
     <div class="question-details__answers">
+        <form class="form-register" action="${pageContext.request.contextPath}/submitAnswer.do" method="POST">
+            <input id="questionUuid1" name="questionUuid" type="hidden" value=${question.uuid.asString()}>
+            <p>Your Answer</p>
+            <textarea class="form-control" type="text" placeholder="content" name="content" required></textarea>
+            <input class="form-btn" type="submit" value="Submit">
+        </form>
+        <form class="form-register" action="${pageContext.request.contextPath}/submitComment.do" method="POST">
+            <input id="questionUuid2" name="questionUuid" type="hidden" value=${question.uuid.asString()}>
+            <p>Your Comment</p>
+            <textarea class="form-control" type="text" placeholder="content" name="content" required></textarea>
+            <input class="form-btn" type="submit" value="Submit">
+        </form>
         <!-- FOREACH REPONSES -->
         <!-- FOREACH COMMENTAIRES -->
         <!-- END FOREACH REPONSES -->
