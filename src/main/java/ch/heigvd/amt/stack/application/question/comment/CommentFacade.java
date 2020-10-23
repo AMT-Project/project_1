@@ -29,7 +29,7 @@ public class CommentFacade {
             Comment comment = Comment.builder()
                     .personUUID(command.getAuthorUUID())
                     .questionUUID(command.getQuestionUUID())
-                    .answerIdUUID(command.getAnswerUUID())
+                    .answerUUID(command.getAnswerUUID())
                     .content(command.getContent())
                     .build();
             commentRepository.save(comment);
@@ -47,7 +47,7 @@ public class CommentFacade {
             return CommentsDTO.CommentDTO.builder()
                     .authorUUID(author.getId())
                     .questionId(comment.getQuestionUUID())
-                    .answerId(comment.getAnswerIdUUID())
+                    .answerId(comment.getAnswerUUID())
                     .content(comment.getContent())
                     .build();
         })

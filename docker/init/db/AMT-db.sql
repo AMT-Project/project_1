@@ -110,8 +110,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `AMT-db`.`Comments` (
   `uuid` VARCHAR(255) NOT NULL,
   `person_uuid` VARCHAR(255) NOT NULL,
-  `question_uuid` VARCHAR(255) NOT NULL,
-  `answer_uuid` VARCHAR(255) NOT NULL,
+  `question_uuid` VARCHAR(255),
+  `answer_uuid` VARCHAR(255),
   `created_at` DATETIME NOT NULL,
   `content` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`uuid`),
@@ -142,3 +142,4 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO Person (uuid, username, email, firstname, lastname, password) VALUES ("c53ed5d3-1efd-409f-a139-8d3bdef43c96","test","test@user.com","test","user","AAA");
 INSERT INTO Question (uuid, title, description, person_uuid, created_on) VALUES ("5b078997-1882-4119-aa52-2cdb82232886","Comment fonctionne la vie?","Lorem ipsum dolor si amet","c53ed5d3-1efd-409f-a139-8d3bdef43c96","2020-10-22 00:00:00");
+INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_at) VALUES ("a414304c-4428-496e-a0ec-20fbdcb0da80","comment?","5b078997-1882-4119-aa52-2cdb82232886","c53ed5d3-1efd-409f-a139-8d3bdef43c96","2020-10-22 00:00:00");

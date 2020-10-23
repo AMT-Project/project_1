@@ -22,7 +22,7 @@ public class Comment implements IEntity<Comment, CommentId> {
     private String content;
     private PersonId personUUID;
     private QuestionId questionUUID;
-    private AnswerId answerIdUUID;
+    private AnswerId answerUUID;
     private LocalDateTime created_at;
 
     @Override
@@ -47,7 +47,7 @@ public class Comment implements IEntity<Comment, CommentId> {
             if(questionUUID == null) {
                 throw new java.lang.IllegalArgumentException("QuestionUUID is mandatory");
             }
-            if(answerIdUUID == null) {
+            if(answerUUID == null) {
                 throw new java.lang.IllegalArgumentException("AnswerUUID is mandatory");
             }
             if(created_at == null) {
@@ -55,7 +55,7 @@ public class Comment implements IEntity<Comment, CommentId> {
                 //throw new java.lang.IllegalArgumentException("Creation date/time is mandatory");
             }
 
-            return new Comment(id, content, personUUID, questionUUID, answerIdUUID , created_at);
+            return new Comment(id, content, personUUID, questionUUID, answerUUID , created_at);
         }
     }
 }
