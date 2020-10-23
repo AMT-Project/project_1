@@ -8,8 +8,6 @@ const uniqueEmail = "fivequestion@" + uniqueId + ".ch";
 const pwd = "pwd";
 
 Scenario("/submitQuestion redirects to /login for anonymous user", (I) => {
-    I.wait(1);
-
     I.amOnPage("http://stack.ch:9080/stack" + submitQuestionURL);
     I.seeInCurrentUrl("/login");
 });

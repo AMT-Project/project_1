@@ -1,7 +1,6 @@
 Feature("login");
 
 Scenario("test valid login", (I) => {
-    I.wait(1);
     const uniqueId = new Date().getTime();
     const uniqueUsername = "CodeceptJS-" + uniqueId;
     const uniqueEmail = "CodeceptJS@" + uniqueId + ".ch";
@@ -17,7 +16,6 @@ Scenario("test valid login", (I) => {
 });
 
 Scenario("test wrong username login", (I) => {
-    I.wait(1);
     I.amOnPage("http://stack.ch:9080/stack/login");
     I.login("wrongUsername", "pwd");
     I.see("User not found");
@@ -33,5 +31,4 @@ Scenario("test wrong password login", (I) => {
     I.amOnPage("http://stack.ch:9080/stack/login");
     I.login(uniqueUsername, "wrongPwd");
     I.see("Credentials verification failed");
-    I.wait(1);
 });

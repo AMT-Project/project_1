@@ -14,15 +14,27 @@
                 <p class="profile__infos--text">Email : ${user.email}</p>
             </div>
 
-            <div class="stat">
-                <c:if test="${userAnswerCount != null}" var="condition">
-                    <div class="circle">${userAnswerCount}</div>
-                    <p class="stat__text">Answers given</p>
-                </c:if>
-                <c:if test="${!condition}">
-                    <div class="circle">0</div>
-                    <p class="stat__text">Answers given</p>
-                </c:if>
+            <div class="profile__stat">
+                <div class="profile__stat__item">
+                    <c:if test="${userQuestionsCount != null}" var="condition">
+                        <div class="circle">${userQuestionsCount}</div>
+                        <p class="profile__stat__text">Questions asked</p>
+                    </c:if>
+                    <c:if test="${!condition}">
+                        <div class="circle">0</div>
+                        <p class="profile__stat__text">Questions asked</p>
+                    </c:if>
+                </div>
+                <div class="profile__stat__item">
+                    <c:if test="${userAnswersCount != null}" var="condition">
+                        <div class="circle">${userAnswersCount}</div>
+                        <p class="profile__stat__text">Answers given</p>
+                    </c:if>
+                    <c:if test="${!condition}">
+                        <div class="circle">0</div>
+                        <p class="profile__stat__text">Answers given</p>
+                    </c:if>
+                </div>
             </div>
         </div>
         <div class="profile__questions">

@@ -7,11 +7,9 @@ Scenario("test valid registration", (I) => {
     I.amOnPage("http://stack.ch:9080/stack/register");
     I.register(uniqueUsername, "Codecept", "JS", uniqueEmail, "pwd");
     I.see("List of questions");
-    I.wait(1);
 });
 
 Scenario("test missing username registration", (I) => {
-    I.wait(1);
     const uniqueId = new Date().getTime();
     const uniqueEmail = "CodeceptJS@" + uniqueId + ".ch";
     I.amOnPage("http://stack.ch:9080/stack/register");
@@ -22,7 +20,6 @@ Scenario("test missing username registration", (I) => {
 // TODO: Maybe add tests for every missing inputs
 
 Scenario("test wrongly formatted email registration", (I) => {
-    I.wait(1);
     const uniqueId = new Date().getTime();
     const uniqueUsername = "CodeceptJS-" + uniqueId;
     const wrongEmail = "CodeceptJS" + uniqueId + "ch";
