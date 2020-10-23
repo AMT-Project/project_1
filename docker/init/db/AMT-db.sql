@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `AMT-db`.`Question` (
   `title` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
   `person_uuid` VARCHAR(255) NOT NULL,
-  `created_at` DATETIME NOT NULL,
+  `created_on` DATETIME NOT NULL,
   PRIMARY KEY (`uuid`),
   INDEX `fk_Question_Person_idx` (`person_uuid` ASC) VISIBLE,
   CONSTRAINT `fk_Question_Person`
