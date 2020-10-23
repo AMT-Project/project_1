@@ -26,9 +26,7 @@ public class Comment implements IEntity<Comment, CommentId> {
     private LocalDateTime created_at;
 
     @Override
-    public CommentId getId() {
-        return null;
-    }
+    public CommentId getId() { return this.id;}
 
     @Override
     public Comment deepClone() { return this.toBuilder().id(new CommentId(id.asString())).build();}
@@ -48,7 +46,8 @@ public class Comment implements IEntity<Comment, CommentId> {
                 throw new java.lang.IllegalArgumentException("QuestionUUID is mandatory");
             }
             if(answerUUID == null) {
-                throw new java.lang.IllegalArgumentException("AnswerUUID is mandatory");
+                //throw new java.lang.IllegalArgumentException("AnswerUUID is mandatory");
+                answerUUID = null;
             }
             if(created_at == null) {
                 created_at = null;

@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `AMT-db`.`Answer` (
   `content` VARCHAR(255) NOT NULL,
   `question_uuid` VARCHAR(255) NOT NULL,
   `person_uuid` VARCHAR(255) NOT NULL,
-  `created_at` DATETIME NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
   PRIMARY KEY (`uuid`),
   INDEX `fk_Answer_Question1_idx` (`question_uuid` ASC) VISIBLE,
   INDEX `fk_Answer_Person1_idx` (`person_uuid` ASC) VISIBLE,
@@ -107,7 +107,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `AMT-db`.`Comments`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `AMT-db`.`Comments` (
+CREATE TABLE IF NOT EXISTS `AMT-db`.`Comment` (
   `uuid` VARCHAR(255) NOT NULL,
   `person_uuid` VARCHAR(255) NOT NULL,
   `question_uuid` VARCHAR(255),
@@ -115,20 +115,20 @@ CREATE TABLE IF NOT EXISTS `AMT-db`.`Comments` (
   `created_at` DATETIME NOT NULL,
   `content` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`uuid`),
-  INDEX `fk_Comments_Person1_idx` (`person_uuid` ASC) VISIBLE,
-  INDEX `fk_Comments_Question1_idx` (`question_uuid` ASC) VISIBLE,
-  INDEX `fk_Comments_Answer1_idx` (`answer_uuid` ASC) VISIBLE,
-  CONSTRAINT `fk_Comments_Person1`
+  INDEX `fk_Comment_Person1_idx` (`person_uuid` ASC) VISIBLE,
+  INDEX `fk_Comment_Question1_idx` (`question_uuid` ASC) VISIBLE,
+  INDEX `fk_Comment_Answer1_idx` (`answer_uuid` ASC) VISIBLE,
+  CONSTRAINT `fk_Comment_Person1`
     FOREIGN KEY (`person_uuid`)
     REFERENCES `AMT-db`.`Person` (`uuid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Comments_Question1`
+  CONSTRAINT `fk_Comment_Question1`
     FOREIGN KEY (`question_uuid`)
     REFERENCES `AMT-db`.`Question` (`uuid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Comments_Answer1`
+  CONSTRAINT `fk_Comment_Answer1`
     FOREIGN KEY (`answer_uuid`)
     REFERENCES `AMT-db`.`Answer` (`uuid`)
     ON DELETE NO ACTION

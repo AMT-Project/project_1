@@ -56,11 +56,11 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
             preparedStatement.setString(2, answer.getContent());
             preparedStatement.setString(3, answer.getQuestionUUID().asString());
             preparedStatement.setString(4, answer.getPersonUUID().asString());
-            /* TODO : Utiliser un timeSTamp mais j'arrive pas à modifier ça...
-            java.util.Date date = new Date(System.currentTimeMillis());
-            preparedStatement.setDate(5, new Timestamp(date.getTime()));
-             */
-            preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
+            // TODO : Utiliser un timeSTamp mais j'arrive pas à modifier ça...
+            Date date = new Date(System.currentTimeMillis());
+            preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
+
+            //preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();

@@ -25,12 +25,14 @@ public class CommentFacade {
     }
 
     public void registerComment(CommentCommand command) {
+        System.out.println(" ------ ICI : -------" + command.getAnswerUUID());
+
         try {
             Comment comment = Comment.builder()
                     .personUUID(command.getAuthorUUID())
                     .questionUUID(command.getQuestionUUID())
-                    .answerUUID(command.getAnswerUUID())
                     .content(command.getContent())
+                    .answerUUID(null)
                     .build();
             commentRepository.save(comment);
         } catch(Exception e) {

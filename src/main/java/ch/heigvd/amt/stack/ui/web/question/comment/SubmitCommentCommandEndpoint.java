@@ -30,8 +30,7 @@ public class SubmitCommentCommandEndpoint extends HttpServlet {
 
         CommentCommand command = CommentCommand.builder()
                 .authorUUID(currentUserDTO.getUuid())
-                .questionUUID(new QuestionId("5b078997-1882-4119-aa52-2cdb82232886")) // TODO Besoin ?
-                .answerUUID(new AnswerId("a414304c-4428-496e-a0ec-20fbdcb0da80"))
+                .questionUUID(new QuestionId(request.getParameter("questionUuid")))
                 .content(request.getParameter("content"))
                 .build();
 

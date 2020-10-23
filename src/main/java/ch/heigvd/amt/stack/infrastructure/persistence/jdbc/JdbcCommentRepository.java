@@ -31,14 +31,13 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
     public void save(Comment comment) throws SQLIntegrityConstraintViolationException {
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                    "INSERT INTO Comment (uuid, question_uuid, person_uuid, answer_uuid , content, created_at)" +
-                            "VALUES (?,?,?,?,?,?)");
+                    "INSERT INTO Comment (uuid, question_uuid, person_uuid, content, created_at)" +
+                            "VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, comment.getId().asString());
             preparedStatement.setString(2, comment.getQuestionUUID().asString());
             preparedStatement.setString(3, comment.getPersonUUID().asString());
-            preparedStatement.setString(4, comment.getAnswerUUID().asString());
-            preparedStatement.setString(5, comment.getContent());
-            preparedStatement.setDate(6, new Date(System.currentTimeMillis()));
+            preparedStatement.setString(4, comment.getContent());
+            preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
