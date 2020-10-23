@@ -40,6 +40,7 @@ public class ProfileEndpoint extends HttpServlet {
         request.setAttribute("user", currentUserDTO);
         request.setAttribute("userQuestions", userQuestions);
         request.setAttribute("userAnswersCount", userAnswers.getAnswers().size());
+        request.setAttribute("userQuestionsCount", userQuestions.getQuestions().size());
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);
     }
 }

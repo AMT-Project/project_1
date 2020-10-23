@@ -44,6 +44,7 @@ p {
 
 .content {
     margin: 20px;
+    min-height: 40vh;
 }
 
 /* Layout */
@@ -71,6 +72,7 @@ p {
     align-items: center;
     margin-right: 16px;
 }
+
 .navbar__user-info:hover {
     cursor: pointer;
 }
@@ -243,6 +245,18 @@ p {
     align-items: center;
     justify-content: space-around;
 }
+
+.profile__infos {
+    flex: 1;
+}
+
+.profile__stat {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 .profile__questions--title {
     margin-top: 24px;
 }
