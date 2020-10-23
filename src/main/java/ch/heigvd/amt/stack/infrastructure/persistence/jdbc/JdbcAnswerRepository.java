@@ -1,6 +1,9 @@
 package ch.heigvd.amt.stack.infrastructure.persistence.jdbc;
 
 import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
+import ch.heigvd.amt.stack.domain.person.PersonId;
+import ch.heigvd.amt.stack.domain.question.Question;
+import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
@@ -11,6 +14,7 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -22,6 +26,23 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
 
     @Override
     public Collection<Answer> find(AnswersQuery query) {
+        try {
+            PreparedStatement preparedStatement;
+            if(query.getAuthorUUID() != null) {
+                preparedStatement = dataSource.getConnection().prepareStatement(
+                    "SELECT * FROM Answer WHERE person_uuid=?");
+                preparedStatement.setString(1, query.getAuthorUUID().asString());
+            } else {
+                preparedStatement = dataSource.getConnection().prepareStatement(
+                    "SELECT * FROM Answer");
+            }
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return getAnswers(rs);
+
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return null;
     }
 
@@ -68,5 +89,21 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
             throwables.printStackTrace();
         }
         return 0;
+    }
+
+    private Collection<Answer> getAnswers(ResultSet rs) throws SQLException {
+        LinkedList<Answer> answers = new LinkedList<>();
+
+        while(rs.next()) {
+            Answer answer = Answer.builder()
+                .id(new AnswerId(rs.getString("uuid")))
+                .content(rs.getString("content"))
+                .questionUUID(new QuestionId(rs.getString("question_uuid")))
+                .personUUID(new PersonId(rs.getString("person_uuid")))
+                .build();
+            answers.add(answer);
+        }
+
+        return answers;
     }
 }

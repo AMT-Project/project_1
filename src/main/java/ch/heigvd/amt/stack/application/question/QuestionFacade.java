@@ -34,7 +34,7 @@ public class QuestionFacade {
     }
 
     public QuestionsDTO getQuestions(QuestionsQuery query) {
-        Collection<Question> allQuestions = questionRepository.find(query);
+        Collection<Question> allQuestions = questionRepository.findAll();
 
         List<QuestionsDTO.QuestionDTO> allQuestionsDTO = allQuestions.stream().map(question -> {
             Person author = personRepository.findById(question.getAuthorUUID()).get();

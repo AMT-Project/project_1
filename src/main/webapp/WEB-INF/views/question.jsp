@@ -16,7 +16,7 @@
             ${question.username}
         </div>
     </div>
-    <button class="navbar__link" onclick="location.href='${pageContext.request.contextPath}/submitAnswer?uuid=${question.uuid.asString()}';">New Answer</button>
+    <button class="navbar__link--dark" onclick="location.href='${pageContext.request.contextPath}/submitAnswer?uuid=${question.uuid.asString()}';">New Answer</button>
 </div>
 
 <%@ include file="fragments/footer.jsp" %>

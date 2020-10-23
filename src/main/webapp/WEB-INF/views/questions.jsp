@@ -17,7 +17,7 @@
                             ${question.description}
                     </div>
                     <div class="question__author">
-                            ${question.username}
+                            ${question.username} on ${question.createdOn}
                     </div>
                 </div>
             </li>
