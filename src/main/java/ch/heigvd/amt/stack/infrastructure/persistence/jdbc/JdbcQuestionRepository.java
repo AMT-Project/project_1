@@ -29,11 +29,16 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     }
 
     public Collection<Question> find(QuestionsQuery query) {
-        //  TODO implement
-        //   pas d'utilisation de query????
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                "SELECT * FROM Question");
+            PreparedStatement preparedStatement;
+            if(query.getAuthorUUID() != null) {
+                preparedStatement = dataSource.getConnection().prepareStatement(
+                    "SELECT * FROM Question WHERE person_uuid=?");
+                preparedStatement.setString(1, query.getAuthorUUID().asString());
+            } else {
+                preparedStatement = dataSource.getConnection().prepareStatement(
+                    "SELECT * FROM Question");
+            }
             ResultSet rs = preparedStatement.executeQuery();
 
             return getQuestions(rs);
@@ -49,7 +54,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                "INSERT INTO Question (uuid, title, description, person_uuid, created_at)" +
+                "INSERT INTO Question (uuid, title, description, person_uuid, created_on)" +
                     "VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, question.getId().asString());
             preparedStatement.setString(2, question.getTitle());
