@@ -4,6 +4,7 @@ const stackURL = "http://stack.ch:9080/stack";
 const profileURL = "/profile";
 const loginPage = stackURL + "/login";
 const questionsPage = stackURL + "/questions";
+const registerPage = stackURL + "/register";
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";
@@ -19,7 +20,7 @@ const questionTitle2 = "How do I uppercase in java?";
 const questionDescription2 = "genuine question";
 
 Scenario("after registering, I can see my own profile page", (I) => {
-    I.amOnPage(stackURL + "/register");
+    I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
     I.click(userFullName);
@@ -46,7 +47,8 @@ Scenario("After posting a question, I see my question on my profile page", (I) =
     I.fillField("description", questionDescription);
     I.click("Submit");
 
-    I.click(userFullName);
+    I.click("#profile");
+    I.seeInCurrentUrl(profileURL);
 
     I.see(questionTitle.toUpperCase());
     I.see(questionDescription);
@@ -68,7 +70,9 @@ Scenario("I see all of my questions on my profile page even after logging out", 
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
-    I.click(userFullName);
+    I.see("List of questions");
+    I.click("#profile");
+    I.seeInCurrentUrl(profileURL);
 
     I.see(questionTitle.toUpperCase());
     I.see(questionDescription);
@@ -87,10 +91,11 @@ Scenario("I see questions from other users as anon", (I) => {
 });
 
 Scenario("Questions from other users are not shown on my profile page", (I) => {
-    I.amOnPage(stackURL + "/register");
+    I.amOnPage(registerPage);
     I.register(uniqueUsername + "ha", firstName, lastName, uniqueEmail + "e", pwd);
 
-    I.click(userFullName);
+    I.click("#profile");
+    I.seeInCurrentUrl(profileURL);
 
     I.dontSee(questionTitle.toUpperCase());
     I.dontSee(questionDescription);

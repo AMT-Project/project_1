@@ -6,7 +6,7 @@
             </div>
 
             <div class="navbar__user-interaction">
-                <div class="navbar__link--light-lowercase" onclick="window.location.href='/stack/profile';">
+                <div id="profile" class="navbar__link--light-lowercase" onclick="window.location.href='/stack/profile';">
                         ${currentUser.firstName} ${currentUser.lastName}
                 </div>
 
@@ -27,4 +27,3 @@
         </c:otherwise>
     </c:choose>
 </div>
-
