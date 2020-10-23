@@ -16,8 +16,18 @@
             ${question.username}
         </div>
     </div>
-    <button class="navbar__link--dark" onclick="location.href='${pageContext.request.contextPath}/submitAnswer?uuid=${question.uuid.asString()}';">New Answer</button>
-    <button class="navbar__link--dark" onclick="location.href='${pageContext.request.contextPath}/submitComment?questionUuid=${question.uuid.asString()}';">New Comment</button>
+    <form class="form-register" action="${pageContext.request.contextPath}/submitAnswer.do" method="POST">
+        <input id="questionUuid1" name="questionUuid" type="hidden" value=${question.uuid.asString()}>
+        <p>Your Answer</p>
+        <textarea class="form-control" type="text" placeholder="content" name="content" required></textarea>
+        <input class="form-btn" type="submit" value="Submit">
+    </form>
+    <form class="form-register" action="${pageContext.request.contextPath}/submitComment.do" method="POST">
+        <input id="questionUuid2" name="questionUuid" type="hidden" value=${question.uuid.asString()}>
+        <p>Your Comment</p>
+        <textarea class="form-control" type="text" placeholder="content" name="content" required></textarea>
+        <input class="form-btn" type="submit" value="Submit">
+    </form>
 </div>
 
 <%@ include file="fragments/footer.jsp" %>

@@ -42,17 +42,6 @@ public class Comment implements IEntity<Comment, CommentId> {
             if(personUUID == null) {
                 throw new java.lang.IllegalArgumentException("PersonUUID is mandatory");
             }
-            if(questionUUID == null) {
-                throw new java.lang.IllegalArgumentException("QuestionUUID is mandatory");
-            }
-            if(answerUUID == null) {
-                //throw new java.lang.IllegalArgumentException("AnswerUUID is mandatory");
-                answerUUID = null;
-            }
-            if(created_at == null) {
-                created_at = null;
-                //throw new java.lang.IllegalArgumentException("Creation date/time is mandatory");
-            }
 
             return new Comment(id, content, personUUID, questionUUID, answerUUID , created_at);
         }

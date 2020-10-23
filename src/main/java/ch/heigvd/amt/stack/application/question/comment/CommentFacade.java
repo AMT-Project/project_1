@@ -26,15 +26,23 @@ public class CommentFacade {
 
     public void registerComment(CommentCommand command) {
         System.out.println(" ------ ICI : -------" + command.getAnswerUUID());
-
         try {
-            Comment comment = Comment.builder()
-                    .personUUID(command.getAuthorUUID())
-                    .questionUUID(command.getQuestionUUID())
-                    .content(command.getContent())
-                    .answerUUID(null)
-                    .build();
-            commentRepository.save(comment);
+            if(command.getQuestionUUID() != null){
+                Comment comment = Comment.builder()
+                        .personUUID(command.getAuthorUUID())
+                        .questionUUID(command.getQuestionUUID())
+                        .content(command.getContent())
+                        .build();
+                commentRepository.save(comment);
+            } else if (command.getAnswerUUID() != null){
+                Comment comment = Comment.builder()
+                        .personUUID(command.getAuthorUUID())
+                        .answerUUID(command.getAnswerUUID())
+                        .content(command.getContent())
+                        .build();
+                commentRepository.save(comment);
+            }
+
         } catch(Exception e) {
             System.out.println("CommentFacade error: " + e.toString());
         }

@@ -2,8 +2,6 @@ package ch.heigvd.amt.stack.ui.web.question.comment;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
-import ch.heigvd.amt.stack.application.question.answer.AnswerCommand;
-import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
 import ch.heigvd.amt.stack.application.question.comment.CommentCommand;
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
@@ -28,13 +26,23 @@ public class SubmitCommentCommandEndpoint extends HttpServlet {
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
 
-        CommentCommand command = CommentCommand.builder()
-                .authorUUID(currentUserDTO.getUuid())
-                .questionUUID(new QuestionId(request.getParameter("questionUuid")))
-                .content(request.getParameter("content"))
-                .build();
+        if(request.getParameter("questionUuid") != null){
+            CommentCommand command = CommentCommand.builder()
+                    .authorUUID(currentUserDTO.getUuid())
+                    .questionUUID(new QuestionId(request.getParameter("questionUuid")))
+                    .content(request.getParameter("content"))
+                    .build();
+            commentFacade.registerComment(command);
+        }
+        else if(request.getParameter("answerUuid") != null){
+            CommentCommand command = CommentCommand.builder()
+                    .authorUUID(currentUserDTO.getUuid())
+                    .answerUUID(new AnswerId(request.getParameter("answerUuid")))
+                    .content(request.getParameter("content"))
+                    .build();
+            commentFacade.registerComment(command);
+        }
 
-        commentFacade.registerComment(command);
         response.sendRedirect(request.getContextPath() + "/questions");
     }
 }
