@@ -11,6 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -60,7 +61,9 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             preparedStatement.setString(2, question.getTitle());
             preparedStatement.setString(3, question.getDescription());
             preparedStatement.setString(4, question.getAuthorUUID().asString());
-            preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
+            preparedStatement.setString(5, question.getCreatedOn().toString());
+            //Date date = new Date(System.currentTimeMillis());
+            //preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();

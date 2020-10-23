@@ -20,7 +20,7 @@ public class Answer implements IEntity<Answer, AnswerId> {
     private String content;
     private QuestionId questionUUID;
     private PersonId personUUID;
-    private LocalDateTime created_at;
+    private LocalDateTime createdOn;
 
     @Override
     public AnswerId getId() {
@@ -46,12 +46,11 @@ public class Answer implements IEntity<Answer, AnswerId> {
             if(personUUID == null) {
                 throw new java.lang.IllegalArgumentException("PersonUUID is mandatory");
             }
-            if(created_at == null) {
-                created_at = null;
-                //throw new java.lang.IllegalArgumentException("Creation date/time is mandatory");
+            if(createdOn == null) {
+                createdOn = LocalDateTime.now();
             }
 
-            return new Answer(id, content, questionUUID, personUUID, created_at);
+            return new Answer(id, content, questionUUID, personUUID, createdOn);
         }
     }
 }

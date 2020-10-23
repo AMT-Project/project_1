@@ -27,17 +27,22 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
     @Override
     public Collection<Answer> find(AnswersQuery query) {
         try {
-            PreparedStatement preparedStatement;
+            PreparedStatement preparedStatement = null;
+            ResultSet rs;
             if(query.getAuthorUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
                     "SELECT * FROM Answer WHERE person_uuid=?");
                 preparedStatement.setString(1, query.getAuthorUUID().asString());
-            } else {
+            } else if(query.getQuestionUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Answer");
+                    "SELECT * FROM Answer WHERE question_uuid=?");
+                preparedStatement.setString(1, query.getQuestionUUID().asString());
             }
-            ResultSet rs = preparedStatement.executeQuery();
-
+            if(preparedStatement != null) {
+                rs = preparedStatement.executeQuery();
+            } else {
+                return null;
+            }
             return getAnswers(rs);
 
         } catch(SQLException throwables) {
@@ -50,7 +55,7 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
     public void save(Answer answer) throws SQLIntegrityConstraintViolationException {
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_at)" +
+                "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_on)" +
                     "VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, answer.getId().asString());
             preparedStatement.setString(2, answer.getContent());
@@ -67,6 +72,7 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
         }
     }
 
+    // TODO : implement
     @Override
     public void remove(AnswerId id) {
 

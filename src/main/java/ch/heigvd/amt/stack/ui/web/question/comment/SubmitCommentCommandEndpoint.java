@@ -26,18 +26,18 @@ public class SubmitCommentCommandEndpoint extends HttpServlet {
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
 
-        if(request.getParameter("questionUuid") != null){
+        if(request.getParameter("questionUUID") != null){
             CommentCommand command = CommentCommand.builder()
                     .authorUUID(currentUserDTO.getUuid())
-                    .questionUUID(new QuestionId(request.getParameter("questionUuid")))
+                    .questionUUID(new QuestionId(request.getParameter("questionUUID")))
                     .content(request.getParameter("content"))
                     .build();
             commentFacade.registerComment(command);
         }
-        else if(request.getParameter("answerUuid") != null){
+        else if(request.getParameter("answerUUID") != null){
             CommentCommand command = CommentCommand.builder()
                     .authorUUID(currentUserDTO.getUuid())
-                    .answerUUID(new AnswerId(request.getParameter("answerUuid")))
+                    .answerUUID(new AnswerId(request.getParameter("answerUUID")))
                     .content(request.getParameter("content"))
                     .build();
             commentFacade.registerComment(command);

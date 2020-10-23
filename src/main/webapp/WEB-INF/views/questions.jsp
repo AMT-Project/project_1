@@ -17,7 +17,7 @@
                             ${question.description}
                     </div>
                     <div class="questions-list__question__author">
-                            ${question.username} on ${question.createdOn}
+                            by ${question.username} @ ${question.createdOn}
                     </div>
                 </div>
             </li>

@@ -1,11 +1,13 @@
 package ch.heigvd.amt.stack.application.question;
 
+import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
+import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
+import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import ch.heigvd.amt.stack.domain.question.Question;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,10 +15,14 @@ import java.util.stream.Collectors;
 public class QuestionFacade {
     private IQuestionRepository questionRepository;
     private IPersonRepository personRepository;
+    private CommentFacade commentFacade;
+    private AnswerFacade answerFacade;
 
-    public QuestionFacade(IQuestionRepository questionRepository, IPersonRepository personRepository) {
+    public QuestionFacade(IQuestionRepository questionRepository, IPersonRepository personRepository, CommentFacade commentFacade, AnswerFacade answerFacade) {
         this.questionRepository = questionRepository;
         this.personRepository = personRepository;
+        this.commentFacade = commentFacade;
+        this.answerFacade = answerFacade;
     }
 
     public void registerQuestion(SubmitQuestionCommand command) {
@@ -25,7 +31,6 @@ public class QuestionFacade {
                 .authorUUID(command.getAuthorUUID())
                 .title(command.getTitle())
                 .description(command.getText())
-                .createdOn(LocalDate.now())
                 .build();
             questionRepository.save(submittedQuestion);
         } catch(Exception e) {
@@ -66,6 +71,10 @@ public class QuestionFacade {
             .title(question.getTitle())
             .description(question.getDescription())
             .createdOn(question.getCreatedOn())
+            .comments(commentFacade.getQuestionComments(question.getId()))
+            .answers(answerFacade.getAnswers(AnswersQuery.builder()
+                .questionUUID(query.getUuid())
+                .build()))
             .build();
     }
 

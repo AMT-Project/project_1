@@ -24,13 +24,14 @@ public class SubmitAnswerCommandEndpoint extends HttpServlet {
         AnswerFacade answerFacade = serviceRegistry.getAnswerFacade();
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
+        QuestionId questionId = new QuestionId(request.getParameter("questionUUID"));
 
-        AnswerCommand command = AnswerCommand.builder().authorUUID(currentUserDTO.getUuid()).
-            questionUUID(new QuestionId(request.getParameter("questionUuid")))
+        AnswerCommand command = AnswerCommand.builder().authorUUID(currentUserDTO.getUuid())
+            .questionUUID(questionId)
             .content(request.getParameter("content"))
             .build();
 
         answerFacade.registerAnswer(command);
-        response.sendRedirect(request.getContextPath() + "/questions");
+        response.sendRedirect(request.getContextPath() + "/question?uuid=" + questionId.asString());
     }
 }

@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `AMT-db`.`Question` (
   `title` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
   `person_uuid` VARCHAR(255) NOT NULL,
-  `created_on` DATETIME NOT NULL,
+  `created_on` TIMESTAMP NOT NULL,
   PRIMARY KEY (`uuid`),
   INDEX `fk_Question_Person_idx` (`person_uuid` ASC) VISIBLE,
   CONSTRAINT `fk_Question_Person`
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `AMT-db`.`Answer` (
   `content` VARCHAR(255) NOT NULL,
   `question_uuid` VARCHAR(255) NOT NULL,
   `person_uuid` VARCHAR(255) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
+  `created_on` TIMESTAMP NOT NULL,
   PRIMARY KEY (`uuid`),
   INDEX `fk_Answer_Question1_idx` (`question_uuid` ASC) VISIBLE,
   INDEX `fk_Answer_Person1_idx` (`person_uuid` ASC) VISIBLE,
@@ -80,8 +80,8 @@ CREATE TABLE IF NOT EXISTS `AMT-db`.`Vote` (
   `uuid` VARCHAR(255) NOT NULL,
   `is_upvote` TINYINT NOT NULL,
   `answer_uuid` VARCHAR(255) NOT NULL,
-  `question_uuid` VARCHAR(255) NOT NULL,
-  `person_uuid` VARCHAR(255) NOT NULL,
+  `question_uuid` VARCHAR(255),
+  `person_uuid` VARCHAR(255),
   PRIMARY KEY (`uuid`),
   INDEX `fk_Vote_Answer1_idx` (`answer_uuid` ASC) VISIBLE,
   INDEX `fk_Vote_Question1_idx` (`question_uuid` ASC) VISIBLE,
@@ -105,14 +105,14 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `AMT-db`.`Comments`
+-- Table `AMT-db`.`Comment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `AMT-db`.`Comment` (
   `uuid` VARCHAR(255) NOT NULL,
   `person_uuid` VARCHAR(255) NOT NULL,
   `question_uuid` VARCHAR(255),
   `answer_uuid` VARCHAR(255),
-  `created_at` DATETIME NOT NULL,
+  `created_on` DATETIME NOT NULL,
   `content` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`uuid`),
   INDEX `fk_Comment_Person1_idx` (`person_uuid` ASC) VISIBLE,
@@ -142,4 +142,5 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO Person (uuid, username, email, firstname, lastname, password) VALUES ("c53ed5d3-1efd-409f-a139-8d3bdef43c96","test","test@user.com","test","user","AAA");
 INSERT INTO Question (uuid, title, description, person_uuid, created_on) VALUES ("5b078997-1882-4119-aa52-2cdb82232886","Comment fonctionne la vie?","Lorem ipsum dolor si amet","c53ed5d3-1efd-409f-a139-8d3bdef43c96","2020-10-22 00:00:00");
-INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_at) VALUES ("a414304c-4428-496e-a0ec-20fbdcb0da80","comment?","5b078997-1882-4119-aa52-2cdb82232886","c53ed5d3-1efd-409f-a139-8d3bdef43c96","2020-10-22 00:00:00");
+INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_on) VALUES ("a414304c-4428-496e-a0ec-20fbdcb0da80","Réponse exceptionnelle à la question","5b078997-1882-4119-aa52-2cdb82232886","c53ed5d3-1efd-409f-a139-8d3bdef43c96","2020-10-22 00:00:00");
+INSERT INTO Comment (uuid, person_uuid, question_uuid, answer_uuid, created_on, content) VALUES ("9225ab0a-6c24-4059-af90-90fef3d8e2a9","c53ed5d3-1efd-409f-a139-8d3bdef43c96","5b078997-1882-4119-aa52-2cdb82232886",null,"2020-10-22 00:00:00","Un magnifique commentaire");

@@ -16,31 +16,36 @@ import javax.inject.Named;
 @ApplicationScoped
 public class ServiceRegistry {
 
-    @Inject @Named("JdbcPersonRepository")
+    @Inject
+    @Named("JdbcPersonRepository")
     IPersonRepository personRepository;
 
-    @Inject @Named("JdbcQuestionRepository")
+    @Inject
+    @Named("JdbcQuestionRepository")
     IQuestionRepository questionRepository;
 
-    @Inject @Named("JdbcAnswerRepository")
+    @Inject
+    @Named("JdbcAnswerRepository")
     IAnswerRepository answerRepository;
 
-    @Inject @Named("JdbcCommentRepository")
+    @Inject
+    @Named("JdbcCommentRepository")
     ICommentRepository commentRepository;
+
 
     public IdentityManagementFacade getIdentityManagementFacade() {
         return new IdentityManagementFacade(personRepository);
     }
 
     public QuestionFacade getQuestionFacade() {
-        return new QuestionFacade(questionRepository, personRepository);
+        return new QuestionFacade(questionRepository, personRepository, getCommentFacade(), getAnswerFacade());
     }
 
     public AnswerFacade getAnswerFacade() {
-        return new AnswerFacade(answerRepository, questionRepository,personRepository);
+        return new AnswerFacade(answerRepository, questionRepository, personRepository);
     }
 
     public CommentFacade getCommentFacade() {
-        return new CommentFacade(commentRepository, answerRepository, questionRepository,personRepository);
+        return new CommentFacade(commentRepository, answerRepository, questionRepository, personRepository);
     }
 }

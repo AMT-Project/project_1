@@ -3,11 +3,14 @@ package ch.heigvd.amt.stack.application.question.comment;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
+import ch.heigvd.amt.stack.domain.question.comment.CommentId;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -18,12 +21,15 @@ public class CommentsDTO {
     @Getter
     @EqualsAndHashCode
     public static class CommentDTO {
+        private CommentId uuid;
         private PersonId authorUUID;
+        private String username;
         private QuestionId questionId;
         private AnswerId answerId;
         private String content;
+        private LocalDateTime createdOn;
     }
 
     @Singular
-    private List<ch.heigvd.amt.stack.application.question.comment.CommentsDTO.CommentDTO> comments;
+    private List<CommentDTO> comments;
 }

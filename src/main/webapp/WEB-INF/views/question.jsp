@@ -18,22 +18,30 @@
             ${question.description}
         </div>
         <div class="question-details__question__author">
-            ${question.username} on ${question.createdOn}
+            ${question.username} on ${question.createdOn.toString()}
         </div>
 
         <div class="question-details__question__comments">
             <!-- FOREACH COMMENTAIRES -->
+            <c:forEach var="comment" items="${question.comments.comments}">
+                ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
+            </c:forEach>
         </div>
     </div>
     <div class="question-details__answers">
         <form class="form-register" action="${pageContext.request.contextPath}/submitAnswer.do" method="POST">
-            <input id="questionUuid1" name="questionUuid" type="hidden" value=${question.uuid.asString()}>
+            <input id="questionUUID1" name="questionUUID" type="hidden" value=${question.uuid.asString()}>
             <p>Your Answer</p>
             <textarea class="form-control" type="text" placeholder="content" name="content" required></textarea>
             <input class="form-btn" type="submit" value="Submit">
         </form>
+
+        <c:forEach var="answer" items="${question.answers.answers}">
+            ${answer.content} - ${answer.username} @ ${answer.createdOn.toString()}
+        </c:forEach>
+
         <form class="form-register" action="${pageContext.request.contextPath}/submitComment.do" method="POST">
-            <input id="questionUuid2" name="questionUuid" type="hidden" value=${question.uuid.asString()}>
+            <input id="questionUUID2" name="questionUUID" type="hidden" value=${question.uuid.asString()}>
             <p>Your Comment</p>
             <textarea class="form-control" type="text" placeholder="content" name="content" required></textarea>
             <input class="form-btn" type="submit" value="Submit">
@@ -42,10 +50,6 @@
         <!-- FOREACH COMMENTAIRES -->
         <!-- END FOREACH REPONSES -->
     </div>
-    <button class="navbar__link--dark"
-            onclick="location.href='${pageContext.request.contextPath}/submitAnswer?uuid=${question.uuid.asString()}';">
-        New Answer
-    </button>
 </div>
 
 <%@ include file="fragments/footer.jsp" %>

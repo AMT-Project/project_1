@@ -1,5 +1,7 @@
 package ch.heigvd.amt.stack.application.question;
 
+import ch.heigvd.amt.stack.application.question.answer.AnswersDTO;
+import ch.heigvd.amt.stack.application.question.comment.CommentsDTO;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import lombok.Builder;
@@ -8,6 +10,7 @@ import lombok.Getter;
 import lombok.Singular;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -23,7 +26,10 @@ public class QuestionsDTO {
         private String username;
         private String title;
         private String description;
-        private LocalDate createdOn;
+        private LocalDateTime createdOn;
+
+        private CommentsDTO comments;
+        private AnswersDTO answers;
     }
 
     @Singular

@@ -44,6 +44,8 @@ public class AnswerFacade {
                 .authorUUID(author.getId())
                 .questionId(answer.getQuestionUUID())
                 .content(answer.getContent())
+                .createdOn(answer.getCreatedOn())
+                .username(author.getUsername())
                 .build();
         })
             .collect(Collectors.toList());

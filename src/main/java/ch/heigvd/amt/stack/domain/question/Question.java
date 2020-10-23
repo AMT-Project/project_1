@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class Question implements IEntity<Question, QuestionId> {
     private PersonId authorUUID;
     private String title;
     private String description;
-    private LocalDate createdOn;
+    private LocalDateTime createdOn;
 
     @Override
     public Question deepClone() {
@@ -43,8 +44,7 @@ public class Question implements IEntity<Question, QuestionId> {
                 throw new IllegalArgumentException("Description is mandatory");
             }
             if(createdOn == null) {
-                createdOn = null;
-                //throw new IllegalArgumentException("Creation date is mandatory");
+                createdOn = LocalDateTime.now();
             }
             return new Question(id, authorUUID, title, description, createdOn);
         }
