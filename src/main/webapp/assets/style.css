@@ -166,7 +166,7 @@ p {
     margin: 0;
 }
 
-/* Questions */
+/* Questions list */
 .questions-list__list-element {
     list-style: none;
     background-color: #272c40;
@@ -186,13 +186,13 @@ p {
     padding: 0;
 }
 
-.question {
+.questions-list__question {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.question__title {
+.questions-list__question__title {
     text-transform: uppercase;
     font-weight: bold;
     border-bottom: 1px solid;
@@ -200,15 +200,18 @@ p {
     padding-bottom: 8px;
 }
 
-.question__description {
+.questions-list__question__description {
     padding-top: 8px;
 }
 
-.question__author {
+.questions-list__question__author {
     padding-top: 16px;
     text-align: right;
     font-style: italic;
 }
+
+/* Question details */
+.question
 
 /* Statistics */
 .stat {
