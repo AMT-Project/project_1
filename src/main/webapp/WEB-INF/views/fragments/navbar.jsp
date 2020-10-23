@@ -3,20 +3,18 @@
         <c:when test="${currentUser != null}">
             <div class="navbar__buttons">
                 <button class="navbar__link--dark" onclick="window.location.href='/stack/questions';">Home</button>
+                <button class="navbar__link--dark" onclick="window.location.href='/stack/submitQuestion';">New
+                    Question
+                </button>
             </div>
 
             <div class="navbar__user-interaction">
-                <div id="profile" class="navbar__link--light-lowercase" onclick="window.location.href='/stack/profile';">
-                        ${currentUser.firstName} ${currentUser.lastName}
-                </div>
-
-                <button class="navbar__link--dark" onclick="window.location.href='/stack/submitQuestion';">New Question</button>
-
+                <button id="profile" class="navbar__link--light-lowercase"
+                        onclick="window.location.href='/stack/profile';">${currentUser.firstName} ${currentUser.lastName}</button>
                 <form id="logoutForm" method="POST" action="logout.do">
                     <button class="navbar__link--dark" type="submit">Logout</button>
                 </form>
             </div>
-
         </c:when>
         <c:otherwise>
             <button class="navbar__link--dark" onclick="window.location.href='/stack/questions';">Home</button>
@@ -27,3 +25,4 @@
         </c:otherwise>
     </c:choose>
 </div>
+

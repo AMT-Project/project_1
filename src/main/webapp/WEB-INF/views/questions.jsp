@@ -9,14 +9,14 @@
         <c:forEach var="question" items="${questions.questions}">
             <li class="questions-list__list-element"
                 onclick="location.href='${pageContext.request.contextPath}/question?uuid=${question.uuid.asString()}';">
-                <div class="question">
-                    <div class="question__title">
+                <div class="questions-list__question">
+                    <div class="questions-list__question__title">
                             ${question.title}
                     </div>
-                    <div class="question__description">
+                    <div class="questions-list__question__description">
                             ${question.description}
                     </div>
-                    <div class="question__author">
+                    <div class="questions-list__question__author">
                             ${question.username} on ${question.createdOn}
                     </div>
                 </div>
