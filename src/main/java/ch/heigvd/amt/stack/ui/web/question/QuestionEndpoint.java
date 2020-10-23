@@ -36,7 +36,6 @@ public class QuestionEndpoint extends HttpServlet {
 
         QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(GetQuestionQuery.builder()
             .uuid(questionId)
-            .currentUser(currentUserDTO.getUuid())
             .build());
         request.setAttribute("question", questionDTO);
 

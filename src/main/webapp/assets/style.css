@@ -11,7 +11,7 @@
 
 body {
     background-color: cornsilk;
-
+    font-family: Roboto;
 }
 
 #page {
@@ -211,8 +211,58 @@ p {
 }
 
 /* Question details */
-.question {
+.question-details__question {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
 
+.question-details__question--row {
+    display: flex;
+    flex-direction: row;
+    background-color: #272c40;
+}
+
+.question-details__question--content {
+    display: flex;
+    flex-direction: column;
+    margin: 16px 24px;
+    flex-grow: 1;
+}
+
+.question-details__question__title {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.question-details__question__description {
+    font-family: Roboto;
+    font-size: 16px;
+}
+
+.question-details__question__author {
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.question-details__comments-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.question-details__comment {
+    background-color: #091739;
+    padding: 16px;
+    text-align: right;
+    font-size: 14px;
+}
+
+.question-details__comment:nth-child(odd) {
+    background-color: #1d49bf;
 }
 
 /* Statistics */
@@ -264,6 +314,44 @@ p {
 
 .profile__questions--title {
     margin-top: 24px;
+}
+
+.profile__questions-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile__questions-list__element {
+    list-style: none;
+    background-color: #272c40;
+    margin: 16px;
+    padding: 24px;
+
+    color: white;
+}
+
+.profile__questions-list__element:hover {
+    cursor: pointer
+}
+
+.profile__questions-list__question {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile__questions-list__question__title {
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid;
+    font-size: 16px;
+    padding-bottom: 8px;
+}
+
+.profile__questions-list__question__description {
+    padding-top: 8px;
 }
 
 /* Footer */

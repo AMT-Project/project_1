@@ -39,19 +39,21 @@
         </div>
         <div class="profile__questions">
             <h4 class="profile__questions--title">Asked questions list :</h4>
-            <c:forEach var="question" items="${userQuestions.questions}">
-                <li class="questions-list__list-element"
-                    onclick="location.href='${pageContext.request.contextPath}/question?uuid=${question.uuid.asString()}';">
-                    <div class="question">
-                        <div class="question__title">
-                                ${question.title}
+            <ul class="profile__questions-list">
+                <c:forEach var="question" items="${userQuestions.questions}">
+                    <li class="profile__questions-list__element"
+                        onclick="location.href='${pageContext.request.contextPath}/question?uuid=${question.uuid.asString()}';">
+                        <div class="profile__questions-list__question">
+                            <div class="profile__questions-list__question__title">
+                                    ${question.title}
+                            </div>
+                            <div class="profile__questions-list__question__description">
+                                    ${question.description}
+                            </div>
                         </div>
-                        <div class="question__description">
-                                ${question.description}
-                        </div>
-                    </div>
-                </li>
-            </c:forEach>
+                    </li>
+                </c:forEach>
+            </ul>
         </div>
     </div>
 </div>

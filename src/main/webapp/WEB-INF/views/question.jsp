@@ -6,27 +6,34 @@
 <div class="content">
     <h1>Question details</h1>
     <div class="question-details__question">
-        <div class="question-details__votes">
-            <button>+</button>
-            <div class="question-details__vote-count"><!-- Nombre de votes--></div>
-            <button>-</button>
-        </div>
-        <div class="question-details__question__title">
-            ${question.title}
-        </div>
-        <div class="question-details__question__description">
-            ${question.description}
-        </div>
-        <div class="question-details__question__author">
-            ${question.username} on ${question.createdOn.toString()}
+        <div class="question-details__question--row">
+            <div class="question-details__votes">
+                <button>+</button>
+                <div class="question-details__vote-count"><!-- Nombre de votes--></div>
+                <button>-</button>
+            </div>
+            <div class="question-details__question--content">
+                <div class="question-details__question__title">
+                    ${question.title}
+                </div>
+                <div class="question-details__question__description">
+                    ${question.description}
+                </div>
+                <div class="question-details__question__author">
+                    ${question.username} on ${question.createdOn.toString()}
+                </div>
+            </div>
         </div>
 
-        <div class="question-details__question__comments">
+        <ul class="question-details__comments-list">
             <!-- FOREACH COMMENTAIRES -->
             <c:forEach var="comment" items="${question.comments.comments}">
-                ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
+                <li class="question-details__comment">
+                    <!-- FIXME : BUG les temps sont actualisés au refresh de la page -->
+                        ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
+                </li>
             </c:forEach>
-        </div>
+        </ul>
     </div>
     <div class="question-details__answers">
         <form class="form-register" action="${pageContext.request.contextPath}/submitAnswer.do" method="POST">
