@@ -12,6 +12,9 @@ const uniqueUsername = "6profile_test-" + uniqueId;
 const uniqueEmail = "sixprofile@" + uniqueId + ".ch";
 const pwd = "pwd";
 
+const questionTitle = "How to browse stack.ch?";
+const questionDescription = "I am really lost there, any help?";
+
 Scenario("after registering, I can see my own profile page", (I) => {
     I.amOnPage(stackURL + "/register");
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
@@ -27,8 +30,8 @@ Scenario("after registering, I can see my own profile page", (I) => {
     I.see(uniqueEmail);
     I.see("Answers given");
     I.see("Asked questions list");
-    I.see(userFullName + "'s " + "profile")
-    I.see("0")
+    I.see(userFullName + "'s " + "profile");
+    I.see("0");
 });
 
 Scenario("After posting a question, I see my question on my profile page", (I) => {
@@ -36,9 +39,7 @@ Scenario("After posting a question, I see my question on my profile page", (I) =
     I.login(uniqueUsername, pwd);
 
     I.click("New Question");
-    const questionTitle = "How to browse stack.ch?"
     I.fillField("title", questionTitle);
-    const questionDescription = "I am really lost there, any help?"
     I.fillField("description", questionDescription);
     I.click("Submit");
 
@@ -46,4 +47,31 @@ Scenario("After posting a question, I see my question on my profile page", (I) =
 
     I.see(questionTitle.toUpperCase());
     I.see(questionDescription);
+    I.see("1");
+});
+
+Scenario("I see all of my questions on my profile page even after logging out", (I) => {
+    I.amOnPage(loginPage);
+    I.login(uniqueUsername, pwd);
+
+    I.click("New Question");
+    const questionTitle2 = "How do I uppercase in java?";
+    I.fillField("title", questionTitle2);
+    const questionDescription2 = "genuine question";
+    I.fillField("description", questionDescription2);
+    I.click("Submit");
+
+    I.seeInTitle("Questions");
+    I.click("Logout");
+
+    I.amOnPage(loginPage);
+    I.login(uniqueUsername, pwd);
+
+    I.click(userFullName);
+
+    I.see(questionTitle.toUpperCase());
+    I.see(questionDescription);
+    I.see(questionTitle2.toUpperCase());
+    I.see(questionDescription2);
+    I.see("2");
 });
