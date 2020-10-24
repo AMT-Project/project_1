@@ -60,6 +60,13 @@
       <version>5.6.2</version>
       <scope>test</scope>
     </dependency>
+    <!-- commented in sharks -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-runner</artifactId>
@@ -116,10 +123,10 @@
       <plugin>
         <groupId>io.openliberty.tools</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
-        <version>3.2</version>
-        
-        <!-- from sharks maybe include this??? being more precise doesn't affect e2e tests
         <version>3.2.3</version>
+
+        <!-- from sharks maybe include this??? being more precise doesn't affect e2e tests
+        <version>3.2</version> old
         -->
         <!-- uncomment this to generate an executable jar - but packaging a .war in a Docker image is faster
         <executions>
