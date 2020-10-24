@@ -35,7 +35,6 @@ public class Person implements IEntity<Person, PersonId> {
             build();
     }
 
-    // FIXME : Jamais utilisé? A virer?
     public static class PersonBuilder {
         public PersonBuilder clearTextPassword(String clearTextPassword) {
 
@@ -43,6 +42,7 @@ public class Person implements IEntity<Person, PersonId> {
                 throw new java.lang.IllegalArgumentException("Password is mandatory");
             }
 
+            // TODO : Hash password before storing in DB
             encryptedPassword = clearTextPassword.toUpperCase();
             return this;
         }

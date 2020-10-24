@@ -62,10 +62,11 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
             preparedStatement.setString(2, answer.getContent());
             preparedStatement.setString(3, answer.getQuestionUUID().asString());
             preparedStatement.setString(4, answer.getAuthorUUID().asString());
-            // TODO : Utiliser un timeSTamp mais j'arrive pas à modifier ça...
+            // TODO : DATETIME - 2_Utilise un timestamp
             Date date = new Date(System.currentTimeMillis());
             preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
 
+            // TODO : DATETIME - 1_Ancienne version
             //preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
@@ -73,7 +74,7 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
         }
     }
 
-    // TODO : implement
+    // TODO : implement all below
     @Override
     public void remove(AnswerId uuid) {
 

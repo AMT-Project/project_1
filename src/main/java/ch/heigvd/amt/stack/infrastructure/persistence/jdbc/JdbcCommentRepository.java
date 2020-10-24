@@ -35,6 +35,7 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
                 preparedStatement.setString(2, comment.getQuestionUUID().asString());
                 preparedStatement.setString(3, comment.getAuthorUUID().asString());
                 preparedStatement.setString(4, comment.getContent());
+                // TODO : DATETIME - 2_Utilise un timestamp
                 Date date = new Date(System.currentTimeMillis());
                 preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
                 preparedStatement.executeUpdate();
@@ -46,6 +47,7 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
                 preparedStatement.setString(2, comment.getAnswerUUID().asString());
                 preparedStatement.setString(3, comment.getAuthorUUID().asString());
                 preparedStatement.setString(4, comment.getContent());
+                // TODO : DATETIME - 3_Affiche 2020-10-24T18:58:23 et pas bonne timezone
                 preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
                 preparedStatement.executeUpdate();
             }

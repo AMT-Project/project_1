@@ -53,7 +53,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public void save(Question question) throws SQLIntegrityConstraintViolationException {
-        //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "INSERT INTO Question (uuid, title, description, person_uuid, created_on)" +
@@ -62,7 +61,9 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             preparedStatement.setString(2, question.getTitle());
             preparedStatement.setString(3, question.getDescription());
             preparedStatement.setString(4, question.getAuthorUUID().asString());
+            // TODO : DATETIME - 4_Récupère le createdOn depuis le builder
             preparedStatement.setString(5, question.getCreatedOn().toString());
+            // TODO : DATETIME - 2_Utilise un timestamp
             //Date date = new Date(System.currentTimeMillis());
             //preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
             preparedStatement.executeUpdate();
@@ -73,7 +74,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public void remove(QuestionId uuid) {
-        //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "DELETE FROM Question * WHERE uuid=?");
@@ -86,7 +86,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public Optional<Question> findById(QuestionId uuid) {
-        //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "SELECT * FROM Question WHERE uuid=?");
@@ -108,7 +107,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public Collection<Question> findAll() {
-        //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "SELECT * FROM Question");

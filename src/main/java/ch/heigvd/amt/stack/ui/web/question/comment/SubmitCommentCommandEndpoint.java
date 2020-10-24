@@ -43,6 +43,7 @@ public class SubmitCommentCommandEndpoint extends HttpServlet {
             commentFacade.registerComment(command);
         }
 
+        // TODO : Redirect on question?uuid=xxx if possible
         response.sendRedirect(request.getContextPath() + "/questions");
     }
 }

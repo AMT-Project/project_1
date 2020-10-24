@@ -26,11 +26,10 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
 
     @Override
     public void save(Person person) {
-        // TODO : implement
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = dataSource.getConnection().prepareStatement(
-                    "INSERT INTO Person (uuid, username, email, firstname, lastname, password) " +
+                "INSERT INTO Person (uuid, username, email, firstname, lastname, password) " +
                     "VALUES (?,?,?,?,?,?)");
             preparedStatement.setString(1, person.getUuid().asString());
             preparedStatement.setString(2, person.getUsername());
@@ -39,30 +38,32 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             preparedStatement.setString(5, person.getLastName());
             preparedStatement.setString(6, person.getEncryptedPassword());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             e.printStackTrace();
-        };
+        }
+        ;
     }
 
     @Override
     public void remove(PersonId uuid) {
-        // TODO : implement
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = dataSource.getConnection().prepareStatement(
-                    "DELETE FROM Person WHERE uuid=?");
+                "DELETE FROM Person WHERE uuid=?");
             preparedStatement.setString(1, uuid.asString());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             e.printStackTrace();
-        };
+        }
+        ;
     }
 
     @Override
     public Optional<Person> findById(PersonId uuid) {
+        // TODO : verify implementation
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().
-                    prepareStatement("SELECT * FROM Person WHERE uuid=?");
+                prepareStatement("SELECT * FROM Person WHERE uuid=?");
             preparedStatement.setString(1, uuid.asString());
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -93,28 +94,27 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
 
     @Override
     public Collection<Person> findAll() {
-        // TODO : implement
+        // TODO : verify implementation
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().
-                    prepareStatement("SELECT * FROM Person");
-            System.out.println(preparedStatement.toString());
+                prepareStatement("SELECT * FROM Person");
             ResultSet rs = preparedStatement.executeQuery();
 
             LinkedList<Person> persons = new LinkedList<>();
             while(rs.next()) {
                 Person person = Person.builder()
-                        .uuid(new PersonId(rs.getString("uuid")))
-                        .username(rs.getString("username"))
-                        .firstName(rs.getString("firstname"))
-                        .lastName(rs.getString("lastname"))
-                        .email(rs.getString("email"))
-                        .encryptedPassword(rs.getString("password"))
-                        .build();
+                    .uuid(new PersonId(rs.getString("uuid")))
+                    .username(rs.getString("username"))
+                    .firstName(rs.getString("firstname"))
+                    .lastName(rs.getString("lastname"))
+                    .email(rs.getString("email"))
+                    .encryptedPassword(rs.getString("password"))
+                    .build();
                 persons.add(person);
             }
 
             return persons;
-        } catch (SQLException throwables) {
+        } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
@@ -135,25 +135,24 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
 
     @Override
     public Optional<Person> findByUsername(String username) {
-        // TODO : implement
+        // TODO : verify implementation
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().
-                    prepareStatement("SELECT * FROM Person WHERE username=?");
+                prepareStatement("SELECT * FROM Person WHERE username=?");
             preparedStatement.setString(1, username);
-            System.out.println(preparedStatement.toString());
             ResultSet rs = preparedStatement.executeQuery();
 
             LinkedList<Person> persons = new LinkedList<>();
 
             while(rs.next()) {
                 Person person = Person.builder()
-                        .uuid(new PersonId(rs.getString("uuid")))
-                        .username(rs.getString("username"))
-                        .firstName(rs.getString("firstname"))
-                        .lastName(rs.getString("lastname"))
-                        .email(rs.getString("email"))
-                        .encryptedPassword(rs.getString("password"))
-                        .build();
+                    .uuid(new PersonId(rs.getString("uuid")))
+                    .username(rs.getString("username"))
+                    .firstName(rs.getString("firstname"))
+                    .lastName(rs.getString("lastname"))
+                    .email(rs.getString("email"))
+                    .encryptedPassword(rs.getString("password"))
+                    .build();
                 persons.add(person);
             }
 

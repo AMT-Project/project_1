@@ -29,7 +29,6 @@
             <!-- FOREACH COMMENTAIRES -->
             <c:forEach var="comment" items="${question.comments.comments}">
                 <li class="question-details__comment">
-                    <!-- FIXME : BUG les temps sont actualisés au refresh de la page -->
                         ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
                 </li>
             </c:forEach>
@@ -56,7 +55,10 @@
         <!-- FOREACH REPONSES -->
         <!-- FOREACH COMMENTAIRES -->
         <!-- END FOREACH REPONSES -->
+        <!-- TODO : Hide answers and comments forms if user is not authentified -->
     </div>
 </div>
+
+
 
 <%@ include file="fragments/footer.jsp" %>
