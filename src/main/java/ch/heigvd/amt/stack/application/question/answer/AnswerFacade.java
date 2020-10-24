@@ -1,5 +1,6 @@
 package ch.heigvd.amt.stack.application.question.answer;
 
+import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
@@ -14,11 +15,13 @@ public class AnswerFacade {
     private IAnswerRepository answerRepository;
     private IQuestionRepository questionRepository;
     private IPersonRepository personRepository;
+    private CommentFacade commentFacade;
 
-    public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository, IPersonRepository personRepository) {
+    public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository, IPersonRepository personRepository, CommentFacade commentFacade) {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.personRepository = personRepository;
+        this.commentFacade = commentFacade;
     }
 
     public void registerAnswer(AnswerCommand command) {
@@ -41,11 +44,13 @@ public class AnswerFacade {
             Person author = personRepository.findById(answer.getAuthorUUID()).get();
 
             return AnswersDTO.AnswerDTO.builder()
+                .uuid(answer.getUuid())
                 .content(answer.getContent())
                 .questionUUID(answer.getQuestionUUID())
                 .authorUUID(author.getUuid())
                 .username(author.getUsername())
                 .createdOn(answer.getCreatedOn())
+                .comments(commentFacade.getAnswerComments(answer.getUuid()))
                 .build();
         })
             .collect(Collectors.toList());

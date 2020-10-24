@@ -26,7 +26,7 @@ input {
 
 h1 {
     font-family: Montserrat;
-    font-size: 60px;
+    font-size: 35px;
     color: #272c40;
     margin: 16px 0;
 }
@@ -120,9 +120,9 @@ p {
     padding: 8px;
 }
 
-.form-login, .form-register {
+.form-login, .form-register, .form-answer {
     width: 100%;
-    max-width: 330px;
+    max-width: 50%;
     padding: 15px;
     margin: auto;
     text-align: center;
@@ -193,6 +193,7 @@ p {
 }
 
 .questions-list__question__title {
+    font-family: Montserrat;
     text-transform: uppercase;
     font-weight: bold;
     border-bottom: 1px solid;
@@ -201,6 +202,7 @@ p {
 }
 
 .questions-list__question__description {
+    font-family: Roboto;
     padding-top: 8px;
 }
 
@@ -221,6 +223,7 @@ p {
     display: flex;
     flex-direction: row;
     background-color: #272c40;
+
 }
 
 .question-details__question--content {
@@ -264,15 +267,16 @@ p {
 
 .question-details__comment:nth-child(odd) {
     background-color: #1d49bf;
+    box-shadow: inset 0 0 10px black;
 }
 
-.question__comment--form {
+.comment__form {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
 }
 
-.question__comment--textarea {
+.comment__textarea {
     vertical-align: middle;
     margin: 5px 10px 5px 0;
     padding: 10px;
@@ -281,24 +285,24 @@ p {
     flex: 3;
 }
 
-.question__comment--button {
+.comment__button {
     padding: 10px 20px;
     background-color: #091739;
-    border: 1px solid #1d49bf;
+    border: 5px solid #1d49bf;
     color: white;
     flex: 1;
     margin: 0;
 }
 
-.question__comment--button:hover {
+.comment__button:hover {
     background-color: #1d49bf;
-    border: 1px solid #091739;
+    border: 5px solid #091739;
 }
 
 /* Answers */
 .answers-list {
     margin: 36px 24px 0 24px;
-    padding: 0 24px;
+    padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -348,6 +352,7 @@ p {
 
 .answer__comment:nth-child(odd) {
     background-color: #1d49bf;
+    box-shadow: inset 0 0 10px black;
 }
 
 /* Statistics */

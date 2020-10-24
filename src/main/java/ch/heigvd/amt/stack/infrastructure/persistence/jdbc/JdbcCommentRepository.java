@@ -47,8 +47,9 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
                 preparedStatement.setString(2, comment.getAnswerUUID().asString());
                 preparedStatement.setString(3, comment.getAuthorUUID().asString());
                 preparedStatement.setString(4, comment.getContent());
-                // TODO : DATETIME - 3_Affiche 2020-10-24T18:58:23 et pas bonne timezone
-                preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
+                // TODO : DATETIME - 2_Utilise un timestamp
+                Date date = new Date(System.currentTimeMillis());
+                preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
                 preparedStatement.executeUpdate();
             }
         } catch(SQLException throwables) {
@@ -96,7 +97,7 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
         try {
             PreparedStatement preparedStatement;
             preparedStatement = dataSource.getConnection().prepareStatement(
-                "SELECT * FROM Comment WHERE question_uuid=?");
+                "SELECT * FROM Comment WHERE question_uuid=? ORDER BY created_on ASC");
             preparedStatement.setString(1, questionUUID.asString());
 
             rs = preparedStatement.executeQuery();
@@ -117,7 +118,7 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
         try {
             PreparedStatement preparedStatement;
             preparedStatement = dataSource.getConnection().prepareStatement(
-                "SELECT * FROM Comment WHERE answer_uuid=?");
+                "SELECT * FROM Comment WHERE answer_uuid=? ORDER BY created_on ASC");
             preparedStatement.setString(1, answerUUID.asString());
 
             rs = preparedStatement.executeQuery();

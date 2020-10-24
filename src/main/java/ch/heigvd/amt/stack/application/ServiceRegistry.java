@@ -42,7 +42,7 @@ public class ServiceRegistry {
     }
 
     public AnswerFacade getAnswerFacade() {
-        return new AnswerFacade(answerRepository, questionRepository, personRepository);
+        return new AnswerFacade(answerRepository, questionRepository, personRepository, getCommentFacade());
     }
 
     public CommentFacade getCommentFacade() {

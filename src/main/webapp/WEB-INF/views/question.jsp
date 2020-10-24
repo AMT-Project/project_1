@@ -26,27 +26,30 @@
             </div>
         </div>
 
-        <!-- QUESTION COMMENTS LIST-->
+        <!-- QUESTION COMMENTS LIST -->
         <ul class="question-details__comments-list">
             <c:forEach var="comment" items="${question.comments.comments}">
                 <li class="question-details__comment">
                         ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
                 </li>
             </c:forEach>
-            <!-- QUESTION FORM, ADD COMMENT-->
+            <!-- QUESTION FORM, ADD COMMENT -->
             <li class="question-details__comment">
-                <form class="form-inline question__comment--form" action="${pageContext.request.contextPath}/submitComment.do" method="POST">
+                <form class="form-inline comment__form" action="${pageContext.request.contextPath}/submitComment.do"
+                      method="POST">
                     <input name="questionUUID" type="hidden" value=${question.uuid.asString()}>
-                    <textarea class="form-control question__comment--textarea" type="text" placeholder="Add a comment" name="content" required></textarea>
-                    <input class="form-btn question__comment--button" type="submit" value="Submit">
+                    <textarea class="form-control comment__textarea" type="text" placeholder="Write a comment"
+                              name="content" required></textarea>
+                    <input class="form-btn comment__button" type="submit" value="Submit">
                 </form>
             </li>
         </ul>
     </div>
 
-    <!-- ANSWERS LIST-->
+    <!-- ANSWERS LIST -->
     <ul class="answers-list">
         <c:forEach var="answer" items="${question.answers.answers}">
+            <!-- ANSWER -->
             <li class="answers-list__list-element">
                 <div class="answers-list__answer--row">
                     <div class="answer__votes">
@@ -65,24 +68,35 @@
                 </div>
 
                 <ul class="answer__comments-list">
-                    <!-- FOREACH COMMENTAIRES -->
-                    <c:forEach var="comment" items="${question.comments.comments}">
+                    <!-- ANSWER COMMENTS LIST -->
+                    <c:forEach var="comment" items="${answer.comments.comments}">
                         <li class="answer__comment">
                                 ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
                         </li>
                     </c:forEach>
+                    <!-- ANSWER FORM, ADD COMMENT -->
+                    <li class="answer__comment">
+                        <form class="form-inline comment__form"
+                              action="${pageContext.request.contextPath}/submitComment.do" method="POST">
+                            <input name="answerUUID" type="hidden" value=${answer.uuid.asString()}>
+                            <textarea class="form-control comment__textarea" type="text" placeholder="Write a comment"
+                                      name="content" required></textarea>
+                            <input class="form-btn comment__button" type="submit" value="Submit">
+                        </form>
+                    </li>
                 </ul>
             </li>
         </c:forEach>
     </ul>
 
-    <form class="form-register" action="${pageContext.request.contextPath}/submitAnswer.do" method="POST">
-        <input id="questionUUID1" name="questionUUID" type="hidden" value=${question.uuid.asString()}>
-        <p>Your Answer</p>
-        <textarea class="form-control" type="text" placeholder="content" name="content" required></textarea>
+    <form class="form-answer" action="${pageContext.request.contextPath}/submitAnswer.do" method="POST">
+        <input name="questionUUID" type="hidden" value=${question.uuid.asString()}>
+        <p>Reply with an answer</p>
+        <textarea class="form-control" type="text" placeholder="Write your answer" name="content" required></textarea>
         <input class="form-btn" type="submit" value="Submit">
     </form>
     <!-- TODO : Hide answers and comments forms if user is not authentified -->
+    <!-- TODO : Nice to have, factorize forms in fragment -->
 </div>
 
 <%@ include file="fragments/footer.jsp" %>

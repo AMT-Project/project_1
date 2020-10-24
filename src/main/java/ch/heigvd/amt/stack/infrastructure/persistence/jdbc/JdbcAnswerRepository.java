@@ -32,11 +32,11 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
             ResultSet rs;
             if(query.getAuthorUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Answer WHERE person_uuid=?");
+                    "SELECT * FROM Answer WHERE person_uuid=? ORDER BY created_on ASC");
                 preparedStatement.setString(1, query.getAuthorUUID().asString());
             } else if(query.getQuestionUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Answer WHERE question_uuid=?");
+                    "SELECT * FROM Answer WHERE question_uuid=? ORDER BY created_on ASC");
                 preparedStatement.setString(1, query.getQuestionUUID().asString());
             }
             if(preparedStatement != null) {
