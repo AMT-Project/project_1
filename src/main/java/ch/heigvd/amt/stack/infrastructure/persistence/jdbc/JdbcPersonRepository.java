@@ -26,7 +26,6 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
 
     @Override
     public void save(Person person) {
-        // TODO : implement
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = dataSource.getConnection().prepareStatement(
@@ -46,7 +45,6 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
 
     @Override
     public void remove(PersonId id) {
-        // TODO : implement
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = dataSource.getConnection().prepareStatement(
@@ -93,7 +91,6 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
 
     @Override
     public Collection<Person> findAll() {
-        // TODO : implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().
                     prepareStatement("SELECT * FROM Person");
@@ -135,7 +132,6 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
 
     @Override
     public Optional<Person> findByUsername(String username) {
-        // TODO : implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().
                     prepareStatement("SELECT * FROM Person WHERE username=?");

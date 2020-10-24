@@ -1,5 +1,6 @@
 package ch.heigvd.amt.stack.application.identitymgmt;
 
+import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
-
 
 class IdentityManagementFacadeTest {
 
@@ -23,8 +23,8 @@ class IdentityManagementFacadeTest {
     @Test
     void registerThrowsExceptionWhenDuplicateUserWithSameUsername() {
         try(SeContainer container = initializer.initialize()){
-            IdentityManagementFacade identityManagementFacade =
-                    container.select(IdentityManagementFacade.class).get();
+            ServiceRegistry serviceRegistry =
+                    container.select(ServiceRegistry.class).get();
             RegisterCommand registerCommand = RegisterCommand.builder()
                     .uuid(new PersonId())
                     .username("Toto")
@@ -41,6 +41,9 @@ class IdentityManagementFacadeTest {
                     .email("marcel2.dupont2@example.com")
                     .clearTextPassword("pwd2")
                     .build();
+            IdentityManagementFacade identityManagementFacade = serviceRegistry
+                    .getIdentityManagementFacade();
+            // FIXME datasource is null in the personRepository of the facade
             identityManagementFacade.register(registerCommand);
             Assertions.assertThrows(RegistrationFailedException.class, () -> {
                 identityManagementFacade.register(registerCommandDuplicate);

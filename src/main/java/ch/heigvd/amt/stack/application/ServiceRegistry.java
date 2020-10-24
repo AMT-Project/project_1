@@ -9,11 +9,12 @@ import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import ch.heigvd.amt.stack.domain.question.comment.ICommentRepository;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@ApplicationScoped
+@ApplicationScoped @Resource(lookup = "jdbc/StackDS")
 public class ServiceRegistry {
 
     @Inject @Named("JdbcPersonRepository")
