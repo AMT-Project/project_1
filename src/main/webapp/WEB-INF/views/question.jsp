@@ -33,16 +33,27 @@
                         ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
                 </li>
             </c:forEach>
+
             <!-- QUESTION FORM, ADD COMMENT -->
+
             <li class="question-details__comment">
-                <form class="form-inline comment__form" action="${pageContext.request.contextPath}/submitComment.do"
-                      method="POST">
-                    <input name="questionUUID" type="hidden" value=${question.uuid.asString()}>
-                    <textarea class="form-control comment__textarea" type="text" placeholder="Write a comment"
-                              name="content" required></textarea>
-                    <input class="form-btn comment__button" type="submit" value="Submit">
-                </form>
+                <c:choose>
+                    <c:when test="${currentUser != null}">
+                        <form class="form-inline comment__form"
+                              action="${pageContext.request.contextPath}/submitComment.do"
+                              method="POST">
+                            <input name="questionUUID" type="hidden" value=${question.uuid.asString()}>
+                            <textarea class="form-control comment__textarea" type="text" placeholder="Write a comment"
+                                      name="content" required></textarea>
+                            <input class="form-btn comment__button" type="submit" value="Submit">
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="comment-forms--not-logged-in">You must be logged in to be able to comment a question</p>
+                    </c:otherwise>
+                </c:choose>
             </li>
+
         </ul>
     </div>
 
@@ -76,26 +87,42 @@
                     </c:forEach>
                     <!-- ANSWER FORM, ADD COMMENT -->
                     <li class="answer__comment">
-                        <form class="form-inline comment__form"
-                              action="${pageContext.request.contextPath}/submitComment.do" method="POST">
-                            <input name="answerUUID" type="hidden" value=${answer.uuid.asString()}>
-                            <textarea class="form-control comment__textarea" type="text" placeholder="Write a comment"
-                                      name="content" required></textarea>
-                            <input class="form-btn comment__button" type="submit" value="Submit">
-                        </form>
+                        <c:choose>
+                            <c:when test="${currentUser != null}">
+                                <form class="form-inline comment__form"
+                                      action="${pageContext.request.contextPath}/submitComment.do" method="POST">
+                                    <input name="answerUUID" type="hidden" value=${answer.uuid.asString()}>
+                                    <textarea class="form-control comment__textarea" type="text"
+                                              placeholder="Write a comment"
+                                              name="content" required></textarea>
+                                    <input class="form-btn comment__button" type="submit" value="Submit">
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="comment-forms--not-logged-in">You must be logged in to be able to comment an answer</p>
+                            </c:otherwise>
+                        </c:choose>
                     </li>
                 </ul>
             </li>
         </c:forEach>
     </ul>
 
-    <form class="form-answer" action="${pageContext.request.contextPath}/submitAnswer.do" method="POST">
-        <input name="questionUUID" type="hidden" value=${question.uuid.asString()}>
-        <p>Reply with an answer</p>
-        <textarea class="form-control" type="text" placeholder="Write your answer" name="content" required></textarea>
-        <input class="form-btn" type="submit" value="Submit">
-    </form>
-    <!-- TODO : Hide answers and comments forms if user is not authentified -->
+    <!-- ANSWER FORM, ADD REPLY -->
+    <c:choose>
+        <c:when test="${currentUser != null}">
+            <form class="form-answer" action="${pageContext.request.contextPath}/submitAnswer.do" method="POST">
+                <input name="questionUUID" type="hidden" value=${question.uuid.asString()}>
+                <p>Reply with an answer</p>
+                <textarea class="form-control" type="text" placeholder="Write your answer" name="content"
+                          required></textarea>
+                <input class="form-btn" type="submit" value="Submit">
+            </form>
+        </c:when>
+        <c:otherwise>
+            <p class="answer-forms--not-logged-in">You must be logged in to be able to reply to this question</p>
+        </c:otherwise>
+    </c:choose>
     <!-- TODO : Nice to have, factorize forms in fragment -->
 </div>
 
