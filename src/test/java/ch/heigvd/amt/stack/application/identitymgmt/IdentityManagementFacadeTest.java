@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
+import javax.inject.Inject;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 class IdentityManagementFacadeTest {
 
@@ -23,8 +26,8 @@ class IdentityManagementFacadeTest {
     @Test
     void registerThrowsExceptionWhenDuplicateUserWithSameUsername() {
         try(SeContainer container = initializer.initialize()){
-            ServiceRegistry serviceRegistry =
-                    container.select(ServiceRegistry.class).get();
+            ServiceRegistry serviceRegistry = (ServiceRegistry)
+                    new InitialContext().lookup("ServiceRegistry");
             RegisterCommand registerCommand = RegisterCommand.builder()
                     .uuid(new PersonId())
                     .username("Toto")
@@ -48,7 +51,7 @@ class IdentityManagementFacadeTest {
             Assertions.assertThrows(RegistrationFailedException.class, () -> {
                 identityManagementFacade.register(registerCommandDuplicate);
             });
-        } catch (RegistrationFailedException e) {
+        } catch (RegistrationFailedException | NamingException e) {
             e.printStackTrace();
         }
     }

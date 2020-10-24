@@ -14,7 +14,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@ApplicationScoped @Resource(lookup = "jdbc/StackDS")
+// note: @Resource(lookup = "jdbc/StackDS") works too with e2e tests
+@ApplicationScoped
 public class ServiceRegistry {
 
     @Inject @Named("JdbcPersonRepository")
