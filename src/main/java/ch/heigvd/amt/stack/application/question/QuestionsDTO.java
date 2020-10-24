@@ -22,10 +22,10 @@ public class QuestionsDTO {
     @EqualsAndHashCode
     public static class QuestionDTO {
         private QuestionId uuid;
-        private PersonId authorUUID;
-        private String username;
         private String title;
         private String description;
+        private PersonId authorUUID;
+        private String username;
         private LocalDateTime createdOn;
 
         private CommentsDTO comments;

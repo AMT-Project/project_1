@@ -18,38 +18,38 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 
 public class Comment implements IEntity<Comment, CommentId> {
-    private CommentId id;
+    private CommentId uuid = new CommentId();
     private String content;
-    private PersonId personUUID;
+    private PersonId authorUUID;
     private QuestionId questionUUID;
     private AnswerId answerUUID;
     private LocalDateTime createdOn;
 
     @Override
-    public CommentId getId() {
-        return this.id;
+    public CommentId getUuid() {
+        return this.uuid;
     }
 
     @Override
     public Comment deepClone() {
-        return this.toBuilder().id(new CommentId(id.asString())).build();
+        return this.toBuilder().uuid(new CommentId(uuid.asString())).build();
     }
 
     public static class CommentBuilder {
         public Comment build() {
-            if(id == null) {
-                id = new CommentId();
+            if(uuid == null) {
+               uuid = new CommentId();
             }
             if(content == null || content.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Content is mandatory");
             }
-            if(personUUID == null) {
+            if(authorUUID == null) {
                 throw new java.lang.IllegalArgumentException("PersonUUID is mandatory");
             }
             if(createdOn == null) {
                 createdOn = LocalDateTime.now();
             }
-            return new Comment(id, content, personUUID, questionUUID, answerUUID, createdOn);
+            return new Comment(uuid, content, authorUUID, questionUUID, answerUUID, createdOn);
         }
     }
 }

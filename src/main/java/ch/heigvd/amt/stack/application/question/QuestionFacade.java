@@ -28,9 +28,9 @@ public class QuestionFacade {
     public void registerQuestion(SubmitQuestionCommand command) {
         try {
             Question submittedQuestion = Question.builder()
-                .authorUUID(command.getAuthorUUID())
                 .title(command.getTitle())
                 .description(command.getText())
+                .authorUUID(command.getAuthorUUID())
                 .build();
             questionRepository.save(submittedQuestion);
         } catch(Exception e) {
@@ -45,11 +45,11 @@ public class QuestionFacade {
             Person author = personRepository.findById(question.getAuthorUUID()).get();
 
             return QuestionsDTO.QuestionDTO.builder()
-                .uuid(question.getId())
-                .authorUUID(author.getId())
-                .username(author.getUsername())
+                .uuid(question.getUuid())
                 .title(question.getTitle())
                 .description(question.getDescription())
+                .authorUUID(author.getUuid())
+                .username(author.getUsername())
                 .createdOn(question.getCreatedOn())
                 .build();
         })
@@ -65,13 +65,13 @@ public class QuestionFacade {
         Person author = personRepository.findById(question.getAuthorUUID()).get();
 
         return QuestionsDTO.QuestionDTO.builder()
-            .uuid(question.getId())
-            .authorUUID(author.getId())
-            .username(author.getUsername())
+            .uuid(question.getUuid())
             .title(question.getTitle())
             .description(question.getDescription())
+            .authorUUID(author.getUuid())
+            .username(author.getUsername())
             .createdOn(question.getCreatedOn())
-            .comments(commentFacade.getQuestionComments(question.getId()))
+            .comments(commentFacade.getQuestionComments(question.getUuid()))
             .answers(answerFacade.getAnswers(AnswersQuery.builder()
                 .questionUUID(query.getUuid())
                 .build()))

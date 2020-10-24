@@ -24,9 +24,9 @@ public class AnswerFacade {
     public void registerAnswer(AnswerCommand command) {
         try {
             Answer answer = Answer.builder()
-                .personUUID(command.getAuthorUUID())
-                .questionUUID(command.getQuestionUUID())
                 .content(command.getContent())
+                .questionUUID(command.getQuestionUUID())
+                .authorUUID(command.getAuthorUUID())
                 .build();
             answerRepository.save(answer);
         } catch(Exception e) {
@@ -38,14 +38,14 @@ public class AnswerFacade {
         Collection<Answer> allAnswers = answerRepository.find(query);
 
         List<AnswersDTO.AnswerDTO> allAnswersDTO = allAnswers.stream().map(answer -> {
-            Person author = personRepository.findById(answer.getPersonUUID()).get();
+            Person author = personRepository.findById(answer.getAuthorUUID()).get();
 
             return AnswersDTO.AnswerDTO.builder()
-                .authorUUID(author.getId())
-                .questionId(answer.getQuestionUUID())
                 .content(answer.getContent())
-                .createdOn(answer.getCreatedOn())
+                .questionUUID(answer.getQuestionUUID())
+                .authorUUID(author.getUuid())
                 .username(author.getUsername())
+                .createdOn(answer.getCreatedOn())
                 .build();
         })
             .collect(Collectors.toList());

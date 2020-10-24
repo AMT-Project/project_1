@@ -24,10 +24,10 @@ public class CommentsDTO {
         private CommentId uuid;
         private PersonId authorUUID;
         private String username;
-        private QuestionId questionId;
-        private AnswerId answerId;
-        private String content;
+        private QuestionId questionUUID;
+        private AnswerId answerUUID;
         private LocalDateTime createdOn;
+        private String content;
     }
 
     @Singular

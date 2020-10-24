@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -57,7 +58,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "INSERT INTO Question (uuid, title, description, person_uuid, created_on)" +
                     "VALUES (?,?,?,?,?)");
-            preparedStatement.setString(1, question.getId().asString());
+            preparedStatement.setString(1, question.getUuid().asString());
             preparedStatement.setString(2, question.getTitle());
             preparedStatement.setString(3, question.getDescription());
             preparedStatement.setString(4, question.getAuthorUUID().asString());
@@ -71,12 +72,12 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     }
 
     @Override
-    public void remove(QuestionId id) {
+    public void remove(QuestionId uuid) {
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "DELETE FROM Question * WHERE uuid=?");
-            preparedStatement.setString(1, id.asString());
+            preparedStatement.setString(1, uuid.asString());
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
@@ -84,12 +85,12 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     }
 
     @Override
-    public Optional<Question> findById(QuestionId id) {
+    public Optional<Question> findById(QuestionId uuid) {
         //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "SELECT * FROM Question WHERE uuid=?");
-            preparedStatement.setString(1, id.asString());
+            preparedStatement.setString(1, uuid.asString());
             ResultSet rs = preparedStatement.executeQuery();
 
             Collection<Question> questions = getQuestions(rs);
@@ -138,10 +139,11 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
         while(rs.next()) {
             Question question = Question.builder()
-                .id(new QuestionId(rs.getString("uuid")))
+                .uuid(new QuestionId(rs.getString("uuid")))
                 .title(rs.getString("title"))
                 .description(rs.getString("description"))
                 .authorUUID(new PersonId(rs.getString("person_uuid")))
+                .createdOn(LocalDateTime.parse(rs.getString("created_on"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
             questions.add(question);
         }

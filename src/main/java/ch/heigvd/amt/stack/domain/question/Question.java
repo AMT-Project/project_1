@@ -16,23 +16,23 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 
 public class Question implements IEntity<Question, QuestionId> {
-    private QuestionId id = new QuestionId();
-    private PersonId authorUUID;
+    private QuestionId uuid = new QuestionId();
     private String title;
     private String description;
+    private PersonId authorUUID;
     private LocalDateTime createdOn;
 
     @Override
     public Question deepClone() {
         return this.toBuilder()
-            .id(new QuestionId(id.asString()))
+            .uuid(new QuestionId(uuid.asString()))
             .build();
     }
 
     public static class QuestionBuilder {
         public Question build() {
-            if(id == null) {
-                id = new QuestionId();
+            if(uuid == null) {
+                uuid = new QuestionId();
             }
             if(authorUUID == null) {
                 throw new IllegalArgumentException("Author is mandatory");
@@ -46,7 +46,7 @@ public class Question implements IEntity<Question, QuestionId> {
             if(createdOn == null) {
                 createdOn = LocalDateTime.now();
             }
-            return new Question(id, authorUUID, title, description, createdOn);
+            return new Question(uuid, title, description, authorUUID, createdOn);
         }
     }
 }

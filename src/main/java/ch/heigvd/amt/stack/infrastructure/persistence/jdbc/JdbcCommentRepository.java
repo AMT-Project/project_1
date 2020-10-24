@@ -1,11 +1,7 @@
 package ch.heigvd.amt.stack.infrastructure.persistence.jdbc;
 
-import ch.heigvd.amt.stack.application.question.comment.CommentsQuery;
-import ch.heigvd.amt.stack.application.question.comment.GetCommentQuery;
 import ch.heigvd.amt.stack.domain.person.PersonId;
-import ch.heigvd.amt.stack.domain.question.Question;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
-import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 import ch.heigvd.amt.stack.domain.question.comment.Comment;
 import ch.heigvd.amt.stack.domain.question.comment.CommentId;
@@ -35,9 +31,9 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
                 PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                     "INSERT INTO Comment (uuid, question_uuid, person_uuid, content, created_on)" +
                         "VALUES (?,?,?,?,?)");
-                preparedStatement.setString(1, comment.getId().asString());
+                preparedStatement.setString(1, comment.getUuid().asString());
                 preparedStatement.setString(2, comment.getQuestionUUID().asString());
-                preparedStatement.setString(3, comment.getPersonUUID().asString());
+                preparedStatement.setString(3, comment.getAuthorUUID().asString());
                 preparedStatement.setString(4, comment.getContent());
                 Date date = new Date(System.currentTimeMillis());
                 preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
@@ -46,9 +42,9 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
                 PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                     "INSERT INTO Comment (uuid, answer_uuid, person_uuid, content, created_on)" +
                         "VALUES (?,?,?,?,?)");
-                preparedStatement.setString(1, comment.getId().asString());
+                preparedStatement.setString(1, comment.getUuid().asString());
                 preparedStatement.setString(2, comment.getAnswerUUID().asString());
-                preparedStatement.setString(3, comment.getPersonUUID().asString());
+                preparedStatement.setString(3, comment.getAuthorUUID().asString());
                 preparedStatement.setString(4, comment.getContent());
                 preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
                 preparedStatement.executeUpdate();
@@ -60,12 +56,12 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
 
     // TODO : implement
     @Override
-    public void remove(CommentId id) {
+    public void remove(CommentId uuid) {
 
     }
 
     @Override
-    public Optional<Comment> findById(CommentId id) {
+    public Optional<Comment> findById(CommentId uuid) {
         return Optional.empty();
     }
 
@@ -81,8 +77,8 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
 
     private Comment commentBuilder(ResultSet res, QuestionId qid, AnswerId aid) throws SQLException {
         return Comment.builder()
-            .id(new CommentId(res.getString("uuid")))
-            .personUUID(new PersonId(res.getString("person_uuid")))
+            .uuid(new CommentId(res.getString("uuid")))
+            .authorUUID(new PersonId(res.getString("person_uuid")))
             .content(res.getString("content"))
             .questionUUID(qid)
             .answerUUID(aid)

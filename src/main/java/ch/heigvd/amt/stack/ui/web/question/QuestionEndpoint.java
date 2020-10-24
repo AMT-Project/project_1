@@ -31,11 +31,10 @@ public class QuestionEndpoint extends HttpServlet {
 
         request.getSession().removeAttribute("errors");
 
-        QuestionId questionId = new QuestionId(request.getParameter("uuid"));
-        CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
+        QuestionId questionUUID = new QuestionId(request.getParameter("uuid"));
 
         QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(GetQuestionQuery.builder()
-            .uuid(questionId)
+            .uuid(questionUUID)
             .build());
         request.setAttribute("question", questionDTO);
 

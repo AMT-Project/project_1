@@ -235,6 +235,7 @@ p {
     font-weight: bold;
     font-size: 20px;
     text-transform: uppercase;
+    border-bottom: 1px solid;
 }
 
 .question-details__question__description {

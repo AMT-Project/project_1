@@ -3,14 +3,12 @@ package ch.heigvd.amt.stack.application.question.comment;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
-import ch.heigvd.amt.stack.domain.question.Question;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.question.comment.Comment;
 import ch.heigvd.amt.stack.domain.question.comment.ICommentRepository;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,14 +30,14 @@ public class CommentFacade {
         try {
             if(command.getQuestionUUID() != null) {
                 Comment comment = Comment.builder()
-                    .personUUID(command.getAuthorUUID())
+                    .authorUUID(command.getAuthorUUID())
                     .questionUUID(command.getQuestionUUID())
                     .content(command.getContent())
                     .build();
                 commentRepository.save(comment);
             } else if(command.getAnswerUUID() != null) {
                 Comment comment = Comment.builder()
-                    .personUUID(command.getAuthorUUID())
+                    .authorUUID(command.getAuthorUUID())
                     .answerUUID(command.getAnswerUUID())
                     .content(command.getContent())
                     .build();
@@ -66,11 +64,11 @@ public class CommentFacade {
     private List<CommentsDTO.CommentDTO> commentDTOListBuilder(Collection<Comment> comments) {
 
         return comments.stream().map(comment -> {
-                Person author = personRepository.findById(comment.getPersonUUID()).get();
+                Person author = personRepository.findById(comment.getAuthorUUID()).get();
 
                 return CommentsDTO.CommentDTO.builder()
-                    .uuid(comment.getId())
-                    .authorUUID(author.getId())
+                    .uuid(comment.getUuid())
+                    .authorUUID(author.getUuid())
                     .username(author.getUsername())
                     .content(comment.getContent())
                     .createdOn(comment.getCreatedOn())

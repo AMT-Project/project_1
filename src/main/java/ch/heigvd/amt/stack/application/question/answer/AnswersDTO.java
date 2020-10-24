@@ -2,6 +2,7 @@ package ch.heigvd.amt.stack.application.question.answer;
 
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
+import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,10 +20,10 @@ public class AnswersDTO {
     @Getter
     @EqualsAndHashCode
     public static class AnswerDTO {
+        private String content;
+        private QuestionId questionUUID;
         private PersonId authorUUID;
         private String username;
-        private QuestionId questionId;
-        private String content;
         private LocalDateTime createdOn;
     }
 
