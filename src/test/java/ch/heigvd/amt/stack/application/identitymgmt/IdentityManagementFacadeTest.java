@@ -16,7 +16,6 @@ class IdentityManagementFacadeTest {
 
     @BeforeAll
     public static void setupCdi(){
-        //  FIXME java.lang.IllegalStateException: No valid CDI implementation found
         initializer = SeContainerInitializer.newInstance();
     }
 
