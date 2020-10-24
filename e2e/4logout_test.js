@@ -8,5 +8,5 @@ Scenario("Logout after a successful register", (I) => {
   I.register(uniqueUsername, "Codecept", "JS", uniqueEmail, "pwd");
   I.seeInTitle("Questions");
   I.click("Logout");
-  I.see("Login Account");
+  I.seeInTitle("Questions");
 });
