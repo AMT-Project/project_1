@@ -170,8 +170,8 @@ p {
 .questions-list__list-element {
     list-style: none;
     background-color: #272c40;
-    margin: 5%;
-    padding: 3%;
+    margin: 16px;
+    padding: 24px;
 
     color: white;
 }
@@ -210,6 +210,7 @@ p {
     padding-top: 16px;
     text-align: right;
     font-style: italic;
+    font-size: 14px;
 }
 
 /* Question details */
@@ -249,7 +250,7 @@ p {
 .question-details__question__author {
     text-align: right;
     font-style: italic;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .question-details__comments-list {

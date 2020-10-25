@@ -22,9 +22,27 @@ public class QuestionsListEndpoint extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
 
-        QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder().build());
+        // Default values
+        int currentPage = 1;
+        int recordsPerPage = 15;
 
+        if(request.getParameter("currentPage") != null)
+            currentPage = Integer.parseInt(request.getParameter("currentPage"));
+
+        QuestionsDTO questionsDTO = questionFacade.getQuestionsPagination(currentPage, recordsPerPage);
         request.setAttribute("questions", questionsDTO);
+
+        // Count rows in DB and calculate the nb of pages to display
+        int rows = questionFacade.countQuestions();
+        int noOfPages = rows / (recordsPerPage + 1);
+
+        if(noOfPages % recordsPerPage > 0) {
+            noOfPages++;
+        }
+
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("recordsPerPage", recordsPerPage);
         request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
     }
 }

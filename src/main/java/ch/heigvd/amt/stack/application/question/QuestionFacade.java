@@ -38,6 +38,28 @@ public class QuestionFacade {
         }
     }
 
+    public QuestionsDTO getQuestionsPagination(int currentPage, int recordsPerPage) {
+        Collection<Question> allQuestions = questionRepository.getQuestionsPagination(currentPage, recordsPerPage);
+
+        List<QuestionsDTO.QuestionDTO> allQuestionsDTO = allQuestions.stream().map(question -> {
+            Person author = personRepository.findById(question.getAuthorUUID()).get();
+
+            return QuestionsDTO.QuestionDTO.builder()
+                .uuid(question.getUuid())
+                .title(question.getTitle())
+                .description(question.getDescription())
+                .authorUUID(author.getUuid())
+                .username(author.getUsername())
+                .createdOn(question.getCreatedOn())
+                .build();
+        })
+            .collect(Collectors.toList());
+
+        return QuestionsDTO.builder()
+            .questions(allQuestionsDTO)
+            .build();
+    }
+
     public QuestionsDTO getQuestions(QuestionsQuery query) {
         Collection<Question> allQuestions = questionRepository.find(query);
 

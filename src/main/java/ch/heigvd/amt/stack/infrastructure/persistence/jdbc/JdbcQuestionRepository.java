@@ -35,12 +35,33 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             PreparedStatement preparedStatement;
             if(query.getAuthorUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question WHERE person_uuid=?");
+                    "SELECT * FROM Question WHERE person_uuid=? ORDER BY created_on ASC");
                 preparedStatement.setString(1, query.getAuthorUUID().asString());
             } else {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question");
+                    "SELECT * FROM Question ORDER BY created_on ASC");
             }
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return getQuestions(rs);
+
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Collection<Question> getQuestionsPagination(int currentPage, int recordsPerPage) {
+        try {
+            int start = currentPage * recordsPerPage - recordsPerPage;
+
+            PreparedStatement preparedStatement;
+            preparedStatement = dataSource.getConnection().prepareStatement(
+                "SELECT * FROM Question ORDER BY created_on ASC LIMIT ?, ?");
+            preparedStatement.setInt(1, start);
+            preparedStatement.setInt(2, recordsPerPage);
+
             ResultSet rs = preparedStatement.executeQuery();
 
             return getQuestions(rs);
