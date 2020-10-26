@@ -8,11 +8,23 @@
     <!-- QUESTION -->
     <div class="question-details__question">
         <div class="question-details__question--row">
-            <div class="question-details__votes">
-                <button>+</button>
-                <div class="question-details__vote-count">0<!-- Nombre de votes--></div>
-                <button>-</button>
-            </div>
+            <!-- TODO : VOTES -->
+            <!-- TODO : Nice to have - Mettre dans un fragment -->
+
+            ${question.uuid.asString()}
+
+            <form action="vote.do" method="post">
+                <input name="voteType" type="hidden" value="up"/>
+                <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                <button name="upvoteBtn" type="submit">+</button>
+            </form>
+            <div class="question-details__vote-count">${question.votes.count}</div>
+            <form action="vote.do" method="post">
+                <input name="voteType" type="hidden" value="down"/>
+                <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                <button name="upvoteBtn" type="submit">-</button>
+            </form>
+
             <div class="question-details__question--content">
                 <div class="question-details__question__title">
                     ${question.title}
@@ -49,7 +61,8 @@
                         </form>
                     </c:when>
                     <c:otherwise>
-                        <p class="comment-forms--not-logged-in">You must be logged in to be able to comment a question</p>
+                        <p class="comment-forms--not-logged-in">You must be logged in to be able to comment a
+                            question</p>
                     </c:otherwise>
                 </c:choose>
             </li>
@@ -99,7 +112,8 @@
                                 </form>
                             </c:when>
                             <c:otherwise>
-                                <p class="comment-forms--not-logged-in">You must be logged in to be able to comment an answer</p>
+                                <p class="comment-forms--not-logged-in">You must be logged in to be able to comment an
+                                    answer</p>
                             </c:otherwise>
                         </c:choose>
                     </li>

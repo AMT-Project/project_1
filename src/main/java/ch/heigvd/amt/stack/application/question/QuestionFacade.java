@@ -3,6 +3,8 @@ package ch.heigvd.amt.stack.application.question;
 import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
 import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
+import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
+import ch.heigvd.amt.stack.application.question.vote.VotesQuery;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
@@ -17,12 +19,14 @@ public class QuestionFacade {
     private IPersonRepository personRepository;
     private CommentFacade commentFacade;
     private AnswerFacade answerFacade;
+    private VoteFacade voteFacade;
 
-    public QuestionFacade(IQuestionRepository questionRepository, IPersonRepository personRepository, CommentFacade commentFacade, AnswerFacade answerFacade) {
+    public QuestionFacade(IQuestionRepository questionRepository, IPersonRepository personRepository, CommentFacade commentFacade, AnswerFacade answerFacade, VoteFacade voteFacade) {
         this.questionRepository = questionRepository;
         this.personRepository = personRepository;
         this.commentFacade = commentFacade;
         this.answerFacade = answerFacade;
+        this.voteFacade = voteFacade;
     }
 
     public void registerQuestion(SubmitQuestionCommand command) {
@@ -95,6 +99,9 @@ public class QuestionFacade {
             .createdOn(question.getCreatedOn())
             .comments(commentFacade.getQuestionComments(question.getUuid()))
             .answers(answerFacade.getAnswers(AnswersQuery.builder()
+                .questionUUID(query.getUuid())
+                .build()))
+            .votes(voteFacade.getVotes(VotesQuery.builder()
                 .questionUUID(query.getUuid())
                 .build()))
             .build();

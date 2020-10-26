@@ -2,6 +2,7 @@ package ch.heigvd.amt.stack.application.question;
 
 import ch.heigvd.amt.stack.application.question.answer.AnswersDTO;
 import ch.heigvd.amt.stack.application.question.comment.CommentsDTO;
+import ch.heigvd.amt.stack.application.question.vote.VotesDTO;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import lombok.Builder;
@@ -9,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,6 +30,7 @@ public class QuestionsDTO {
 
         private CommentsDTO comments;
         private AnswersDTO answers;
+        private VotesDTO votes;
     }
 
     @Singular

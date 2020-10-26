@@ -87,9 +87,9 @@ CREATE TABLE IF NOT EXISTS `AMT-db`.`Vote`
 (
     `uuid`          VARCHAR(255) NOT NULL,
     `is_upvote`     TINYINT      NOT NULL,
-    `answer_uuid`   VARCHAR(255) NOT NULL,
+    `answer_uuid`   VARCHAR(255),
     `question_uuid` VARCHAR(255),
-    `person_uuid`   VARCHAR(255),
+    `person_uuid`   VARCHAR(255) NOT NULL,
     PRIMARY KEY (`uuid`),
     INDEX `fk_Vote_Answer1_idx` (`answer_uuid` ASC) VISIBLE,
     INDEX `fk_Vote_Question1_idx` (`question_uuid` ASC) VISIBLE,

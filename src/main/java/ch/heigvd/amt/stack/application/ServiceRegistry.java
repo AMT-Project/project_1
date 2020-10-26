@@ -4,10 +4,12 @@ import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
 import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
+import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
 import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import ch.heigvd.amt.stack.domain.question.comment.ICommentRepository;
+import ch.heigvd.amt.stack.domain.question.vote.IVoteRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -32,13 +34,17 @@ public class ServiceRegistry {
     @Named("JdbcCommentRepository")
     ICommentRepository commentRepository;
 
+    @Inject
+    @Named("JdbcVoteRepository")
+    IVoteRepository voteRepository;
+
 
     public IdentityManagementFacade getIdentityManagementFacade() {
         return new IdentityManagementFacade(personRepository);
     }
 
     public QuestionFacade getQuestionFacade() {
-        return new QuestionFacade(questionRepository, personRepository, getCommentFacade(), getAnswerFacade());
+        return new QuestionFacade(questionRepository, personRepository, getCommentFacade(), getAnswerFacade(), getVoteFacade());
     }
 
     public AnswerFacade getAnswerFacade() {
@@ -47,5 +53,9 @@ public class ServiceRegistry {
 
     public CommentFacade getCommentFacade() {
         return new CommentFacade(commentRepository, answerRepository, questionRepository, personRepository);
+    }
+
+    public VoteFacade getVoteFacade() {
+        return new VoteFacade(voteRepository);
     }
 }

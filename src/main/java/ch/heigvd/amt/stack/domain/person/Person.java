@@ -25,7 +25,7 @@ public class Person implements IEntity<Person, PersonId> {
     }
 
     public PersonId getUuid() {
-        return uuid;
+        return this.uuid;
     }
 
     @Override
