@@ -105,10 +105,11 @@
                                 <form class="form-inline comment__form"
                                       action="${pageContext.request.contextPath}/submitComment.do" method="POST">
                                     <input name="answerUUID" type="hidden" value=${answer.uuid.asString()}>
-                                    <textarea class="form-control comment__textarea" type="text"
+                                    <textarea id="commentAnswer" class="form-control comment__textarea" type="text"
                                               placeholder="Write a comment"
                                               name="content" required></textarea>
-                                    <input class="form-btn comment__button" type="submit" value="Submit">
+                                    <input id="submitCommentAnswer" class="form-btn comment__button" type="submit"
+                                           value="Submit">
                                 </form>
                             </c:when>
                             <c:otherwise>
