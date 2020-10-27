@@ -54,6 +54,8 @@ public class SubmitVoteCommandEndpoint extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        response.sendRedirect(request.getContextPath() + "/questions");
+
+
+        response.sendRedirect(request.getContextPath() + "/question?uuid=" + request.getParameter("redirectUuid"));
     }
 }

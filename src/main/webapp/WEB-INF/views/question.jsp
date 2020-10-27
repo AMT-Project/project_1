@@ -16,12 +16,14 @@
             <form action="vote.do" method="post">
                 <input name="voteType" type="hidden" value="up"/>
                 <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                 <button name="upvoteBtn" type="submit">+</button>
             </form>
             <div class="question-details__vote-count">${question.votes.count}</div>
             <form action="vote.do" method="post">
                 <input name="voteType" type="hidden" value="down"/>
                 <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                 <button name="upvoteBtn" type="submit">-</button>
             </form>
 
@@ -55,6 +57,7 @@
                               action="${pageContext.request.contextPath}/submitComment.do"
                               method="POST">
                             <input name="questionUUID" type="hidden" value=${question.uuid.asString()}>
+                            <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                             <textarea class="form-control comment__textarea" type="text" placeholder="Write a comment"
                                       name="content" required></textarea>
                             <input class="form-btn comment__button" type="submit" value="Submit">
@@ -105,6 +108,7 @@
                                 <form class="form-inline comment__form"
                                       action="${pageContext.request.contextPath}/submitComment.do" method="POST">
                                     <input name="answerUUID" type="hidden" value=${answer.uuid.asString()}>
+                                    <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                                     <textarea class="form-control comment__textarea" type="text"
                                               placeholder="Write a comment"
                                               name="content" required></textarea>
