@@ -77,3 +77,13 @@ Scenario("after logging in, I can comment an answer", (I) => {
     I.see(questionDescription);
     I.see(commentAns);
 });
+
+Scenario("anonymous user can't comment question", (I) => {
+    I.amOnPage(questionsPage);
+    I.see(questionDescription);
+    I.click(questionDescription);
+
+    I.seeInCurrentUrl("/question");
+    I.see(questionDescription);
+    I.see('You must be logged in to be able to comment a question');
+});
