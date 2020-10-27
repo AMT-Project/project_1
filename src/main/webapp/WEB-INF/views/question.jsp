@@ -130,7 +130,7 @@
                 <p>Reply with an answer</p>
                 <textarea class="form-control" type="text" placeholder="Write your answer" name="content"
                           required></textarea>
-                <input class="form-btn" type="submit" value="Submit">
+                <input id="submitAnswer" class="form-btn" type="submit" value="Submit">
             </form>
         </c:when>
         <c:otherwise>
