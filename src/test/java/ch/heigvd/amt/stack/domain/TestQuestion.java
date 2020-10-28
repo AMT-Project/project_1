@@ -79,6 +79,6 @@ public class TestQuestion {
         assertEquals(question.getDescription(),clone.getDescription());
         assertEquals(question.getTitle(),clone.getTitle());
 
-        assertNotEquals(question.getId(), clone.getId());
+        assertNotEquals(question.getUuid(), clone.getUuid());
     }
 }
