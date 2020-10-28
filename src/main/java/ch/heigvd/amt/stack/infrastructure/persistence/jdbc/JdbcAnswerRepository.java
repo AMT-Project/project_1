@@ -2,6 +2,7 @@ package ch.heigvd.amt.stack.infrastructure.persistence.jdbc;
 
 import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
 import ch.heigvd.amt.stack.domain.person.PersonId;
+import ch.heigvd.amt.stack.domain.question.Question;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
@@ -72,6 +73,28 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    @Override
+    public Collection<Answer> getAnswersPagination(int currentPage, int recordsPerPage, QuestionId id) {
+        try {
+            int start = currentPage * recordsPerPage - recordsPerPage;
+
+            PreparedStatement preparedStatement;
+            preparedStatement = dataSource.getConnection().prepareStatement(
+                "SELECT * FROM Answer WHERE question_uuid=? ORDER BY created_on ASC LIMIT ?, ?");
+            preparedStatement.setString(1, id.asString());
+            preparedStatement.setInt(2, start);
+            preparedStatement.setInt(3, recordsPerPage);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return getAnswers(rs);
+
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     // TODO : implement all below

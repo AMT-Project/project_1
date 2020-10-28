@@ -88,7 +88,7 @@ public class QuestionFacade {
             .build();
     }
 
-    public QuestionsDTO.QuestionDTO getQuestion(GetQuestionQuery query) {
+    public QuestionsDTO.QuestionDTO getQuestion(int currentPage, int recordsPerPage, GetQuestionQuery query) {
         Question question = questionRepository.findById(query.getUuid()).orElse(null);
         Person author = personRepository.findById(question.getAuthorUUID()).get();
 
@@ -100,9 +100,7 @@ public class QuestionFacade {
             .username(author.getUsername())
             .createdOn(question.getCreatedOn())
             .comments(commentFacade.getQuestionComments(question.getUuid()))
-            .answers(answerFacade.getAnswers(AnswersQuery.builder()
-                .questionUUID(query.getUuid())
-                .build()))
+            .answers(answerFacade.getAnswersPagination(currentPage, recordsPerPage, question.getUuid()))
             .votes(voteFacade.getVotes(VoteCommand.builder()
                 .questionUUID(query.getUuid())
                 .build()))

@@ -16,14 +16,14 @@
                         <input name="voteType" type="hidden" value="up"/>
                         <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
                         <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                        <button name="upvoteBtn" type="submit">+</button>
+                        <button name="upvoteBtn" class="form-btn" type="submit">+</button>
                     </form>
                     <div class="question-details__vote-count">${question.votes.count}</div>
                     <form action="vote.do" method="post">
                         <input name="voteType" type="hidden" value="down"/>
                         <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
                         <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                        <button name="upvoteBtn" type="submit">-</button>
+                        <button name="upvoteBtn" class="form-btn" type="submit">-</button>
                     </form>
                 </c:when>
                 <c:otherwise>
@@ -163,6 +163,37 @@
         </c:otherwise>
     </c:choose>
     <!-- TODO : Nice to have, factorize forms in fragment -->
+
+    <nav>
+        <ul class="pagination">
+            <c:if test="${currentPage != 1}">
+                <li class="page-item"><a class="page-link"
+                                         href="${pageContext.request.contextPath}/question?uuid=${question.uuid.asString()}&amp;currentPage=${currentPage-1}">Previous</a>
+                </li>
+            </c:if>
+
+            <c:forEach begin="1" end="${noOfPages}" var="i">
+                <c:choose>
+                    <c:when test="${currentPage eq i}">
+                        <li class="page-item active"><a class="page-link">
+                                ${i} <span class="sr-only">(current)</span></a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link"
+                                                 href="${pageContext.request.contextPath}/question?uuid=${question.uuid.asString()}&amp;currentPage=${i}">${i}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${currentPage lt noOfPages}">
+                <li class="page-item"><a class="page-link"
+                                         href="${pageContext.request.contextPath}/question?uuid=${question.uuid.asString()}&amp;currentPage=${currentPage+1}">Next</a>
+                </li>
+            </c:if>
+        </ul>
+    </nav>
 </div>
 
 <%@ include file="fragments/footer.jsp" %>
