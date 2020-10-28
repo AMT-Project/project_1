@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 public class Person implements IEntity<Person, PersonId> {
-    private PersonId id;
+    private PersonId uuid;
     private String username;
     private String email;
     private String firstName;
@@ -21,22 +22,20 @@ public class Person implements IEntity<Person, PersonId> {
     private String encryptedPassword;
 
     public boolean authenticate(String clearTextPassword) {
-        return clearTextPassword.toUpperCase().equals(encryptedPassword);
+        return BCrypt.checkpw(clearTextPassword, this.encryptedPassword);
     }
 
-    @Override
-    public PersonId getId() {
-        return id;
+    public PersonId getUuid() {
+        return this.uuid;
     }
 
     @Override
     public Person deepClone() {
         return this.toBuilder().
-            id(new PersonId(id.asString())).
+            uuid(new PersonId(uuid.asString())).
             build();
     }
 
-    // FIXME : Jamais utilisé? A virer?
     public static class PersonBuilder {
         public PersonBuilder clearTextPassword(String clearTextPassword) {
 
@@ -44,13 +43,13 @@ public class Person implements IEntity<Person, PersonId> {
                 throw new java.lang.IllegalArgumentException("Password is mandatory");
             }
 
-            encryptedPassword = clearTextPassword.toUpperCase();
+            encryptedPassword = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
         }
 
         public Person build() {
-            if(id == null) {
-                id = new PersonId();
+            if(uuid == null) {
+                uuid = new PersonId();
             }
 
             if(username == null || username.isEmpty()) {
@@ -71,7 +70,7 @@ public class Person implements IEntity<Person, PersonId> {
                 throw new java.lang.IllegalArgumentException("Email is misformatted");
             }
 
-            return new Person(id, username, email, firstName, lastName, encryptedPassword);
+            return new Person(uuid, username, email, firstName, lastName, encryptedPassword);
         }
     }
 

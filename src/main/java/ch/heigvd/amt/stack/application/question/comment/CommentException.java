@@ -1,5 +1,9 @@
 package ch.heigvd.amt.stack.application.question.comment;
 
-//TODO
-public class CommentException {
+import ch.heigvd.amt.stack.application.BusinessException;
+
+public class CommentException extends BusinessException {
+    CommentException(String message) {
+        super(message);
+    }
 }

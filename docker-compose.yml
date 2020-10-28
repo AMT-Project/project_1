@@ -11,12 +11,13 @@ services:
     ports:
       - 9906:3306
     volumes:
-        - ./docker/init/db:/docker-entrypoint-initdb.d
+      - ./docker/init/db:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: pwd
       MYSQL_DATABASE: AMT-db
       MYSQL_USER: stackusr
       MYSQL_PASSWORD: stackpwd
+      TZ: "Europe/Zurich"
   web:
     build: .
     image: openliberty/stack

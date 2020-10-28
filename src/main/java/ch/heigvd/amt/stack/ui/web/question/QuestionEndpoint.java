@@ -5,6 +5,11 @@ import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.GetQuestionQuery;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.QuestionsDTO;
+import ch.heigvd.amt.stack.application.question.QuestionsQuery;
+import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
+import ch.heigvd.amt.stack.application.question.comment.CommentsDTO;
+import ch.heigvd.amt.stack.application.question.comment.CommentsQuery;
+import ch.heigvd.amt.stack.application.question.comment.GetCommentQuery;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 
 import javax.inject.Inject;
@@ -26,12 +31,10 @@ public class QuestionEndpoint extends HttpServlet {
 
         request.getSession().removeAttribute("errors");
 
-        QuestionId questionId = new QuestionId(request.getParameter("uuid"));
-        CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
+        QuestionId questionUUID = new QuestionId(request.getParameter("uuid"));
 
         QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(GetQuestionQuery.builder()
-            .uuid(questionId)
-            .currentUser(currentUserDTO.getUuid())
+            .uuid(questionUUID)
             .build());
         request.setAttribute("question", questionDTO);
 

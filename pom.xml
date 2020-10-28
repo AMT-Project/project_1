@@ -53,13 +53,18 @@
       <version>5.6.2</version>
       <scope>test</scope>
     </dependency>
-    <!-- from shark example -->
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.3m</version>
+    </dependency>
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
       <version>5.6.2</version>
       <scope>test</scope>
     </dependency>
+
     <!-- commented in sharks -->
     <dependency>
       <groupId>junit</groupId>
@@ -115,6 +120,7 @@
       <artifactId>shrinkwrap-api</artifactId>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>

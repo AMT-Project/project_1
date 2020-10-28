@@ -1,5 +1,8 @@
 package ch.heigvd.amt.stack.application.question;
 
+import ch.heigvd.amt.stack.application.question.answer.AnswersDTO;
+import ch.heigvd.amt.stack.application.question.comment.CommentsDTO;
+import ch.heigvd.amt.stack.application.question.vote.VotesDTO;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import lombok.Builder;
@@ -7,7 +10,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Builder
@@ -19,11 +23,22 @@ public class QuestionsDTO {
     @EqualsAndHashCode
     public static class QuestionDTO {
         private QuestionId uuid;
-        private PersonId authorUUID;
-        private String username;
         private String title;
         private String description;
-        private LocalDate createdOn;
+        private PersonId authorUUID;
+        private String username;
+        private LocalDateTime createdOn;
+
+        private CommentsDTO comments;
+        private AnswersDTO answers;
+        private VotesDTO votes;
+
+        public String printLocalDateTime (){
+            //Get current date time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy @ HH:mm");
+
+            return this.createdOn.format(formatter);
+        }
     }
 
     @Singular

@@ -150,6 +150,6 @@ public class PersonTest {
         assertEquals(p.getEmail(),clone.getEmail());
         assertEquals(p.getEncryptedPassword(),clone.getEncryptedPassword());
 
-        assertNotEquals(p.getId(), clone.getId());
+        assertNotEquals(p.getUuid(), clone.getUuid());
     }
 }

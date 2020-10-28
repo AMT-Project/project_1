@@ -2,7 +2,6 @@ package ch.heigvd.amt.stack.infrastructure.persistence.jdbc;
 
 import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
 import ch.heigvd.amt.stack.domain.person.PersonId;
-import ch.heigvd.amt.stack.domain.question.Question;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
@@ -13,6 +12,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -27,17 +28,22 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
     @Override
     public Collection<Answer> find(AnswersQuery query) {
         try {
-            PreparedStatement preparedStatement;
+            PreparedStatement preparedStatement = null;
+            ResultSet rs;
             if(query.getAuthorUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Answer WHERE person_uuid=?");
+                    "SELECT * FROM Answer WHERE person_uuid=? ORDER BY created_on ASC");
                 preparedStatement.setString(1, query.getAuthorUUID().asString());
-            } else {
+            } else if(query.getQuestionUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Answer");
+                    "SELECT * FROM Answer WHERE question_uuid=? ORDER BY created_on ASC");
+                preparedStatement.setString(1, query.getQuestionUUID().asString());
             }
-            ResultSet rs = preparedStatement.executeQuery();
-
+            if(preparedStatement != null) {
+                rs = preparedStatement.executeQuery();
+            } else {
+                return null;
+            }
             return getAnswers(rs);
 
         } catch(SQLException throwables) {
@@ -47,19 +53,20 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
     }
 
     @Override
-    public void save(Answer answer) throws SQLIntegrityConstraintViolationException {
+    public void save(Answer answer) {
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
-                "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_at)" +
+                "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_on)" +
                     "VALUES (?,?,?,?,?)");
-            preparedStatement.setString(1, answer.getId().asString());
+            preparedStatement.setString(1, answer.getUuid().asString());
             preparedStatement.setString(2, answer.getContent());
             preparedStatement.setString(3, answer.getQuestionUUID().asString());
-            preparedStatement.setString(4, answer.getPersonUUID().asString());
-            // TODO : Utiliser un timeSTamp mais j'arrive pas à modifier ça...
+            preparedStatement.setString(4, answer.getAuthorUUID().asString());
+            // TODO : DATETIME - 2_Utilise un timestamp
             Date date = new Date(System.currentTimeMillis());
             preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
 
+            // TODO : DATETIME - 1_Ancienne version
             //preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
@@ -67,13 +74,14 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
         }
     }
 
+    // TODO : implement all below
     @Override
-    public void remove(AnswerId id) {
+    public void remove(AnswerId uuid) {
 
     }
 
     @Override
-    public Optional<Answer> findById(AnswerId id) {
+    public Optional<Answer> findById(AnswerId uuid) {
         return Optional.empty();
     }
 
@@ -100,10 +108,11 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
 
         while(rs.next()) {
             Answer answer = Answer.builder()
-                .id(new AnswerId(rs.getString("uuid")))
+                .uuid(new AnswerId(rs.getString("uuid")))
                 .content(rs.getString("content"))
                 .questionUUID(new QuestionId(rs.getString("question_uuid")))
-                .personUUID(new PersonId(rs.getString("person_uuid")))
+                .authorUUID(new PersonId(rs.getString("person_uuid")))
+                .createdOn(LocalDateTime.parse(rs.getString("created_on"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
             answers.add(answer);
         }

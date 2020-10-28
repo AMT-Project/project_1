@@ -8,10 +8,13 @@ Scenario("test valid login", (I) => {
     I.register(uniqueUsername, "Codecept", "JS", uniqueEmail, "pwd");
 
     I.see("List of questions");
-
     I.click("Logout");
-    I.see("Login Account");
+
+    I.see("List of questions");
+    I.see("SIGN-IN");
+    I.click("Sign-in")
     I.login(uniqueUsername, "pwd");
+
     I.see("List of questions");
 });
 

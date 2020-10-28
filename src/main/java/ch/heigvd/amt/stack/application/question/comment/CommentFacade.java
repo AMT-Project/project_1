@@ -3,6 +3,8 @@ package ch.heigvd.amt.stack.application.question.comment;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
+import ch.heigvd.amt.stack.domain.question.QuestionId;
+import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.question.comment.Comment;
 import ch.heigvd.amt.stack.domain.question.comment.ICommentRepository;
@@ -25,21 +27,20 @@ public class CommentFacade {
     }
 
     public void registerComment(CommentCommand command) {
-        System.out.println(" ------ ICI : -------" + command.getAnswerUUID());
         try {
-            if(command.getQuestionUUID() != null){
+            if(command.getQuestionUUID() != null) {
                 Comment comment = Comment.builder()
-                        .personUUID(command.getAuthorUUID())
-                        .questionUUID(command.getQuestionUUID())
-                        .content(command.getContent())
-                        .build();
+                    .authorUUID(command.getAuthorUUID())
+                    .questionUUID(command.getQuestionUUID())
+                    .content(command.getContent())
+                    .build();
                 commentRepository.save(comment);
-            } else if (command.getAnswerUUID() != null){
+            } else if(command.getAnswerUUID() != null) {
                 Comment comment = Comment.builder()
-                        .personUUID(command.getAuthorUUID())
-                        .answerUUID(command.getAnswerUUID())
-                        .content(command.getContent())
-                        .build();
+                    .authorUUID(command.getAuthorUUID())
+                    .answerUUID(command.getAnswerUUID())
+                    .content(command.getContent())
+                    .build();
                 commentRepository.save(comment);
             }
 
@@ -48,24 +49,32 @@ public class CommentFacade {
         }
     }
 
-    public CommentsDTO getComments(CommentsQuery query) {
-        Collection<Comment> allComments = commentRepository.find(query);
-
-        List<CommentsDTO.CommentDTO> allCommentsDTO = allComments.stream().map(comment -> {
-            Person author = personRepository.findById(comment.getPersonUUID()).get();
-
-            return CommentsDTO.CommentDTO.builder()
-                    .authorUUID(author.getId())
-                    .questionId(comment.getQuestionUUID())
-                    .answerId(comment.getAnswerUUID())
-                    .content(comment.getContent())
-                    .build();
-        })
-                .collect(Collectors.toList());
-
+    public CommentsDTO getQuestionComments(QuestionId questionUUID) {
         return CommentsDTO.builder()
-                .comments(allCommentsDTO)
-                .build();
+            .comments(commentDTOListBuilder(commentRepository.findQuestionComments(questionUUID)))
+            .build();
+    }
+
+    public CommentsDTO getAnswerComments(AnswerId answerUUID) {
+        return CommentsDTO.builder()
+            .comments(commentDTOListBuilder(commentRepository.findAnswerComments(answerUUID)))
+            .build();
+    }
+
+    private List<CommentsDTO.CommentDTO> commentDTOListBuilder(Collection<Comment> comments) {
+
+        return comments.stream().map(comment -> {
+                Person author = personRepository.findById(comment.getAuthorUUID()).get();
+
+                return CommentsDTO.CommentDTO.builder()
+                    .uuid(comment.getUuid())
+                    .authorUUID(author.getUuid())
+                    .username(author.getUsername())
+                    .content(comment.getContent())
+                    .createdOn(comment.getCreatedOn())
+                    .build();
+            }
+        ).collect(Collectors.toList());
     }
 
     public int countAnswers() {

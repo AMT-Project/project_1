@@ -39,6 +39,7 @@ public class RegisterCommandEndpoint extends HttpServlet {
             request.getRequestDispatcher("/login.do").forward(request, response);
             return;
         } catch(RegistrationFailedException e) {
+            // TODO : Issue GitHub #13. Le problème est-il encore d'actualité?
             request.getSession().setAttribute("errors", List.of(e.getMessage()));
             response.sendRedirect(request.getContextPath() + "/register");
             return;

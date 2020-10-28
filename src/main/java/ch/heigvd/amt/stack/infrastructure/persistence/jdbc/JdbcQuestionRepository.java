@@ -11,6 +11,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -33,11 +35,11 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             PreparedStatement preparedStatement;
             if(query.getAuthorUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question WHERE person_uuid=?");
+                    "SELECT * FROM Question WHERE person_uuid=? ORDER BY created_on ASC");
                 preparedStatement.setString(1, query.getAuthorUUID().asString());
             } else {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question");
+                    "SELECT * FROM Question ORDER BY created_on ASC");
             }
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -50,17 +52,39 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     }
 
     @Override
+    public Collection<Question> getQuestionsPagination(int currentPage, int recordsPerPage) {
+        try {
+            int start = currentPage * recordsPerPage - recordsPerPage;
+
+            PreparedStatement preparedStatement;
+            preparedStatement = dataSource.getConnection().prepareStatement(
+                "SELECT * FROM Question ORDER BY created_on ASC LIMIT ?, ?");
+            preparedStatement.setInt(1, start);
+            preparedStatement.setInt(2, recordsPerPage);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return getQuestions(rs);
+
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void save(Question question) throws SQLIntegrityConstraintViolationException {
-        //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "INSERT INTO Question (uuid, title, description, person_uuid, created_on)" +
                     "VALUES (?,?,?,?,?)");
-            preparedStatement.setString(1, question.getId().asString());
+            preparedStatement.setString(1, question.getUuid().asString());
             preparedStatement.setString(2, question.getTitle());
             preparedStatement.setString(3, question.getDescription());
             preparedStatement.setString(4, question.getAuthorUUID().asString());
-            preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
+            // TODO : DATETIME - 2_Utilise un timestamp
+            Date date = new Date(System.currentTimeMillis());
+            preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
@@ -68,12 +92,11 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     }
 
     @Override
-    public void remove(QuestionId id) {
-        //  TODO implement
+    public void remove(QuestionId uuid) {
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "DELETE FROM Question * WHERE uuid=?");
-            preparedStatement.setString(1, id.asString());
+            preparedStatement.setString(1, uuid.asString());
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
@@ -81,12 +104,11 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     }
 
     @Override
-    public Optional<Question> findById(QuestionId id) {
-        //  TODO implement
+    public Optional<Question> findById(QuestionId uuid) {
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "SELECT * FROM Question WHERE uuid=?");
-            preparedStatement.setString(1, id.asString());
+            preparedStatement.setString(1, uuid.asString());
             ResultSet rs = preparedStatement.executeQuery();
 
             Collection<Question> questions = getQuestions(rs);
@@ -104,7 +126,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
     @Override
     public Collection<Question> findAll() {
-        //  TODO implement
         try {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "SELECT * FROM Question");
@@ -135,10 +156,11 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
         while(rs.next()) {
             Question question = Question.builder()
-                .id(new QuestionId(rs.getString("uuid")))
+                .uuid(new QuestionId(rs.getString("uuid")))
                 .title(rs.getString("title"))
                 .description(rs.getString("description"))
                 .authorUUID(new PersonId(rs.getString("person_uuid")))
+                .createdOn(LocalDateTime.parse(rs.getString("created_on"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
             questions.add(question);
         }
