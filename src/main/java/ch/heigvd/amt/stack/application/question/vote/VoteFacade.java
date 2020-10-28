@@ -25,6 +25,9 @@ public class VoteFacade {
                 // Change the vote (upvote->downvote or downvote->upvote)
                 voteRepository.changeVote(existingVote.getUuid());
             }
+            else {
+                voteRepository.remove(existingVote.getUuid());
+            }
         }
         // Else user hasn't voted, register his vote
         else {

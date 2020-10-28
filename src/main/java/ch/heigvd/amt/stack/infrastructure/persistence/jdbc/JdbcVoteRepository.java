@@ -145,7 +145,7 @@ public class JdbcVoteRepository implements IVoteRepository {
             PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
                 "DELETE FROM Vote WHERE uuid=?");
             preparedStatement.setString(1, id.asString());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }

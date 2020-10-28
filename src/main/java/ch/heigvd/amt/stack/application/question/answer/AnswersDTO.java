@@ -1,6 +1,7 @@
 package ch.heigvd.amt.stack.application.question.answer;
 
 import ch.heigvd.amt.stack.application.question.comment.CommentsDTO;
+import ch.heigvd.amt.stack.application.question.vote.VotesDTO;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
@@ -29,6 +30,7 @@ public class AnswersDTO {
         private LocalDateTime createdOn;
 
         private CommentsDTO comments;
+        private VotesDTO votes;
     }
 
     @Singular
