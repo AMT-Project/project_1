@@ -34,10 +34,10 @@ public class Question implements IEntity<Question, QuestionId> {
                 throw new IllegalArgumentException("Author is mandatory"); // TODO : appliquer sur les autres champs
             }
             if(title == null) {
-                title = "nullTit";
+                throw new IllegalArgumentException("Title is mandatory");
             }
             if(description == null) {
-                description = "nullDesc";
+                throw new IllegalArgumentException("Description is mandatory");
             }
             return new Question(id, authorUUID, title, description);
         }

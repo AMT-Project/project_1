@@ -1,3 +1,5 @@
+package ch.heigvd.amt.stack.domain;
+
 import ch.heigvd.amt.stack.domain.person.Person;
 import org.junit.jupiter.api.Test;
 
