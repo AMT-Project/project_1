@@ -10,23 +10,21 @@
         <div class="question-details__question--row">
             <!-- TODO : VOTES -->
             <!-- TODO : Nice to have - Mettre dans un fragment -->
-
-            ${question.uuid.asString()}
-
-            <form action="vote.do" method="post">
-                <input name="voteType" type="hidden" value="up"/>
-                <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
-                <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                <button name="upvoteBtn" type="submit">+</button>
-            </form>
-            <div class="question-details__vote-count">${question.votes.count}</div>
-            <form action="vote.do" method="post">
-                <input name="voteType" type="hidden" value="down"/>
-                <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
-                <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                <button name="upvoteBtn" type="submit">-</button>
-            </form>
-
+            <c:if test="${currentUser != null}">
+                <form action="vote.do" method="post">
+                    <input name="voteType" type="hidden" value="up"/>
+                    <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                    <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                    <button name="upvoteBtn" type="submit">+</button>
+                </form>
+                <div class="question-details__vote-count">${question.votes.count}</div>
+                <form action="vote.do" method="post">
+                    <input name="voteType" type="hidden" value="down"/>
+                    <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                    <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                    <button name="upvoteBtn" type="submit">-</button>
+                </form>
+            </c:if>
             <div class="question-details__question--content">
                 <div class="question-details__question__title">
                     ${question.title}
@@ -80,9 +78,21 @@
             <li class="answers-list__list-element">
                 <div class="answers-list__answer--row">
                     <div class="answer__votes">
-                        <button>+</button>
-                        <div class="answer__vote-count">0<!-- Nombre de votes--></div>
-                        <button>-</button>
+                        <c:if test="${currentUser != null}">
+                            <form action="vote.do" method="post">
+                                <input name="voteType" type="hidden" value="up"/>
+                                <input name="answerUuid" type="hidden" value="${answer.uuid.asString()}"/>
+                                <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                                <button name="upvoteBtn" type="submit">+</button>
+                            </form>
+                            <div class="question-details__vote-count">${question.votes.count}</div>
+                            <form action="vote.do" method="post">
+                                <input name="voteType" type="hidden" value="down"/>
+                                <input name="answerUuid" type="hidden" value="${answer.uuid.asString()}"/>
+                                <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                                <button name="upvoteBtn" type="submit">-</button>
+                            </form>
+                        </c:if>
                     </div>
                     <div class="answer__content">
                         <div class="answer__description">

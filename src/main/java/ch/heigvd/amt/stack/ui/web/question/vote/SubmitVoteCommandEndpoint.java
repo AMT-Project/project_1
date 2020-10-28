@@ -5,7 +5,6 @@ import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
 import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
-import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 
 import javax.inject.Inject;
@@ -27,13 +26,13 @@ public class SubmitVoteCommandEndpoint extends HttpServlet {
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
 
+        // If it's a vote on a question
         if(request.getParameter("questionUuid") != null) {
             VoteCommand command = VoteCommand.builder()
                 .authorUUID(currentUserDTO.getUuid())
                 .questionUUID(new QuestionId(request.getParameter("questionUuid")))
                 .isUpvote(request.getParameter("voteType").equals("up"))
                 .build();
-
             try {
                 voteFacade.registerVote(command);
             } catch(Exception e) {
@@ -41,20 +40,19 @@ public class SubmitVoteCommandEndpoint extends HttpServlet {
             }
         }
 
+        // If it's a vote on an answer
         if(request.getParameter("answerUuid") != null) {
             VoteCommand command = VoteCommand.builder()
                 .authorUUID(currentUserDTO.getUuid())
                 .answerUUID(new AnswerId(request.getParameter("answerUuid")))
                 .isUpvote(request.getParameter("voteType").equals("up"))
                 .build();
-
             try {
                 voteFacade.registerVote(command);
             } catch(Exception e) {
                 e.printStackTrace();
             }
         }
-
 
         response.sendRedirect(request.getContextPath() + "/question?uuid=" + request.getParameter("redirectUuid"));
     }
