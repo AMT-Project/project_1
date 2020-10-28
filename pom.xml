@@ -121,6 +121,13 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>mysqlconnector</groupId>
+      <artifactId>mysqlconnector</artifactId>
+      <scope>system</scope>
+      <version>1.0</version>
+      <systemPath>${project.basedir}/src/main/liberty/config/mysql-connector-java-8.0.18.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>

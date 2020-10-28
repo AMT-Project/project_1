@@ -5,6 +5,9 @@ import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticateCom
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticationFailedException;
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
 import ch.heigvd.amt.stack.domain.person.PersonId;
+import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.JdbcPersonRepository;
+import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.JdbcRepository;
+import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.helper.DataSourceProvider;
 import org.junit.Assert;
 import org.junit.internal.runners.statements.Fail;
 import org.junit.jupiter.api.Assertions;
@@ -25,18 +28,20 @@ class IdentityManagementFacadeTest {
     // 1
     static SeContainerInitializer initializer;
 
+    static JdbcRepository repository;
+
     @BeforeAll
-    public static void setupCdi(){
+    public static void setup(){
         initializer = SeContainerInitializer.newInstance();
     }
 
     // 3
-    @Inject
-    @Named("ServiceRegistry")
-    ServiceRegistry sr;
-//
-//
-//    // test exception: https://howtodoinjava.com/junit5/expected-exception-example/
+//    @Inject
+//    @Named("ServiceRegistry")
+//    ServiceRegistry sr;
+
+
+    // test exception: https://howtodoinjava.com/junit5/expected-exception-example/
 //    @Test
 //    void registerThrowsExceptionWhenDuplicateUserWithSameUsername() throws RegistrationFailedException{
 //        try (SeContainer container = initializer.initialize()) {
