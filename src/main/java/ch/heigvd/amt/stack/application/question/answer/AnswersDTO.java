@@ -1,6 +1,7 @@
 package ch.heigvd.amt.stack.application.question.answer;
 
 import ch.heigvd.amt.stack.application.question.comment.CommentsDTO;
+import ch.heigvd.amt.stack.application.question.vote.VotesDTO;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
@@ -11,6 +12,7 @@ import lombok.Singular;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Builder
@@ -29,6 +31,14 @@ public class AnswersDTO {
         private LocalDateTime createdOn;
 
         private CommentsDTO comments;
+        private VotesDTO votes;
+
+        public String printLocalDateTime (){
+            //Get current date time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy @ HH:mm");
+
+            return this.createdOn.format(formatter);
+        }
     }
 
     @Singular

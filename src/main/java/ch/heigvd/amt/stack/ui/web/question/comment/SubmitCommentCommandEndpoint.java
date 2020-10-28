@@ -43,7 +43,6 @@ public class SubmitCommentCommandEndpoint extends HttpServlet {
             commentFacade.registerComment(command);
         }
 
-        // TODO : Redirect on question?uuid=xxx by adding hidden field containing question uuid value
-        response.sendRedirect(request.getContextPath() + "/questions");
+        response.sendRedirect(request.getContextPath() + "/question?uuid=" + request.getParameter("redirectUuid"));
     }
 }

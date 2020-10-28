@@ -1,6 +1,8 @@
 package ch.heigvd.amt.stack.application.question.answer;
 
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
+import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
+import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
@@ -16,12 +18,14 @@ public class AnswerFacade {
     private IQuestionRepository questionRepository;
     private IPersonRepository personRepository;
     private CommentFacade commentFacade;
+    private VoteFacade voteFacade;
 
-    public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository, IPersonRepository personRepository, CommentFacade commentFacade) {
+    public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository, IPersonRepository personRepository, CommentFacade commentFacade, VoteFacade voteFacade) {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.personRepository = personRepository;
         this.commentFacade = commentFacade;
+        this.voteFacade = voteFacade;
     }
 
     public void registerAnswer(AnswerCommand command) {
@@ -51,6 +55,9 @@ public class AnswerFacade {
                 .username(author.getUsername())
                 .createdOn(answer.getCreatedOn())
                 .comments(commentFacade.getAnswerComments(answer.getUuid()))
+                .votes(voteFacade.getVotes(VoteCommand.builder()
+                    .answerUUID(answer.getUuid())
+                    .build()))
                 .build();
         })
             .collect(Collectors.toList());

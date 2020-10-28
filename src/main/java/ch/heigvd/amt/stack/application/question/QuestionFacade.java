@@ -3,6 +3,7 @@ package ch.heigvd.amt.stack.application.question;
 import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
 import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
+import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
 import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
 import ch.heigvd.amt.stack.application.question.vote.VotesQuery;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
@@ -64,6 +65,7 @@ public class QuestionFacade {
             .build();
     }
 
+    // TODO : Devenu inutile à cause de la pagination? Voir fonction getQuestionsPagination ci-dessus
     public QuestionsDTO getQuestions(QuestionsQuery query) {
         Collection<Question> allQuestions = questionRepository.find(query);
 
@@ -101,7 +103,7 @@ public class QuestionFacade {
             .answers(answerFacade.getAnswers(AnswersQuery.builder()
                 .questionUUID(query.getUuid())
                 .build()))
-            .votes(voteFacade.getVotes(VotesQuery.builder()
+            .votes(voteFacade.getVotes(VoteCommand.builder()
                 .questionUUID(query.getUuid())
                 .build()))
             .build();

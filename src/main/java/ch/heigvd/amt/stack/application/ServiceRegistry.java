@@ -48,7 +48,7 @@ public class ServiceRegistry {
     }
 
     public AnswerFacade getAnswerFacade() {
-        return new AnswerFacade(answerRepository, questionRepository, personRepository, getCommentFacade());
+        return new AnswerFacade(answerRepository, questionRepository, personRepository, getCommentFacade(), getVoteFacade());
     }
 
     public CommentFacade getCommentFacade() {

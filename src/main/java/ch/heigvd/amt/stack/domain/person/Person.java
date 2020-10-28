@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Getter
 @Setter
@@ -21,7 +22,7 @@ public class Person implements IEntity<Person, PersonId> {
     private String encryptedPassword;
 
     public boolean authenticate(String clearTextPassword) {
-        return clearTextPassword.toUpperCase().equals(encryptedPassword);
+        return BCrypt.checkpw(clearTextPassword, this.encryptedPassword);
     }
 
     public PersonId getUuid() {
@@ -42,8 +43,7 @@ public class Person implements IEntity<Person, PersonId> {
                 throw new java.lang.IllegalArgumentException("Password is mandatory");
             }
 
-            // TODO : Hash password before storing in DB
-            encryptedPassword = clearTextPassword.toUpperCase();
+            encryptedPassword = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
         }
 

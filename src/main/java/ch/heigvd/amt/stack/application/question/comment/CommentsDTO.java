@@ -11,6 +11,7 @@ import lombok.Singular;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Builder
@@ -28,6 +29,13 @@ public class CommentsDTO {
         private AnswerId answerUUID;
         private LocalDateTime createdOn;
         private String content;
+
+        public String printLocalDateTime (){
+            //Get current date time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy @ HH:mm");
+
+            return this.createdOn.format(formatter);
+        }
     }
 
     @Singular

@@ -24,7 +24,7 @@ public class QuestionsListEndpoint extends HttpServlet {
 
         // Default values
         int currentPage = 1;
-        int recordsPerPage = 15;
+        int recordsPerPage = 3;
 
         if(request.getParameter("currentPage") != null)
             currentPage = Integer.parseInt(request.getParameter("currentPage"));

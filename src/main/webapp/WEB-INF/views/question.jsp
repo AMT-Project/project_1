@@ -10,21 +10,26 @@
         <div class="question-details__question--row">
             <!-- TODO : VOTES -->
             <!-- TODO : Nice to have - Mettre dans un fragment -->
-
-            ${question.uuid.asString()}
-
-            <form action="vote.do" method="post">
-                <input name="voteType" type="hidden" value="up"/>
-                <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
-                <button name="upvoteBtn" type="submit">+</button>
-            </form>
-            <div class="question-details__vote-count">${question.votes.count}</div>
-            <form action="vote.do" method="post">
-                <input name="voteType" type="hidden" value="down"/>
-                <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
-                <button name="upvoteBtn" type="submit">-</button>
-            </form>
-
+            <c:choose>
+                <c:when test="${currentUser != null}">
+                    <form action="vote.do" method="post">
+                        <input name="voteType" type="hidden" value="up"/>
+                        <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                        <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                        <button name="upvoteBtn" type="submit">+</button>
+                    </form>
+                    <div class="question-details__vote-count">${question.votes.count}</div>
+                    <form action="vote.do" method="post">
+                        <input name="voteType" type="hidden" value="down"/>
+                        <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                        <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                        <button name="upvoteBtn" type="submit">-</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <div class="question-details__vote-count">${question.votes.count}</div>
+                </c:otherwise>
+            </c:choose>
             <div class="question-details__question--content">
                 <div class="question-details__question__title">
                     ${question.title}
@@ -33,7 +38,7 @@
                     ${question.description}
                 </div>
                 <div class="question-details__question__author">
-                    ${question.username} on ${question.createdOn.toString()}
+                    ${question.username} on ${question.printLocalDateTime()}
                 </div>
             </div>
         </div>
@@ -42,7 +47,7 @@
         <ul class="question-details__comments-list">
             <c:forEach var="comment" items="${question.comments.comments}">
                 <li class="question-details__comment">
-                        ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
+                        ${comment.content} - ${comment.username} on ${comment.printLocalDateTime()}
                 </li>
             </c:forEach>
 
@@ -55,6 +60,7 @@
                               action="${pageContext.request.contextPath}/submitComment.do"
                               method="POST">
                             <input name="questionUUID" type="hidden" value=${question.uuid.asString()}>
+                            <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                             <textarea class="form-control comment__textarea" type="text" placeholder="Write a comment"
                                       name="content" required></textarea>
                             <input class="form-btn comment__button" type="submit" value="Submit">
@@ -77,16 +83,33 @@
             <li class="answers-list__list-element">
                 <div class="answers-list__answer--row">
                     <div class="answer__votes">
-                        <button>+</button>
-                        <div class="answer__vote-count">0<!-- Nombre de votes--></div>
-                        <button>-</button>
+                        <c:choose>
+                            <c:when test="${currentUser != null}">
+                                <form action="vote.do" method="post">
+                                    <input name="voteType" type="hidden" value="up"/>
+                                    <input name="answerUuid" type="hidden" value="${answer.uuid.asString()}"/>
+                                    <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                                    <button name="upvoteBtn" type="submit">+</button>
+                                </form>
+                                <div class="question-details__vote-count">${answer.votes.count}</div>
+                                <form action="vote.do" method="post">
+                                    <input name="voteType" type="hidden" value="down"/>
+                                    <input name="answerUuid" type="hidden" value="${answer.uuid.asString()}"/>
+                                    <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                                    <button name="upvoteBtn" type="submit">-</button>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="question-details__vote-count">${question.votes.count}</div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div class="answer__content">
                         <div class="answer__description">
                                 ${answer.content}
                         </div>
                         <div class="answer__author">
-                                ${answer.username} on ${answer.createdOn.toString()}
+                                ${answer.username} on ${answer.printLocalDateTime()}
                         </div>
                     </div>
                 </div>
@@ -95,7 +118,7 @@
                     <!-- ANSWER COMMENTS LIST -->
                     <c:forEach var="comment" items="${answer.comments.comments}">
                         <li class="answer__comment">
-                                ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
+                                ${comment.content} - ${comment.username} on ${comment.printLocalDateTime()}
                         </li>
                     </c:forEach>
                     <!-- ANSWER FORM, ADD COMMENT -->
@@ -104,12 +127,13 @@
                             <c:when test="${currentUser != null}">
                                 <form class="form-inline comment__form"
                                       action="${pageContext.request.contextPath}/submitComment.do" method="POST">
-                                    <input name="answerUUID" type="hidden" value=${answer.uuid.asString()}>
+                                    <input name="answerUUID" type="hidden" value=${answer.uuid.asString()}/>
+                                    <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                                     <textarea id="commentAnswer" class="form-control comment__textarea" type="text"
                                               placeholder="Write a comment"
                                               name="content" required></textarea>
                                     <input id="submitCommentAnswer" class="form-btn comment__button" type="submit"
-                                           value="Submit">
+                                           value="Submit"/>
                                 </form>
                             </c:when>
                             <c:otherwise>

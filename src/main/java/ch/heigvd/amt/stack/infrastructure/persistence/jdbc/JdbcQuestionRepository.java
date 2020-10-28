@@ -82,11 +82,9 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             preparedStatement.setString(2, question.getTitle());
             preparedStatement.setString(3, question.getDescription());
             preparedStatement.setString(4, question.getAuthorUUID().asString());
-            // TODO : DATETIME - 4_Récupère le createdOn depuis le builder
-            preparedStatement.setString(5, question.getCreatedOn().toString());
             // TODO : DATETIME - 2_Utilise un timestamp
-            //Date date = new Date(System.currentTimeMillis());
-            //preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
+            Date date = new Date(System.currentTimeMillis());
+            preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
