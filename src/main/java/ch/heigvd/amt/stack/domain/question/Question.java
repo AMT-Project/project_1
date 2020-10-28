@@ -7,39 +7,46 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder(toBuilder = true)
 
 public class Question implements IEntity<Question, QuestionId> {
-    private QuestionId id = new QuestionId();
-    private PersonId authorUUID;
+    private QuestionId uuid = new QuestionId();
     private String title;
     private String description;
+    private PersonId authorUUID;
+    private LocalDateTime createdOn;
 
     @Override
     public Question deepClone() {
         return this.toBuilder()
-            .id(new QuestionId(id.asString()))
+            .uuid(new QuestionId(uuid.asString()))
             .build();
     }
 
     public static class QuestionBuilder {
         public Question build() {
-            if(id == null) {
-                id = new QuestionId();
+            if(uuid == null) {
+                uuid = new QuestionId();
             }
             if(authorUUID == null) {
-                throw new IllegalArgumentException("Author is mandatory"); // TODO : appliquer sur les autres champs
+                throw new IllegalArgumentException("Author is mandatory");
             }
-            if(title == null) {
+            if(title == null || title.isEmpty()) {
                 throw new IllegalArgumentException("Title is mandatory");
             }
-            if(description == null) {
+            if(description == null || description.isEmpty()) {
                 throw new IllegalArgumentException("Description is mandatory");
             }
-            return new Question(id, authorUUID, title, description);
+            if(createdOn == null) {
+                createdOn = LocalDateTime.now();
+            }
+            return new Question(uuid, title, description, authorUUID, createdOn);
         }
     }
 }

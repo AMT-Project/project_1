@@ -16,7 +16,7 @@ public abstract class InMemoryRepository<ENTITY extends IEntity<ENTITY, ID>, ID 
     private Map<ID, ENTITY> store = new ConcurrentHashMap<>();
 
     public void save(ENTITY entity) throws SQLIntegrityConstraintViolationException {
-        store.put(entity.getId(), entity);
+        store.put(entity.getUuid(), entity);
     }
 
     public void remove(ID id) {

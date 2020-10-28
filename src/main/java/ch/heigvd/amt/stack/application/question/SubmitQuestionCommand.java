@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @EqualsAndHashCode
-
 public class SubmitQuestionCommand {
     @Builder.Default
-    private QuestionId id = null;
+    private QuestionId questionUUID = null;
 
     @Builder.Default
     private PersonId authorUUID = null;
@@ -22,4 +24,7 @@ public class SubmitQuestionCommand {
 
     @Builder.Default
     private String text = "No content";
+
+    @Builder.Default
+    private LocalDate createdOn = null;
 }

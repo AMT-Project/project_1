@@ -11,6 +11,13 @@
 
 body {
     background-color: cornsilk;
+    font-family: Roboto;
+}
+
+#page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 input {
@@ -19,8 +26,9 @@ input {
 
 h1 {
     font-family: Montserrat;
-    font-size: 60px;
+    font-size: 35px;
     color: #272c40;
+    margin: 16px 0;
 }
 
 p {
@@ -33,19 +41,14 @@ p {
 }
 
 /* Utils */
-/*.container {
-    position: relative;
-    width: 100%;
-    flex: 1 0 auto;
-    margin: 0 auto;
-    text-align: left;
-}*/
 
 .content {
     margin: 20px;
+    min-height: 40vh;
 }
 
 /* Layout */
+/* Navbar */
 .navbar {
     background-color: #272c40;
     min-height: 75px;
@@ -70,7 +73,11 @@ p {
     margin-right: 16px;
 }
 
-.navbar__link {
+.navbar__user-info:hover {
+    cursor: pointer;
+}
+
+.navbar__link--dark {
     background-color: #091739;
     border: none;
     color: white;
@@ -80,10 +87,29 @@ p {
     font-size: 16px;
     text-transform: uppercase;
     margin-right: 16px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.navbar__link:hover, .form-btn:hover {
+.navbar__link--dark:hover, .form-btn:hover {
     background-color: #1d49bf;
+}
+
+.navbar__link--light-lowercase {
+    background-color: cornsilk;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-right: 16px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.navbar__link--light-lowercase:hover, .form-btn:hover {
+    background-color: #1d49bf;
+    color: white;
+    cursor: pointer;
 }
 
 /* Forms */
@@ -94,9 +120,9 @@ p {
     padding: 8px;
 }
 
-.form-login, .form-register {
+.form-login, .form-register, .form-answer {
     width: 100%;
-    max-width: 330px;
+    max-width: 50%;
     padding: 15px;
     margin: auto;
     text-align: center;
@@ -140,14 +166,18 @@ p {
     margin: 0;
 }
 
-/* Questions */
+/* Questions list */
 .questions-list__list-element {
     list-style: none;
     background-color: #272c40;
-    margin: 5%;
-    padding: 3%;
+    margin: 16px;
+    padding: 24px;
 
     color: white;
+}
+
+.questions-list__list-element:hover {
+    cursor: pointer;
 }
 
 .questions-list {
@@ -156,13 +186,14 @@ p {
     padding: 0;
 }
 
-.question {
+.questions-list__question {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.question__title {
+.questions-list__question__title {
+    font-family: Montserrat;
     text-transform: uppercase;
     font-weight: bold;
     border-bottom: 1px solid;
@@ -170,12 +201,316 @@ p {
     padding-bottom: 8px;
 }
 
-.question__description {
+.questions-list__question__description {
+    font-family: Roboto;
     padding-top: 8px;
 }
 
-.question__author {
+.questions-list__question__author {
     padding-top: 16px;
     text-align: right;
     font-style: italic;
+    font-size: 14px;
+}
+
+/* Question details */
+.question-details__question {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.question-details__question--row {
+    display: flex;
+    flex-direction: row;
+    background-color: #272c40;
+
+}
+
+.question-details__question--content {
+    display: flex;
+    flex-direction: column;
+    margin: 16px 24px;
+    flex-grow: 1;
+}
+
+.question-details__question__title {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    border-bottom: 1px solid;
+}
+
+.question-details__question__description {
+    font-family: Roboto;
+    font-size: 16px;
+}
+
+.question-details__question__author {
+    text-align: right;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.question-details__comments-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.question-details__comment {
+    background-color: #091739;
+    padding: 16px;
+    text-align: right;
+    font-size: 14px;
+}
+
+.question-details__comment:nth-child(odd) {
+    background-color: #1d49bf;
+    box-shadow: inset 0 0 10px black;
+}
+
+.comment__form {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.comment__textarea {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    flex: 3;
+}
+
+.comment__button {
+    padding: 10px 20px;
+    background-color: #091739;
+    border: 5px solid #1d49bf;
+    color: white;
+    flex: 1;
+    margin: 0;
+}
+
+.comment__button:hover {
+    background-color: #1d49bf;
+    border: 5px solid #091739;
+}
+
+/* Answers */
+.answers-list {
+    margin: 36px 24px 0 24px;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.answers-list__list-element {
+    margin-bottom: 20px;
+}
+
+.answers-list__answer--row {
+    display: flex;
+    flex-direction: row;
+    background-color: #272c40;
+}
+
+.answer__content {
+    display: flex;
+    flex-direction: column;
+    margin: 16px 24px;
+    flex-grow: 1;
+}
+
+.answer__description {
+    font-family: Roboto;
+    font-size: 16px;
+}
+
+.answer__author {
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.answer__comments-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.answer__comment {
+    background-color: #091739;
+    padding: 16px;
+    text-align: right;
+    font-size: 14px;
+}
+
+.answer__comment:nth-child(odd) {
+    background-color: #1d49bf;
+    box-shadow: inset 0 0 10px black;
+}
+
+.comment-forms--not-logged-in {
+    color: lightgray;
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+}
+.answer-forms--not-logged-in {
+    color: black;
+    font-size: 20px;
+    text-align: center;
+    margin: 24px 0;
+}
+
+/* Statistics */
+.stat {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-bottom: 24px;
+}
+
+.circle {
+    width: 130px;
+    line-height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    border: 7px solid #272c40;
+}
+
+.stat__text {
+    margin-left: 24px;
+}
+
+/* Profile */
+.profile__infos--text {
+    font-size: 16px;
+    margin: 8px;
+}
+
+.profile__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.profile__infos {
+    flex: 1;
+}
+
+.profile__stat {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.profile__questions--title {
+    margin-top: 24px;
+}
+
+.profile__questions-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile__questions-list__element {
+    list-style: none;
+    background-color: #272c40;
+    margin: 16px;
+    padding: 24px;
+
+    color: white;
+}
+
+.profile__questions-list__element:hover {
+    cursor: pointer
+}
+
+.profile__questions-list__question {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile__questions-list__question__title {
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid;
+    font-size: 16px;
+    padding-bottom: 8px;
+}
+
+.profile__questions-list__question__description {
+    padding-top: 8px;
+}
+
+/* Footer */
+.footer {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #272c40;
+}
+
+.footer__about {
+    margin: 24px;
+    font-family: Roboto;
+    color: white;
+    flex: 2;
+}
+
+.footer__about--title {
+    font-size: 24px;
+    font-family: Montserrat;
+    font-weight: bold;
+}
+
+.footer__about--details {
+    font-size: 14px;
+}
+
+.footer__about--members {
+    font-size: 12px;
+}
+
+.footer__stats {
+    flex: 1;
+    margin: 24px;
+}
+
+.footer__btn {
+    font-weight: 400;
+    text-align: center;
+    user-select: none;
+    border: 1px solid #0e0f16;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    text-transform: uppercase;
+    color: #000;
+    background-color: cornsilk;
+
+    display: block;
+    width: 100%;
+    margin-top: 5%;
+    padding: 3%;
+}
+
+.footer__btn:hover {
+    background-color: #1d49bf;
+    color: white;
 }

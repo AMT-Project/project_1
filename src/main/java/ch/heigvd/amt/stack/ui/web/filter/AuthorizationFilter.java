@@ -56,6 +56,12 @@ public class AuthorizationFilter implements Filter {
         if(URI.startsWith("/stack/questions")) {
             return true;
         }
+        if(URI.startsWith("/stack/question")) {
+            return true;
+        }
+        if(URI.startsWith("/stack/statistics")) {
+            return true;
+        }
         // FIXME : Access ibm/api (to remove)
         if(URI.startsWith("/stack/ibm")) {
             return true;

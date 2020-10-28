@@ -16,4 +16,14 @@ public class InMemoryQuestionRepository extends InMemoryRepository<Question, Que
     public Collection<Question> find(QuestionsQuery query) {
         return findAll();
     }
+
+    @Override
+    public Collection<Question> getQuestionsPagination(int currentPage, int recordsPerPage) {
+        return findAll();
+    }
+
+    @Override
+    public int count() {
+        return findAll().size();
+    }
 }

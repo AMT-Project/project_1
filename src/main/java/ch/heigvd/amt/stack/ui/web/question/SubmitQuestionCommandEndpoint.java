@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 
 @WebServlet(name = "SubmitQuestionCommandEndpoint", urlPatterns = "/submitQuestion.do")
 public class SubmitQuestionCommandEndpoint extends HttpServlet {
@@ -23,11 +24,12 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
-        
+
         SubmitQuestionCommand command = SubmitQuestionCommand.builder()
             .title(request.getParameter("title"))
             .authorUUID(currentUserDTO.getUuid())
             .text(request.getParameter("description"))
+            .createdOn(LocalDate.now())
             .build();
 
         questionFacade.registerQuestion(command);
