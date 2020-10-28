@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Singular;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Builder
@@ -31,6 +32,13 @@ public class QuestionsDTO {
         private CommentsDTO comments;
         private AnswersDTO answers;
         private VotesDTO votes;
+
+        public String printLocalDateTime (){
+            //Get current date time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy @ HH:mm");
+
+            return this.createdOn.format(formatter);
+        }
     }
 
     @Singular

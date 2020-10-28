@@ -38,7 +38,7 @@
                     ${question.description}
                 </div>
                 <div class="question-details__question__author">
-                    ${question.username} on ${question.createdOn.toString()}
+                    ${question.username} on ${question.printLocalDateTime()}
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
         <ul class="question-details__comments-list">
             <c:forEach var="comment" items="${question.comments.comments}">
                 <li class="question-details__comment">
-                        ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
+                        ${comment.content} - ${comment.username} on ${comment.printLocalDateTime()}
                 </li>
             </c:forEach>
 
@@ -109,7 +109,7 @@
                                 ${answer.content}
                         </div>
                         <div class="answer__author">
-                                ${answer.username} on ${answer.createdOn.toString()}
+                                ${answer.username} on ${answer.printLocalDateTime()}
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                     <!-- ANSWER COMMENTS LIST -->
                     <c:forEach var="comment" items="${answer.comments.comments}">
                         <li class="answer__comment">
-                                ${comment.content} - ${comment.username} @ ${comment.createdOn.toString()}
+                                ${comment.content} - ${comment.username} on ${comment.printLocalDateTime()}
                         </li>
                     </c:forEach>
                     <!-- ANSWER FORM, ADD COMMENT -->

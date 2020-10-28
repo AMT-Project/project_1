@@ -17,7 +17,7 @@
                             ${question.description}
                     </div>
                     <div class="questions-list__question__author">
-                        by ${question.username} @ ${question.createdOn}
+                        by ${question.username} on ${question.printLocalDateTime()}
                     </div>
                 </div>
             </li>
