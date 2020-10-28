@@ -204,6 +204,9 @@ p {
 .questions-list__question__description {
     font-family: Roboto;
     padding-top: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .questions-list__question__author {
@@ -456,6 +459,9 @@ p {
 
 .profile__questions-list__question__description {
     padding-top: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 /* Footer */
