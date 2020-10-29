@@ -31,51 +31,70 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
     }
 
     public Collection<Question> find(QuestionsQuery query) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement;
+            conn = dataSource.getConnection();
             if(query.getAuthorUUID() != null) {
-                preparedStatement = dataSource.getConnection().prepareStatement(
+                preparedStatement = conn.prepareStatement(
                     "SELECT * FROM Question WHERE person_uuid=? ORDER BY created_on DESC");
                 preparedStatement.setString(1, query.getAuthorUUID().asString());
             } else {
-                preparedStatement = dataSource.getConnection().prepareStatement(
+                preparedStatement = conn.prepareStatement(
                     "SELECT * FROM Question ORDER BY created_on DESC");
             }
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
 
             return getQuestions(rs);
 
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return null;
     }
 
     @Override
     public Collection<Question> getQuestionsPagination(int currentPage, int recordsPerPage) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
+            conn = dataSource.getConnection();
             int start = currentPage * recordsPerPage - recordsPerPage;
 
-            PreparedStatement preparedStatement;
-            preparedStatement = dataSource.getConnection().prepareStatement(
+            preparedStatement = conn.prepareStatement(
                 "SELECT * FROM Question ORDER BY created_on DESC LIMIT ?, ?");
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, recordsPerPage);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
 
             return getQuestions(rs);
 
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
         return null;
     }
 
     @Override
     public void save(Question question) throws SQLIntegrityConstraintViolationException {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "INSERT INTO Question (uuid, title, description, person_uuid, created_on)" +
                     "VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, question.getUuid().asString());
@@ -89,27 +108,42 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
     }
 
     @Override
     public void remove(QuestionId uuid) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "DELETE FROM Question * WHERE uuid=?");
             preparedStatement.setString(1, uuid.asString());
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
     }
 
     @Override
     public Optional<Question> findById(QuestionId uuid) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = dataSource.getConnection().prepareStatement(
                 "SELECT * FROM Question WHERE uuid=?");
             preparedStatement.setString(1, uuid.asString());
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
 
             Collection<Question> questions = getQuestions(rs);
 
@@ -121,32 +155,55 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
         return Optional.empty();
     }
 
     @Override
     public Collection<Question> findAll() {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "SELECT * FROM Question");
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
 
             return getQuestions(rs);
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return null;
     }
 
     @Override
     public int count() {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) AS nbQuestions FROM Question");
-            ResultSet rs = preparedStatement.executeQuery();
+            conn = dataSource.getConnection();
+            preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) AS nbQuestions FROM Question");
+            rs = preparedStatement.executeQuery();
             rs.next();
             return rs.getInt("nbQuestions");
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return 0;
     }

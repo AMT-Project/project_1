@@ -108,9 +108,9 @@ public class JdbcVoteRepository implements IVoteRepository {
             throwables.printStackTrace();
         }
         finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {};
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
 
         return null;
@@ -149,8 +149,8 @@ public class JdbcVoteRepository implements IVoteRepository {
             throwables.printStackTrace();
         }
         finally {
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
     }
 
@@ -168,8 +168,8 @@ public class JdbcVoteRepository implements IVoteRepository {
             throwables.printStackTrace();
         }
         finally {
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
     }
 
@@ -187,8 +187,8 @@ public class JdbcVoteRepository implements IVoteRepository {
             throwables.printStackTrace();
         }
         finally {
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
     }
 
@@ -233,9 +233,9 @@ public class JdbcVoteRepository implements IVoteRepository {
             throwables.printStackTrace();
         }
         finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {};
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return 0;
     }

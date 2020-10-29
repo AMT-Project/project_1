@@ -27,15 +27,17 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
 
     @Override
     public Collection<Answer> find(AnswersQuery query) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = null;
-            ResultSet rs;
+            conn = dataSource.getConnection();
             if(query.getAuthorUUID() != null) {
-                preparedStatement = dataSource.getConnection().prepareStatement(
+                preparedStatement = conn.prepareStatement(
                     "SELECT * FROM Answer WHERE person_uuid=? ORDER BY created_on ASC");
                 preparedStatement.setString(1, query.getAuthorUUID().asString());
             } else if(query.getQuestionUUID() != null) {
-                preparedStatement = dataSource.getConnection().prepareStatement(
+                preparedStatement = conn.prepareStatement(
                     "SELECT * FROM Answer WHERE question_uuid=? ORDER BY created_on ASC");
                 preparedStatement.setString(1, query.getQuestionUUID().asString());
             }
@@ -49,13 +51,21 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
         return null;
     }
 
     @Override
     public void save(Answer answer) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_on)" +
                     "VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, answer.getUuid().asString());
@@ -71,6 +81,10 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
     }
 
@@ -92,13 +106,22 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
 
     @Override
     public int count() {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) AS nbAnswers FROM Answer");
-            ResultSet rs = preparedStatement.executeQuery();
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement("SELECT COUNT(*) AS nbAnswers FROM Answer");
+            rs = preparedStatement.executeQuery();
             rs.next();
             return rs.getInt("nbAnswers");
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return 0;
     }
@@ -116,7 +139,6 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
                 .build();
             answers.add(answer);
         }
-
         return answers;
     }
 }

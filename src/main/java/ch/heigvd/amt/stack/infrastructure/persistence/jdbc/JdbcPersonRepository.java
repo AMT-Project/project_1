@@ -44,23 +44,28 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             e.printStackTrace();
         }
         finally {
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
     }
 
     @Override
     public void remove(PersonId uuid) {
+        Connection conn = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "DELETE FROM Person WHERE uuid=?");
             preparedStatement.setString(1, uuid.asString());
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        ;
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
     }
 
     @Override
@@ -99,9 +104,9 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             e.printStackTrace();
         }
         finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {};
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return Optional.empty();
     }
@@ -134,9 +139,9 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             throwables.printStackTrace();
         }
         finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {};
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return null;
     }
@@ -156,9 +161,9 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             throwables.printStackTrace();
         }
         finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {};
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return 0;
     }
@@ -197,9 +202,9 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             e.printStackTrace();
         }
         finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {};
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return Optional.empty();
     }
