@@ -70,7 +70,7 @@ Scenario("Stats updated", async(I) => {
     I.click("#submitAnswer");
 
 
-    I.click("See app statistics")
+    I.click("See stack statistics")
     I.see((Number(nbUser) + 1).toString());
     I.see((Number(nbQuestion) + 1).toString());
     I.see((Number(nbAnswer) + 1).toString());
