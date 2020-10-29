@@ -32,8 +32,8 @@ Scenario("after registering, I can see my own profile page", (I) => {
     I.see(firstName);
     I.see(lastName);
     I.see(uniqueEmail);
+    I.see("Questions asked");
     I.see("Answers given");
-    I.see("Asked questions list");
     I.see(userFullName + "'s " + "profile");
     I.see("0");
 });
