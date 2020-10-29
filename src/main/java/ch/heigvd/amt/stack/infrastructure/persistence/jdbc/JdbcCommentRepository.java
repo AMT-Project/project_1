@@ -26,9 +26,12 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
 
     @Override
     public void save(Comment comment) throws SQLIntegrityConstraintViolationException {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         try {
+            conn = dataSource.getConnection();
             if(comment.getQuestionUUID() != null) {
-                PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+                 preparedStatement =conn.prepareStatement(
                     "INSERT INTO Comment (uuid, question_uuid, person_uuid, content, created_on)" +
                         "VALUES (?,?,?,?,?)");
                 preparedStatement.setString(1, comment.getUuid().asString());
@@ -40,7 +43,7 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
                 preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
                 preparedStatement.executeUpdate();
             } else if(comment.getAnswerUUID() != null) {
-                PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+                 preparedStatement = conn.prepareStatement(
                     "INSERT INTO Comment (uuid, answer_uuid, person_uuid, content, created_on)" +
                         "VALUES (?,?,?,?,?)");
                 preparedStatement.setString(1, comment.getUuid().asString());
@@ -54,6 +57,10 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
             }
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
     }
 
@@ -92,11 +99,12 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
     @Override
     public Collection<Comment> findQuestionComments(QuestionId questionUUID) {
         LinkedList<Comment> questionComments = new LinkedList<>();
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         ResultSet rs = null;
-
         try {
-            PreparedStatement preparedStatement;
-            preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "SELECT * FROM Comment WHERE question_uuid=? ORDER BY created_on ASC");
             preparedStatement.setString(1, questionUUID.asString());
 
@@ -107,17 +115,24 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
         return questionComments;
     }
 
     @Override
     public Collection<Comment> findAnswerComments(AnswerId answerUUID) {
         LinkedList<Comment> answerComments = new LinkedList<>();
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         ResultSet rs = null;
 
         try {
-            PreparedStatement preparedStatement;
-            preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "SELECT * FROM Comment WHERE answer_uuid=? ORDER BY created_on ASC");
             preparedStatement.setString(1, answerUUID.asString());
 
@@ -127,6 +142,11 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
 
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return answerComments;
     }

@@ -26,9 +26,11 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
 
     @Override
     public void save(Person person) {
+        Connection conn = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "INSERT INTO Person (uuid, username, email, firstname, lastname, password) " +
                     "VALUES (?,?,?,?,?,?)");
             preparedStatement.setString(1, person.getUuid().asString());
@@ -41,31 +43,43 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        ;
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
     }
 
     @Override
     public void remove(PersonId uuid) {
+        Connection conn = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "DELETE FROM Person WHERE uuid=?");
             preparedStatement.setString(1, uuid.asString());
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        ;
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
     }
 
     @Override
     public Optional<Person> findById(PersonId uuid) {
         // TODO : verify implementation
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().
-                prepareStatement("SELECT * FROM Person WHERE uuid=?");
+            conn = dataSource.getConnection();
+            preparedStatement =
+                    conn.prepareStatement("SELECT * FROM Person WHERE uuid=?");
             preparedStatement.setString(1, uuid.asString());
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
 
             LinkedList<Person> matches = new LinkedList<>();
 
@@ -89,15 +103,23 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
         } catch(SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
         return Optional.empty();
     }
 
     @Override
     public Collection<Person> findAll() {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().
-                prepareStatement("SELECT * FROM Person");
-            ResultSet rs = preparedStatement.executeQuery();
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement("SELECT * FROM Person");
+            rs = preparedStatement.executeQuery();
 
             LinkedList<Person> persons = new LinkedList<>();
             while(rs.next()) {
@@ -116,29 +138,46 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
         return null;
     }
 
     @Override
     public int count() {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT COUNT(*) AS nbUsers FROM Person");
-            ResultSet rs = preparedStatement.executeQuery();
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement("SELECT COUNT(*) AS nbUsers FROM Person");
+            rs = preparedStatement.executeQuery();
             rs.next();
             return rs.getInt("nbUsers");
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return 0;
     }
 
     @Override
     public Optional<Person> findByUsername(String username) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().
-                prepareStatement("SELECT * FROM Person WHERE username=?");
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement("SELECT * FROM Person WHERE username=?");
             preparedStatement.setString(1, username);
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
 
             LinkedList<Person> persons = new LinkedList<>();
 
@@ -161,6 +200,11 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
             return Optional.of(persons.get(0));
         } catch(SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return Optional.empty();
     }
