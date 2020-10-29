@@ -25,6 +25,8 @@ const answer = "Sorry I have no idea im just fishing for votes"
 const comment = "THIS IS MY COMMENT"
 const commentAns = "I don't know what to reply to this"
 
+const myQuestion = locate(".questions-list__list-element").withText(questionTitle);
+
 Scenario("after logging in, I can comment a question", (I) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
@@ -37,8 +39,12 @@ Scenario("after logging in, I can comment a question", (I) => {
     I.click("Submit");
 
     I.seeInCurrentUrl(questionsPage);
+
+
+    I.seeElement(myQuestion);
+
     I.see(questionDescription);
-    I.click(questionDescription);
+    I.click(myQuestion);
 
     I.fillField('content', comment);
     I.click("Submit");
@@ -54,7 +60,7 @@ Scenario("after logging in, I can comment an answer", (I) => {
 
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
-    I.click(questionDescription);
+    I.click(myQuestion);
 
     I.see("Reply with an answer");
     I.fillField('Write your answer', answer);
@@ -70,7 +76,8 @@ Scenario("after logging in, I can comment an answer", (I) => {
 Scenario("anonymous user can't comment question", (I) => {
     I.amOnPage(questionsPage);
     I.see(questionDescription);
-    I.click(questionDescription);
+    I.click(myQuestion);
+
 
     I.seeInCurrentUrl(singleQuestionPage);
     I.see(questionDescription);
