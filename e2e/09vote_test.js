@@ -27,6 +27,7 @@ const commentAns = "I don't know what to reply to this"
 
 const myQuestion = locate(".questions-list__list-element").withText(questionTitle);
 const locateVoteCount = locate('.question-details__vote-count');
+const locateAloneVoteCount = locate('.question-details__vote-count--alone')
 const upvoteBtn = {name: 'upvoteBtn'};
 const downvoteBtn = {name: 'downvoteBtn'};
 
@@ -55,7 +56,7 @@ Scenario("Only logged users can vote", (I) => {
     I.click(questionDescription);
     I.seeInCurrentUrl(singleQuestionPage);
 
-    I.seeElement(locateVoteCount);
+    I.seeElement(locateAloneVoteCount);
     I.dontSeeElement(upvoteBtn);
     I.dontSeeElement(downvoteBtn);
 });
