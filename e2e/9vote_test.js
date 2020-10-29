@@ -4,8 +4,9 @@ const stackURL = "http://stack.ch:9080/stack";
 const profileURL = "/profile";
 const loginPage = stackURL + "/login";
 const questionsPage = stackURL + "/questions";
+const singleQuestionPage = stackURL + "/question";
 const registerPage = stackURL + "/register";
-const submitQuestionURL = "/submitQuestion";
+const submitQuestionURL = stackURL + "/submitQuestion";
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";
@@ -91,10 +92,30 @@ Scenario("after logging in, I can upvote an answer", (I) => {
     I.click(upvoteAnswer);
     let downvoteAnswer = locate('button').withAttr({name: 'downvoteBtn'}).inside('form').inside('.answer__votes');
     I.click(downvoteAnswer);
+
+    //TODO complete logic
 });
 
-/*
+
 Scenario("Anonymous user can't vote", (I) => {
     //TODO
-    I.click();
-});*/
+    I.amOnPage(questionsPage);
+    I.see(questionDescription);
+    I.click(questionDescription);
+    I.seeInCurrentUrl(singleQuestionPage);
+
+    I.seeElement('.question-details__vote-count');
+    I.dontSeeElement('upvoteBtn');
+    I.dontSeeElement('downvoteBtn');
+
+    I.amOnPage(loginPage);
+    I.login(uniqueUsername, pwd);
+
+    I.seeInCurrentUrl(questionsPage);
+    I.see(questionDescription);
+    I.click(questionDescription);
+    I.seeInCurrentUrl(singleQuestionPage);
+    I.seeElement({name: 'upvoteBtn'});
+    I.seeElement({name: 'downvoteBtn'});
+
+});
