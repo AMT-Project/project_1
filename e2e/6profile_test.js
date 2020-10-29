@@ -50,7 +50,7 @@ Scenario("After posting a question, I see my question on my profile page", (I) =
     I.click("#profile");
     I.seeInCurrentUrl(profileURL);
 
-    I.see(questionTitle.toUpperCase());
+    I.see(questionTitle);
     I.see(questionDescription);
     I.see("1");
 });
@@ -74,9 +74,9 @@ Scenario("I see all of my questions on my profile page even after logging out", 
     I.click("#profile");
     I.seeInCurrentUrl(profileURL);
 
-    I.see(questionTitle.toUpperCase());
+    I.see(questionTitle);
     I.see(questionDescription);
-    I.see(questionTitle2.toUpperCase());
+    I.see(questionTitle2);
     I.see(questionDescription2);
     I.see("2");
 });
@@ -94,8 +94,8 @@ Scenario("Questions from other users are not shown on my profile page", (I) => {
     I.click("#profile");
     I.seeInCurrentUrl(profileURL);
 
-    I.dontSee(questionTitle.toUpperCase());
+    I.dontSee(questionTitle);
     I.dontSee(questionDescription);
-    I.dontSee(questionTitle2.toUpperCase());
+    I.dontSee(questionTitle2);
     I.dontSee(questionDescription2);
 });

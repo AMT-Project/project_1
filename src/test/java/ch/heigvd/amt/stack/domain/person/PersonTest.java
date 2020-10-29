@@ -1,11 +1,10 @@
-package ch.heigvd.amt.stack.domain;
+package ch.heigvd.amt.stack.domain.person;
 
-import ch.heigvd.amt.stack.domain.person.Person;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestPerson {
+public class PersonTest {
 
     private static final String USER = "wasadigi";
     private static final String FIRSTNAME = "Olivier";

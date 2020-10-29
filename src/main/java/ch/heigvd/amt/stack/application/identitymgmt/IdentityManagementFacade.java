@@ -6,6 +6,7 @@ import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
 
 public class IdentityManagementFacade {
+
     private IPersonRepository personRepository;
 
     public IdentityManagementFacade(IPersonRepository personRepository) {

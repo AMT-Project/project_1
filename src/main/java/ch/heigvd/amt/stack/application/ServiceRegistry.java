@@ -11,10 +11,13 @@ import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
 import ch.heigvd.amt.stack.domain.question.comment.ICommentRepository;
 import ch.heigvd.amt.stack.domain.question.vote.IVoteRepository;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+// note: @Resource(lookup = "jdbc/StackDS") works too with e2e tests
+// 3: @Named("ServiceRegistry")
 @ApplicationScoped
 public class ServiceRegistry {
 
