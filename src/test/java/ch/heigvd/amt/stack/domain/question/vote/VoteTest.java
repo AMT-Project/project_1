@@ -1,16 +1,11 @@
 package ch.heigvd.amt.stack.domain.question.vote;
 
 import ch.heigvd.amt.stack.domain.person.Person;
-import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.Question;
-import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class VoteTest {
 
