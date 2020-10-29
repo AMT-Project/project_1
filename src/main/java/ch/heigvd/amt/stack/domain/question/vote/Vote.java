@@ -21,11 +21,6 @@ public class Vote implements IEntity<Vote, VoteId> {
     private PersonId authorUUID;
 
     @Override
-    public VoteId getUuid() {
-        return this.uuid;
-    }
-
-    @Override
     public Vote deepClone() {
         return this.toBuilder()
             .uuid(new VoteId(uuid.asString()))
