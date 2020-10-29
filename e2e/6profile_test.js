@@ -38,7 +38,7 @@ Scenario("after registering, I can see my own profile page", (I) => {
     I.see("0");
 });
 
-Scenario("After posting a question, I see my question on my profile page", (I) => {
+Scenario("After posting a question, I see my question statistic has changed", (I) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
@@ -50,12 +50,10 @@ Scenario("After posting a question, I see my question on my profile page", (I) =
     I.click("#profile");
     I.seeInCurrentUrl(profileURL);
 
-    I.see(questionTitle);
-    I.see(questionDescription);
     I.see("1");
 });
 
-Scenario("I see all of my questions on my profile page even after logging out", (I) => {
+Scenario("I see that my question statistic is the same when I logged back in", (I) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
@@ -65,6 +63,11 @@ Scenario("I see all of my questions on my profile page even after logging out", 
     I.click("Submit");
 
     I.seeInTitle("Questions");
+
+    I.click("#profile");
+    I.seeInCurrentUrl(profileURL);
+    I.see("2");
+
     I.click("Logout");
 
     I.amOnPage(loginPage);
@@ -74,10 +77,6 @@ Scenario("I see all of my questions on my profile page even after logging out", 
     I.click("#profile");
     I.seeInCurrentUrl(profileURL);
 
-    I.see(questionTitle);
-    I.see(questionDescription);
-    I.see(questionTitle2);
-    I.see(questionDescription2);
     I.see("2");
 });
 
