@@ -29,13 +29,68 @@ public class JdbcVoteRepository implements IVoteRepository {
     DataSource dataSource;
 
     @Override
+    public void save(Vote entity) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            conn = dataSource.getConnection();
+            if(entity.getQuestionUUID() != null) {
+                preparedStatement = conn.prepareStatement(
+                    "INSERT INTO Vote (uuid, is_upvote, question_uuid, person_uuid, answer_uuid)" +
+                        "VALUES (?,?,?,?,?)");
+                preparedStatement.setString(1, entity.getUuid().asString());
+                preparedStatement.setBoolean(2, entity.isUpvote());
+                preparedStatement.setString(3, entity.getQuestionUUID().asString());
+                preparedStatement.setString(4, entity.getAuthorUUID().asString());
+                preparedStatement.setString(5, null);
+
+                preparedStatement.executeUpdate();
+            } else if(entity.getAnswerUUID() != null) {
+                preparedStatement = conn.prepareStatement(
+                    "INSERT INTO Vote (uuid, is_upvote, answer_uuid, person_uuid, question_uuid)" +
+                        "VALUES (?,?,?,?,?)");
+                preparedStatement.setString(1, entity.getUuid().asString());
+                preparedStatement.setBoolean(2, entity.isUpvote());
+                preparedStatement.setString(3, entity.getAnswerUUID().asString());
+                preparedStatement.setString(4, entity.getAuthorUUID().asString());
+                preparedStatement.setString(5, null);
+                preparedStatement.executeUpdate();
+            }
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
+    }
+
+    @Override
+    public void remove(VoteId id) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
+                "DELETE FROM Vote WHERE uuid=?");
+            preparedStatement.setString(1, id.asString());
+            preparedStatement.executeUpdate();
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
+    }
+
+    @Override
     public Optional<Vote> findExistingVotes(VotesQuery query) {
         Collection<Vote> existingVotes = find(query);
 
         if(existingVotes.isEmpty()) {
             return Optional.empty();
         }
-
         return Optional.of(existingVotes.iterator().next());
     }
 
@@ -112,65 +167,7 @@ public class JdbcVoteRepository implements IVoteRepository {
             try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
             try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
-
         return null;
-    }
-
-
-    @Override
-    public void save(Vote entity) {
-        Connection conn = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            conn = dataSource.getConnection();
-            if(entity.getQuestionUUID() != null) {
-                preparedStatement = conn.prepareStatement(
-                    "INSERT INTO Vote (uuid, is_upvote, question_uuid, person_uuid, answer_uuid)" +
-                        "VALUES (?,?,?,?,?)");
-                preparedStatement.setString(1, entity.getUuid().asString());
-                preparedStatement.setBoolean(2, entity.isUpvote());
-                preparedStatement.setString(3, entity.getQuestionUUID().asString());
-                preparedStatement.setString(4, entity.getAuthorUUID().asString());
-                preparedStatement.setString(5, null);
-
-                preparedStatement.executeUpdate();
-            } else if(entity.getAnswerUUID() != null) {
-                 preparedStatement = conn.prepareStatement(
-                    "INSERT INTO Vote (uuid, is_upvote, answer_uuid, person_uuid, question_uuid)" +
-                        "VALUES (?,?,?,?,?)");
-                preparedStatement.setString(1, entity.getUuid().asString());
-                preparedStatement.setBoolean(2, entity.isUpvote());
-                preparedStatement.setString(3, entity.getAnswerUUID().asString());
-                preparedStatement.setString(4, entity.getAuthorUUID().asString());
-                preparedStatement.setString(5, null);
-                preparedStatement.executeUpdate();
-            }
-        } catch(SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        finally {
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
-        }
-    }
-
-    @Override
-    public void remove(VoteId id) {
-        Connection conn = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            conn = dataSource.getConnection();
-             preparedStatement = conn.prepareStatement(
-                "DELETE FROM Vote WHERE uuid=?");
-            preparedStatement.setString(1, id.asString());
-            preparedStatement.executeUpdate();
-        } catch(SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        finally {
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
-        }
     }
 
     @Override
@@ -190,23 +187,6 @@ public class JdbcVoteRepository implements IVoteRepository {
             try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
             try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
-    }
-
-    // TODO : implement all below
-
-    @Override
-    public Optional<Vote> findById(VoteId id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Collection<Vote> findAll() {
-        return null;
-    }
-
-    @Override
-    public int count() {
-        return 0;
     }
 
     @Override
@@ -237,6 +217,22 @@ public class JdbcVoteRepository implements IVoteRepository {
             try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
             try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
+        return 0;
+    }
+
+    // TODO : implement all below
+    @Override
+    public Optional<Vote> findById(VoteId id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Collection<Vote> findAll() {
+        return null;
+    }
+
+    @Override
+    public int count() {
         return 0;
     }
 }
