@@ -25,7 +25,8 @@ const answer = "Sorry I have no idea im just fishing for votes"
 const comment = "THIS IS MY COMMENT"
 const commentAns = "I don't know what to reply to this"
 
-Scenario("after logging in, I can vote on a question", (I) => {
+Scenario("Only logged users can vote", (I) => {
+    //Logged user
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
@@ -39,6 +40,31 @@ Scenario("after logging in, I can vote on a question", (I) => {
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
     I.click(questionDescription);
+    I.seeElement({name: 'upvoteBtn'});
+    I.seeElement({name: 'downvoteBtn'});
+
+    //Anonymous user
+    I.click("Logout");
+    //TODO
+    I.seeInCurrentUrl(questionsPage);
+    I.see(questionDescription);
+    I.click(questionDescription);
+    I.seeInCurrentUrl(singleQuestionPage);
+
+    I.seeElement('.question-details__vote-count');
+    I.dontSeeElement('upvoteBtn');
+    I.dontSeeElement('downvoteBtn');
+});
+
+Scenario("Control vote logic on question", (I) => {
+    I.amOnPage(loginPage);
+    I.login(uniqueUsername, pwd);
+
+    I.seeInCurrentUrl(questionsPage);
+    I.see(questionDescription);
+    I.click(questionDescription);
+    I.seeInCurrentUrl(singleQuestionPage);
+
     I.seeElement(locate('.question-details__vote-count').withText('0'));
 
     //Upvote
@@ -64,7 +90,7 @@ Scenario("after logging in, I can vote on a question", (I) => {
     I.seeElement(locate('.question-details__vote-count').withText('1'));
 });
 
-Scenario("after logging in, I can upvote an answer", (I) => {
+Scenario("Control vote logic on answer", (I) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername,pwd);
 
@@ -94,28 +120,7 @@ Scenario("after logging in, I can upvote an answer", (I) => {
     I.click(downvoteAnswer);
 
     //TODO complete logic
+    I.click();
 });
 
 
-Scenario("Anonymous user can't vote", (I) => {
-    //TODO
-    I.amOnPage(questionsPage);
-    I.see(questionDescription);
-    I.click(questionDescription);
-    I.seeInCurrentUrl(singleQuestionPage);
-
-    I.seeElement('.question-details__vote-count');
-    I.dontSeeElement('upvoteBtn');
-    I.dontSeeElement('downvoteBtn');
-
-    I.amOnPage(loginPage);
-    I.login(uniqueUsername, pwd);
-
-    I.seeInCurrentUrl(questionsPage);
-    I.see(questionDescription);
-    I.click(questionDescription);
-    I.seeInCurrentUrl(singleQuestionPage);
-    I.seeElement({name: 'upvoteBtn'});
-    I.seeElement({name: 'downvoteBtn'});
-
-});
