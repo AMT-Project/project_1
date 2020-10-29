@@ -24,7 +24,7 @@ const answer = "Sorry I have no idea im just fishing for votes"
 const comment = "THIS IS MY COMMENT"
 const commentAns = "I don't know what to reply to this"
 
-Scenario("after logging in, I can upvote a question", (I) => {
+Scenario("after logging in, I can vote on a question", (I) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
@@ -38,10 +38,32 @@ Scenario("after logging in, I can upvote a question", (I) => {
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
     I.click(questionDescription);
+    I.seeElement(locate('.question-details__vote-count').withText('0'));
+
+    //Upvote
     I.click('upvoteBtn');
+    I.seeElement(locate('.question-details__vote-count').withText('1'));
+    //Cancel upvote
+    I.click('upvoteBtn');
+    I.seeElement(locate('.question-details__vote-count').withText('0'));
+    //Downvote
+    I.click('downvoteBtn');
+    I.seeElement(locate('.question-details__vote-count').withText('-1'));
+    //Cancel downvote
+    I.click('downvoteBtn');
+    I.seeElement(locate('.question-details__vote-count').withText('0'));
+    //Upvote
+    I.click('upvoteBtn');
+    I.seeElement(locate('.question-details__vote-count').withText('1'));
+    //Invert vote
+    I.click('downvoteBtn');
+    I.seeElement(locate('.question-details__vote-count').withText('-1'));
+    //Invert vote
+    I.click('upvoteBtn');
+    I.seeElement(locate('.question-details__vote-count').withText('1'));
 });
 
-Scenario("after logging in, I can upvote an answer", (I) => {
+/*Scenario("after logging in, I can upvote an answer", (I) => {
   //TODO
     I.click();
 });
@@ -56,4 +78,4 @@ Scenario("I cannot upvote an answer twice", (I) => {
 Scenario("Anonymous user can't vote", (I) => {
     //TODO
     I.click();
-});
+});*/
