@@ -25,6 +25,9 @@ const answer = "Sorry I have no idea im just fishing for votes"
 const comment = "THIS IS MY COMMENT"
 const commentAns = "I don't know what to reply to this"
 
+const myQuestion = locate(".questions-list__list-element").withText(questionTitle);
+const locateVoteCount = locate('.question-details__vote-count');
+
 Scenario("Only logged users can vote", (I) => {
     //Logged user
     I.amOnPage(registerPage);
@@ -62,7 +65,7 @@ Scenario("Control vote logic on question", (I) => {
 
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
-    I.click(questionDescription);
+    I.click(myQuestion);
     I.seeInCurrentUrl(singleQuestionPage);
 
     I.seeElement(locate('.question-details__vote-count').withText('0'));
@@ -88,6 +91,25 @@ Scenario("Control vote logic on question", (I) => {
     //Invert vote
     I.click('upvoteBtn');
     I.seeElement(locate('.question-details__vote-count').withText('1'));
+});
+
+Scenario("Votes from multiple users are accounted", async(I) => {
+    I.amOnPage(registerPage);
+    I.register(uniqueUsername + "doppel", firstName, lastName, uniqueEmail + "doppel", pwd);
+
+    I.see(questionDescription);
+    I.click(myQuestion);
+
+    const voteCount = await I.grabTextFrom(locateVoteCount);
+
+    if(Number(voteCount) < 1){
+        throw(new Error("No previous vote"));
+    }
+
+    I.click('upvoteBtn');
+    I.seeElement(locateVoteCount.withText((Number(voteCount) + 1).toString()));
+    I.click('downvoteBtn');
+    I.seeElement(locateVoteCount.withText((Number(voteCount) - 1).toString()));
 });
 
 Scenario("Control vote logic on answer", (I) => {
