@@ -27,6 +27,8 @@ const commentAns = "I don't know what to reply to this"
 
 const myQuestion = locate(".questions-list__list-element").withText(questionTitle);
 const locateVoteCount = locate('.question-details__vote-count');
+const upvoteBtn = {name: 'upvoteBtn'};
+const downvoteBtn = {name: 'downvoteBtn'};
 
 Scenario("Only logged users can vote", (I) => {
     //Logged user
@@ -43,20 +45,19 @@ Scenario("Only logged users can vote", (I) => {
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
     I.click(questionDescription);
-    I.seeElement({name: 'upvoteBtn'});
-    I.seeElement({name: 'downvoteBtn'});
+    I.seeElement(upvoteBtn);
+    I.seeElement(downvoteBtn);
 
     //Anonymous user
     I.click("Logout");
-    //TODO
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
     I.click(questionDescription);
     I.seeInCurrentUrl(singleQuestionPage);
 
-    I.seeElement('.question-details__vote-count');
-    I.dontSeeElement('upvoteBtn');
-    I.dontSeeElement('downvoteBtn');
+    I.seeElement(locateVoteCount);
+    I.dontSeeElement(upvoteBtn);
+    I.dontSeeElement(downvoteBtn);
 });
 
 Scenario("Control vote logic on question", (I) => {
@@ -68,29 +69,31 @@ Scenario("Control vote logic on question", (I) => {
     I.click(myQuestion);
     I.seeInCurrentUrl(singleQuestionPage);
 
-    I.seeElement(locate('.question-details__vote-count').withText('0'));
+    I.seeElement(locateVoteCount.withText('0'));
 
     //Upvote
-    I.click('upvoteBtn');
-    I.seeElement(locate('.question-details__vote-count').withText('1'));
+    I.click(upvoteBtn);
+    I.seeElement(locateVoteCount.withText('1'));
     //Cancel upvote
-    I.click('upvoteBtn');
-    I.seeElement(locate('.question-details__vote-count').withText('0'));
+    I.click(upvoteBtn);
+    I.seeElement(locateVoteCount.withText('0'));
+
     //Downvote
-    I.click('downvoteBtn');
-    I.seeElement(locate('.question-details__vote-count').withText('-1'));
+    I.click(downvoteBtn);
+    I.seeElement(locateVoteCount.withText('-1'));
     //Cancel downvote
-    I.click('downvoteBtn');
-    I.seeElement(locate('.question-details__vote-count').withText('0'));
+    I.click(downvoteBtn);
+    I.seeElement(locateVoteCount.withText('0'));
+
     //Upvote
-    I.click('upvoteBtn');
-    I.seeElement(locate('.question-details__vote-count').withText('1'));
+    I.click(upvoteBtn);
+    I.seeElement(locateVoteCount.withText('1'));
     //Invert vote
-    I.click('downvoteBtn');
-    I.seeElement(locate('.question-details__vote-count').withText('-1'));
+    I.click(downvoteBtn);
+    I.seeElement(locateVoteCount.withText('-1'));
     //Invert vote
-    I.click('upvoteBtn');
-    I.seeElement(locate('.question-details__vote-count').withText('1'));
+    I.click(upvoteBtn);
+    I.seeElement(locateVoteCount.withText('1'));
 });
 
 Scenario("Votes from multiple users are accounted", async(I) => {
@@ -106,9 +109,9 @@ Scenario("Votes from multiple users are accounted", async(I) => {
         throw(new Error("No previous vote"));
     }
 
-    I.click('upvoteBtn');
+    I.click(upvoteBtn);
     I.seeElement(locateVoteCount.withText((Number(voteCount) + 1).toString()));
-    I.click('downvoteBtn');
+    I.click(downvoteBtn);
     I.seeElement(locateVoteCount.withText((Number(voteCount) - 1).toString()));
 });
 
@@ -131,14 +134,14 @@ Scenario("Control vote logic on answer", (I) => {
     I.fillField('Write your answer', answer);
     I.click("#submitAnswer");
 
-    I.seeInCurrentUrl("/question");
+    I.seeInCurrentUrl(singleQuestionPage);
     I.see(questionDescription);
     I.see(answer);
 
 
-    let upvoteAnswer = locate('button').withAttr({name: 'upvoteBtn'}).inside('form').inside('.answer__votes');
+    let upvoteAnswer = locate('button').withAttr(upvoteBtn).inside('form').inside('.answer__votes');
     I.click(upvoteAnswer);
-    let downvoteAnswer = locate('button').withAttr({name: 'downvoteBtn'}).inside('form').inside('.answer__votes');
+    let downvoteAnswer = locate('button').withAttr(downvoteBtn).inside('form').inside('.answer__votes');
     I.click(downvoteAnswer);
 
     //TODO complete logic
