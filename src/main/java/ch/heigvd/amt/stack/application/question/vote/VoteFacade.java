@@ -47,7 +47,7 @@ public class VoteFacade {
 
     public VotesDTO getVotes(VoteCommand command) {
         return VotesDTO.builder()
-            .count(voteRepository.countQuestionVotes(VotesQuery.builder()
+            .count(voteRepository.countVotes(VotesQuery.builder()
                 .answerUUID(command.getAnswerUUID())
                 .questionUUID(command.getQuestionUUID())
                 .build()))

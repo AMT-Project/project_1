@@ -181,7 +181,7 @@ public class JdbcVoteRepository implements IVoteRepository {
     }
 
     @Override
-    public int countQuestionVotes(VotesQuery query) {
+    public int countVotes(VotesQuery query) {
         try {
             if(query.getQuestionUUID() != null) {
                 PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT SUM(is_upvote * 2 - 1) AS nbVotes FROM Vote WHERE question_uuid=?");

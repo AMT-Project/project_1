@@ -14,5 +14,5 @@ public interface IVoteRepository extends IRepository<Vote, VoteId> {
 
     void changeVote(VoteId id);
 
-    int countQuestionVotes(VotesQuery query);
+    int countVotes(VotesQuery query);
 }
