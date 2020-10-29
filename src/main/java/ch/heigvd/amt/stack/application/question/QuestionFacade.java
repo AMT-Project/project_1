@@ -65,7 +65,6 @@ public class QuestionFacade {
             .build();
     }
 
-    // TODO : Devenu inutile à cause de la pagination? Voir fonction getQuestionsPagination ci-dessus
     public QuestionsDTO getQuestions(QuestionsQuery query) {
         Collection<Question> allQuestions = questionRepository.find(query);
 
