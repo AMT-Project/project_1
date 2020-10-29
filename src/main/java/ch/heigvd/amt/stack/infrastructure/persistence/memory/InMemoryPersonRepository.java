@@ -33,6 +33,16 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
     }
 
     @Override
+    public Optional<Person> findByEmail(String email) {
+        return Optional.empty();
+    }
+
+    @Override
+    public int update(Person user) {
+        return 0;
+    }
+
+    @Override
     public int count() {
         return findAll().size();
     }

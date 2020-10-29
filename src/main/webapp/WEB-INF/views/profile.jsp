@@ -13,6 +13,23 @@
                 <p class="profile__infos--text">Last name : ${user.lastName}</p>
                 <p class="profile__infos--text">Email : ${user.email}</p>
             </div>
+            <div class="profile__update">
+                <div class="messages">
+                    <c:forEach var="error" items="${errors}">
+                        <div class="error">${error}</div>
+                    </c:forEach>
+                </div>
+                <form class="form-profile" action="${pageContext.request.contextPath}/updateProfile.do" method="POST">
+                    <input class="form-control" type="text" placeholder="new username" name="username"/>
+                    <input class="form-control" type="text" placeholder="new email" name="email"/>
+                    <input class="form-control" type="text" placeholder="new firstname" name="firstName"/>
+                    <input class="form-control" type="text" placeholder="new lastname" name="lastName"/>
+                    <input class="form-control" type="password" placeholder="old password" name="oldPassword"/>
+                    <input class="form-control" type="password" placeholder="new password" name="newPassword"/>
+                    <input class="form-control" type="password" placeholder="repeat password" name="repeatPassword"/>
+                    <input class="form-btn" type="submit" value="Update">
+                </form>
+            </div>
 
             <div class="profile__stat">
                 <div class="profile__stat__item">
@@ -36,24 +53,6 @@
                     </c:if>
                 </div>
             </div>
-        </div>
-        <div class="profile__questions">
-            <h4 class="profile__questions--title">Asked questions list :</h4>
-            <ul class="profile__questions-list">
-                <c:forEach var="question" items="${userQuestions.questions}">
-                    <li class="profile__questions-list__element"
-                        onclick="location.href='${pageContext.request.contextPath}/question?uuid=${question.uuid.asString()}';">
-                        <div class="profile__questions-list__question">
-                            <div class="profile__questions-list__question__title">
-                                    ${question.title}
-                            </div>
-                            <div class="profile__questions-list__question__description">
-                                    ${question.description}
-                            </div>
-                        </div>
-                    </li>
-                </c:forEach>
-            </ul>
         </div>
     </div>
 </div>
