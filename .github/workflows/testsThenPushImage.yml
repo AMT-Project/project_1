@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - fb-github-action
 
 jobs:
   build:
