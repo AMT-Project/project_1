@@ -14,18 +14,12 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @Builder(toBuilder = true)
-
 public class Answer implements IEntity<Answer, AnswerId> {
     private AnswerId uuid = new AnswerId();
     private String content;
     private QuestionId questionUUID;
     private PersonId authorUUID;
     private LocalDateTime createdOn;
-
-    @Override
-    public AnswerId getUuid() {
-        return this.uuid;
-    }
 
     @Override
     public Answer deepClone() {
