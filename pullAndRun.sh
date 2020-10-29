@@ -8,12 +8,12 @@ echo "docker inspect stack_overflow"
 echo "Connect to IPAddress:9443/stack/login"
 sleep 5
 
-docker kill stackoverflow stack_db
-docker rm stackoverflow stack_db
-
 echo "==============================="
 echo "=== Pulling & Running image ==="
 echo "==============================="
+docker pull ghcr.io/pabloheigvd/flow
+docker kill stack_overflow stack_db
+docker rm stackoverflow stack_db
 cd docker
 docker-compose down -v
 docker-compose up &
