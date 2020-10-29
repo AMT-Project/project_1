@@ -5,7 +5,7 @@ const profileURL = "/profile";
 const loginPage = stackURL + "/login";
 const questionsPage = stackURL + "/questions";
 const registerPage = stackURL + "/register";
-const submitQuestionURL = "/submitQuestion";
+const submitQuestionURL = stackURL + "/submitQuestion";
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";

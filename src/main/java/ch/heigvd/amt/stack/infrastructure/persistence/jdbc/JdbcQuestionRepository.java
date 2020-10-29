@@ -35,11 +35,11 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             PreparedStatement preparedStatement;
             if(query.getAuthorUUID() != null) {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question WHERE person_uuid=? ORDER BY created_on ASC");
+                    "SELECT * FROM Question WHERE person_uuid=? ORDER BY created_on DESC");
                 preparedStatement.setString(1, query.getAuthorUUID().asString());
             } else {
                 preparedStatement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM Question ORDER BY created_on ASC");
+                    "SELECT * FROM Question ORDER BY created_on DESC");
             }
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -58,7 +58,7 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
 
             PreparedStatement preparedStatement;
             preparedStatement = dataSource.getConnection().prepareStatement(
-                "SELECT * FROM Question ORDER BY created_on ASC LIMIT ?, ?");
+                "SELECT * FROM Question ORDER BY created_on DESC LIMIT ?, ?");
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, recordsPerPage);
 
