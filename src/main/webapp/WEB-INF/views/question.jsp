@@ -8,12 +8,9 @@
     <!-- QUESTION -->
     <div class="question-details__question">
         <div class="question-details__question--row">
-            <!-- TODO : VOTES -->
-            <!-- TODO : Nice to have - Mettre dans un fragment -->
             <div class="votes__container">
                 <c:choose>
                     <c:when test="${currentUser != null}">
-
                         <form class="form-vote" action="vote.do" method="post">
                             <input name="voteType" type="hidden" value="up"/>
                             <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
@@ -27,11 +24,9 @@
                             <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                             <button name="downvoteBtn" class="form-vote-btn" type="submit">-</button>
                         </form>
-
                     </c:when>
                     <c:otherwise>
-
-                        <div class="question-details__vote-count--alone">${question.votes.count}</div>
+                        <div id="voteCount" class="question-details__vote-count--alone">${question.votes.count}</div>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -167,7 +162,6 @@
             <p class="answer-forms--not-logged-in">You must be logged in to be able to reply to this question</p>
         </c:otherwise>
     </c:choose>
-    <!-- TODO : Nice to have, factorize forms in fragment -->
 
     <nav>
         <ul class="pagination">
