@@ -11,6 +11,9 @@
     <variable name="default.http.port" defaultValue="9080"/>
     <variable name="default.https.port" defaultValue="9443"/>
 
+    <!-- doc says it's needed for arquillian: https://youtu.be/4-oMHWgPDdk?t=992 -->
+    <applicationMonitor updateTrigger="mbean"/>
+
     <webApplication location="stack.war" contextRoot="/stack" />
 
     <httpEndpoint host="*" httpPort="${default.http.port}"

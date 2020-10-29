@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="footer__stats">
-        <button class="footer__btn" onclick="window.location.href='/stack/statistics';">See app statistics</button>
+        <button class="footer__btn" onclick="window.location.href='/stack/statistics';">See stack statistics</button>
         <button class="footer__btn" onclick="window.location.href='https://github.com/AMT-Project/project_1';">See our
             Github repo
         </button>

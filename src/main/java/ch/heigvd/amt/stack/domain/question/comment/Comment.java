@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @Builder(toBuilder = true)
-
 public class Comment implements IEntity<Comment, CommentId> {
     private CommentId uuid = new CommentId();
     private String content;
@@ -24,11 +23,6 @@ public class Comment implements IEntity<Comment, CommentId> {
     private QuestionId questionUUID;
     private AnswerId answerUUID;
     private LocalDateTime createdOn;
-
-    @Override
-    public CommentId getUuid() {
-        return this.uuid;
-    }
 
     @Override
     public Comment deepClone() {
@@ -44,7 +38,7 @@ public class Comment implements IEntity<Comment, CommentId> {
                 throw new java.lang.IllegalArgumentException("Content is mandatory");
             }
             if(authorUUID == null) {
-                throw new java.lang.IllegalArgumentException("PersonUUID is mandatory");
+                throw new java.lang.IllegalArgumentException("authorUUID is mandatory");
             }
             if(createdOn == null) {
                 createdOn = LocalDateTime.now();
