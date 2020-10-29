@@ -44,7 +44,7 @@ public class Comment implements IEntity<Comment, CommentId> {
                 throw new java.lang.IllegalArgumentException("Content is mandatory");
             }
             if(authorUUID == null) {
-                throw new java.lang.IllegalArgumentException("PersonUUID is mandatory");
+                throw new java.lang.IllegalArgumentException("authorUUID is mandatory");
             }
             if(createdOn == null) {
                 createdOn = LocalDateTime.now();
