@@ -63,18 +63,37 @@ Scenario("after logging in, I can vote on a question", (I) => {
     I.seeElement(locate('.question-details__vote-count').withText('1'));
 });
 
-/*Scenario("after logging in, I can upvote an answer", (I) => {
-  //TODO
-    I.click();
+Scenario("after logging in, I can upvote an answer", (I) => {
+    I.amOnPage(loginPage);
+    I.login(uniqueUsername,pwd);
+
+    I.click("New Question");
+    I.seeInCurrentUrl(submitQuestionURL);
+
+    I.fillField('title', questionTitle);
+    I.fillField('description', questionDescription);
+    I.click("Submit");
+
+    I.seeInCurrentUrl(questionsPage);
+    I.see(questionDescription);
+    I.click(questionDescription);
+
+    I.see("Reply with an answer");
+    I.fillField('Write your answer', answer);
+    I.click("#submitAnswer");
+
+    I.seeInCurrentUrl("/question");
+    I.see(questionDescription);
+    I.see(answer);
+
+
+    let upvoteAnswer = locate('button').withAttr({name: 'upvoteBtn'}).inside('form').inside('.answer__votes');
+    I.click(upvoteAnswer);
+    let downvoteAnswer = locate('button').withAttr({name: 'downvoteBtn'}).inside('form').inside('.answer__votes');
+    I.click(downvoteAnswer);
 });
 
-Scenario("I cannot upvote an answer twice", (I) => {
-    //TODO
-    I.click();
-});
-
-//TODO downvotes
-
+/*
 Scenario("Anonymous user can't vote", (I) => {
     //TODO
     I.click();

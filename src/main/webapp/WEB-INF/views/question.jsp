@@ -96,7 +96,7 @@
                                     <input name="voteType" type="hidden" value="down"/>
                                     <input name="answerUuid" type="hidden" value="${answer.uuid.asString()}"/>
                                     <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                                    <button name="upvoteBtn" type="submit">-</button>
+                                    <button name="downvoteBtn" type="submit">-</button>
                                 </form>
                             </c:when>
                             <c:otherwise>
