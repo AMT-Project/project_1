@@ -127,7 +127,7 @@
                             <c:when test="${currentUser != null}">
                                 <form class="form-inline comment__form"
                                       action="${pageContext.request.contextPath}/submitComment.do" method="POST">
-                                    <input name="answerUUID" type="hidden" value=${answer.uuid.asString()}/>
+                                    <input name="answerUUID" type="hidden" value="${answer.uuid.asString()}"/>
                                     <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                                     <textarea id="commentAnswer" class="form-control comment__textarea" type="text"
                                               placeholder="Write a comment"
