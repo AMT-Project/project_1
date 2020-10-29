@@ -2,9 +2,7 @@ package ch.heigvd.amt.stack.application.identitymgmt;
 
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
-import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.JdbcPersonRepository;
-import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.JdbcRepository;
 import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.helper.DataSourceProvider;
 
 import org.junit.jupiter.api.Assertions;
@@ -23,8 +21,9 @@ class IdentityManagementFacadeTestIT {
     }
 
     @Test
-    void register() {
-        final String TEST_NAME = "IdentityManagementFacadeTestIT_register";
+    void registerThrowsRegistrationFailedExceptionWhenDuplicateUser() {
+        final String TEST_NAME = "IdentityManagementFacadeTestIT_register"
+                + (repository.count() + 1);
         IdentityManagementFacade identityManagementFacade = new IdentityManagementFacade(repository);
         RegisterCommand registerCommand = RegisterCommand.builder()
                 .username(TEST_NAME)
