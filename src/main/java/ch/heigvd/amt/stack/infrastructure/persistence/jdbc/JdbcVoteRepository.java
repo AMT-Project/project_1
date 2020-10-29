@@ -42,28 +42,30 @@ public class JdbcVoteRepository implements IVoteRepository {
     @Override
     public Collection<Vote> find(VotesQuery query) {
         LinkedList<Vote> matches = new LinkedList<>();
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
 
         try {
-            PreparedStatement preparedStatement = null;
-            ResultSet rs;
+            conn = dataSource.getConnection();
             if(query.getAuthorUUID() == null) {
                 if(query.getAnswerUUID() != null) {
-                    preparedStatement = dataSource.getConnection().prepareStatement(
+                    preparedStatement = conn.prepareStatement(
                         "SELECT * FROM Vote WHERE answer_uuid=?");
                     preparedStatement.setString(1, query.getAnswerUUID().asString());
                 } else if(query.getQuestionUUID() != null) {
-                    preparedStatement = dataSource.getConnection().prepareStatement(
+                    preparedStatement = conn.prepareStatement(
                         "SELECT * FROM Vote WHERE question_uuid=?");
                     preparedStatement.setString(1, query.getQuestionUUID().asString());
                 }
             } else {
                 if(query.getAnswerUUID() != null) {
-                    preparedStatement = dataSource.getConnection().prepareStatement(
+                    preparedStatement = conn.prepareStatement(
                         "SELECT * FROM Vote WHERE answer_uuid=? AND person_uuid=?");
                     preparedStatement.setString(1, query.getAnswerUUID().asString());
                     preparedStatement.setString(2, query.getAuthorUUID().asString());
                 } else if(query.getQuestionUUID() != null) {
-                    preparedStatement = dataSource.getConnection().prepareStatement(
+                    preparedStatement = conn.prepareStatement(
                         "SELECT * FROM Vote WHERE question_uuid=? AND person_uuid=?");
                     preparedStatement.setString(1, query.getQuestionUUID().asString());
                     preparedStatement.setString(2, query.getAuthorUUID().asString());
@@ -105,15 +107,24 @@ public class JdbcVoteRepository implements IVoteRepository {
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {};
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
+
         return null;
     }
 
 
     @Override
     public void save(Vote entity) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         try {
+            conn = dataSource.getConnection();
             if(entity.getQuestionUUID() != null) {
-                PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+                preparedStatement = conn.prepareStatement(
                     "INSERT INTO Vote (uuid, is_upvote, question_uuid, person_uuid, answer_uuid)" +
                         "VALUES (?,?,?,?,?)");
                 preparedStatement.setString(1, entity.getUuid().asString());
@@ -124,7 +135,7 @@ public class JdbcVoteRepository implements IVoteRepository {
 
                 preparedStatement.executeUpdate();
             } else if(entity.getAnswerUUID() != null) {
-                PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+                 preparedStatement = conn.prepareStatement(
                     "INSERT INTO Vote (uuid, is_upvote, answer_uuid, person_uuid, question_uuid)" +
                         "VALUES (?,?,?,?,?)");
                 preparedStatement.setString(1, entity.getUuid().asString());
@@ -137,29 +148,47 @@ public class JdbcVoteRepository implements IVoteRepository {
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
     }
 
     @Override
     public void remove(VoteId id) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+             preparedStatement = conn.prepareStatement(
                 "DELETE FROM Vote WHERE uuid=?");
             preparedStatement.setString(1, id.asString());
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
     }
 
     @Override
     public void changeVote(VoteId id) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
                 "UPDATE Vote SET is_upvote = NOT is_upvote WHERE uuid=?");
             preparedStatement.setString(1, id.asString());
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
     }
 
@@ -182,22 +211,31 @@ public class JdbcVoteRepository implements IVoteRepository {
 
     @Override
     public int countQuestionVotes(VotesQuery query) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
+            conn = dataSource.getConnection();
             if(query.getQuestionUUID() != null) {
-                PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT SUM(is_upvote * 2 - 1) AS nbVotes FROM Vote WHERE question_uuid=?");
+                preparedStatement = conn.prepareStatement("SELECT SUM(is_upvote * 2 - 1) AS nbVotes FROM Vote WHERE question_uuid=?");
                 preparedStatement.setString(1, query.getQuestionUUID().asString());
-                ResultSet rs = preparedStatement.executeQuery();
+                rs = preparedStatement.executeQuery();
                 rs.next();
                 return rs.getInt("nbVotes");
             } else if(query.getAnswerUUID() != null) {
-                PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement("SELECT SUM(is_upvote * 2 - 1) AS nbVotes FROM Vote WHERE answer_uuid=?");
+                preparedStatement = conn.prepareStatement("SELECT SUM(is_upvote * 2 - 1) AS nbVotes FROM Vote WHERE answer_uuid=?");
                 preparedStatement.setString(1, query.getAnswerUUID().asString());
-                ResultSet rs = preparedStatement.executeQuery();
+                rs = preparedStatement.executeQuery();
                 rs.next();
                 return rs.getInt("nbVotes");
             }
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {};
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
         return 0;
     }
