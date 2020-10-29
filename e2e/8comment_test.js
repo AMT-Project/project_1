@@ -5,7 +5,8 @@ const profileURL = "/profile";
 const loginPage = stackURL + "/login";
 const questionsPage = stackURL + "/questions";
 const registerPage = stackURL + "/register";
-const submitQuestionURL = "/submitQuestion";
+const submitQuestionURL = stackURL + "/submitQuestion";
+const singleQuestionPage = stackURL + "/question";
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";
@@ -24,6 +25,8 @@ const answer = "Sorry I have no idea im just fishing for votes"
 const comment = "THIS IS MY COMMENT"
 const commentAns = "I don't know what to reply to this"
 
+const myQuestion = locate(".questions-list__list-element").withText(questionTitle);
+
 Scenario("after logging in, I can comment a question", (I) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
@@ -36,16 +39,15 @@ Scenario("after logging in, I can comment a question", (I) => {
     I.click("Submit");
 
     I.seeInCurrentUrl(questionsPage);
+
+
+    I.seeElement(myQuestion);
+
     I.see(questionDescription);
-    I.click(questionDescription);
+    I.click(myQuestion);
 
     I.fillField('content', comment);
     I.click("Submit");
-
-    //TODO redirect to same page then delete this to standardize w/ answer posting
-    I.seeInCurrentUrl(questionsPage);
-    I.see(questionDescription);
-    I.click(questionDescription);
 
     I.seeInCurrentUrl("/question");
     I.see(questionDescription);
@@ -56,10 +58,9 @@ Scenario("after logging in, I can comment an answer", (I) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
-   // I.amOnPage(questionsPage);
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
-    I.click(questionDescription);
+    I.click(myQuestion);
 
     I.see("Reply with an answer");
     I.fillField('Write your answer', answer);
@@ -68,22 +69,17 @@ Scenario("after logging in, I can comment an answer", (I) => {
     I.fillField('#commentAnswer', commentAns);
     I.click("#submitCommentAnswer");
 
-    //TODO redirect to same page then delete this to standardize w/ answer posting
-    I.seeInCurrentUrl(questionsPage);
-    I.see(questionDescription);
-    I.click(questionDescription);
-
-    I.seeInCurrentUrl("/question");
-    I.see(questionDescription);
+    I.seeInCurrentUrl(singleQuestionPage);
     I.see(commentAns);
 });
 
 Scenario("anonymous user can't comment question", (I) => {
     I.amOnPage(questionsPage);
     I.see(questionDescription);
-    I.click(questionDescription);
+    I.click(myQuestion);
 
-    I.seeInCurrentUrl("/question");
+
+    I.seeInCurrentUrl(singleQuestionPage);
     I.see(questionDescription);
     I.see('You must be logged in to be able to comment a question');
 });

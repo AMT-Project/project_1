@@ -23,7 +23,7 @@
                         <input name="voteType" type="hidden" value="down"/>
                         <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
                         <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                        <button name="upvoteBtn" type="submit">-</button>
+                        <button name="downvoteBtn" type="submit">-</button>
                     </form>
                 </c:when>
                 <c:otherwise>
@@ -96,7 +96,7 @@
                                     <input name="voteType" type="hidden" value="down"/>
                                     <input name="answerUuid" type="hidden" value="${answer.uuid.asString()}"/>
                                     <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                                    <button name="upvoteBtn" type="submit">-</button>
+                                    <button name="downvoteBtn" type="submit">-</button>
                                 </form>
                             </c:when>
                             <c:otherwise>
@@ -119,7 +119,6 @@
                     <c:forEach var="comment" items="${answer.comments.comments}">
                         <li class="answer__comment">
                                 ${comment.content} - ${comment.username} on ${comment.printLocalDateTime()}
-                                ${answer.uuid.asString()}
                         </li>
                     </c:forEach>
                     <!-- ANSWER FORM, ADD COMMENT -->
@@ -128,8 +127,8 @@
                             <c:when test="${currentUser != null}">
                                 <form class="form-inline comment__form"
                                       action="${pageContext.request.contextPath}/submitComment.do" method="POST">
-                                    <input name="answerUUID" type="hidden" value="${answer.uuid.asString()}">
-                                    <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}">
+                                    <input name="answerUUID" type="hidden" value="${answer.uuid.asString()}"/>
+                                    <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
                                     <textarea id="commentAnswer" class="form-control comment__textarea" type="text"
                                               placeholder="Write a comment"
                                               name="content" required></textarea>
