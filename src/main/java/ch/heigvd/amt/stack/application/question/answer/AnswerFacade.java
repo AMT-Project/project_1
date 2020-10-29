@@ -1,8 +1,11 @@
 package ch.heigvd.amt.stack.application.question.answer;
 
+import ch.heigvd.amt.stack.application.question.QuestionsDTO;
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
 import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
 import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
+import ch.heigvd.amt.stack.domain.question.Question;
+import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
@@ -43,6 +46,32 @@ public class AnswerFacade {
 
     public AnswersDTO getAnswers(AnswersQuery query) {
         Collection<Answer> allAnswers = answerRepository.find(query);
+
+        List<AnswersDTO.AnswerDTO> allAnswersDTO = allAnswers.stream().map(answer -> {
+            Person author = personRepository.findById(answer.getAuthorUUID()).get();
+
+            return AnswersDTO.AnswerDTO.builder()
+                .uuid(answer.getUuid())
+                .content(answer.getContent())
+                .questionUUID(answer.getQuestionUUID())
+                .authorUUID(author.getUuid())
+                .username(author.getUsername())
+                .createdOn(answer.getCreatedOn())
+                .comments(commentFacade.getAnswerComments(answer.getUuid()))
+                .votes(voteFacade.getVotes(VoteCommand.builder()
+                    .answerUUID(answer.getUuid())
+                    .build()))
+                .build();
+        })
+            .collect(Collectors.toList());
+
+        return AnswersDTO.builder()
+            .answers(allAnswersDTO)
+            .build();
+    }
+
+    public AnswersDTO getAnswersPagination(int currentPage, int recordsPerPage, QuestionId questionId) {
+        Collection<Answer> allAnswers = answerRepository.getAnswersPagination(currentPage, recordsPerPage, questionId);
 
         List<AnswersDTO.AnswerDTO> allAnswersDTO = allAnswers.stream().map(answer -> {
             Person author = personRepository.findById(answer.getAuthorUUID()).get();

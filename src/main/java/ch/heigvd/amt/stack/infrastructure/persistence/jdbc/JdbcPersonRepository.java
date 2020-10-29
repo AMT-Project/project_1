@@ -208,4 +208,70 @@ public class JdbcPersonRepository extends JdbcRepository<Person, PersonId> imple
         }
         return Optional.empty();
     }
+
+    @Override
+    public Optional<Person> findByEmail(String email) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement("SELECT * FROM Person WHERE email=?");
+            preparedStatement.setString(1, email);
+            rs = preparedStatement.executeQuery();
+
+            ArrayList<Person> matches = new ArrayList<>();
+
+            while(rs.next()) {
+                Person user = Person.builder()
+                    .uuid(new PersonId(rs.getString("uuid")))
+                    .username(rs.getString("username"))
+                    .firstName(rs.getString("firstname"))
+                    .lastName(rs.getString("lastname"))
+                    .email(rs.getString("email"))
+                    .encryptedPassword(rs.getString("password"))
+                    .build();
+                matches.add(user);
+            }
+
+            if(matches.size() != 1)
+                return Optional.empty();
+
+            return Optional.of(matches.get(0));
+
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if(rs != null) rs.close(); } catch(Exception e) {}
+            try { if(preparedStatement != null) preparedStatement.close(); } catch(Exception e) {}
+            try { if(conn != null) conn.close(); } catch(Exception e) {}
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public int update(Person user) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement("UPDATE Person SET username=?, email=?, firstname=?, lastname=?, password=? WHERE uuid=?");
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getFirstName());
+            preparedStatement.setString(4, user.getLastName());
+            preparedStatement.setString(5, user.getEncryptedPassword());
+            preparedStatement.setString(6, user.getUuid().asString());
+            return preparedStatement.executeUpdate();
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
+
+        return 0;
+    }
 }

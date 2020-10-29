@@ -1,4 +1,4 @@
-package ch.heigvd.amt.stack.ui.web;
+package ch.heigvd.amt.stack.ui.web.profile;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
@@ -38,7 +38,6 @@ public class ProfileEndpoint extends HttpServlet {
             .build());
 
         request.setAttribute("user", currentUserDTO);
-        request.setAttribute("userQuestions", userQuestions);
         request.setAttribute("userAnswersCount", userAnswers.getAnswers().size());
         request.setAttribute("userQuestionsCount", userQuestions.getQuestions().size());
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);

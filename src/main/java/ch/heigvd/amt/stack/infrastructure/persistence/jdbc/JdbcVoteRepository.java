@@ -210,7 +210,7 @@ public class JdbcVoteRepository implements IVoteRepository {
     }
 
     @Override
-    public int countQuestionVotes(VotesQuery query) {
+    public int countVotes(VotesQuery query) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
