@@ -97,5 +97,9 @@ public class AnswerFacade {
     public int countAnswers() {
         return this.answerRepository.count();
     }
+
+    public int countAnswersToQuestion(QuestionId questionId) {
+        return this.answerRepository.countAnswersToQuestion(questionId);
+    }
 }
 
