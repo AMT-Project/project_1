@@ -100,7 +100,7 @@
                                 </form>
                             </c:when>
                             <c:otherwise>
-                                <div class="question-details__vote-count--alone">${question.votes.count}</div>
+                                <div class="question-details__vote-count--alone">${answer.votes.count}</div>
                             </c:otherwise>
                         </c:choose>
                     </div>
