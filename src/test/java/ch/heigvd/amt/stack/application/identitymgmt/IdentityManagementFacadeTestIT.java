@@ -4,7 +4,6 @@ import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.JdbcPersonRepository;
 import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.helper.DataSourceProvider;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -43,13 +42,4 @@ class IdentityManagementFacadeTestIT {
             identityManagementFacade.register(registerCommand);
         });
     }
-
-    // TODO
-//    @Test
-//    void authenticate() {
-//    }
-//
-//    @Test
-//    void countUsers() {
-//    }
 }

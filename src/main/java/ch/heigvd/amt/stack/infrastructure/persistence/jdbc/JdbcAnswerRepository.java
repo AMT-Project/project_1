@@ -2,7 +2,6 @@ package ch.heigvd.amt.stack.infrastructure.persistence.jdbc;
 
 import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
 import ch.heigvd.amt.stack.domain.person.PersonId;
-import ch.heigvd.amt.stack.domain.question.Question;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
@@ -167,7 +166,6 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
         return answers;
     }
 
-    // TODO : implement all below
     @Override
     public void remove(AnswerId uuid) {
 

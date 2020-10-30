@@ -132,7 +132,6 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
             .build();
     }
 
-    // TODO : implement
     @Override
     public void remove(CommentId uuid) {
 
