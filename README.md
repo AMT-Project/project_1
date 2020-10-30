@@ -6,7 +6,7 @@ Do not forget to edit your `/etc/hosts` file to add:
 ```
 
 # Pull image and run
-
+You can `cd` into `/scripts` folder and run:
 ```bash
 ./pullAndRun.sh
 ```
