@@ -33,7 +33,7 @@ public class QuestionsListEndpoint extends HttpServlet {
 
         // Count rows in DB and calculate the nb of pages to display
         int rows = questionFacade.countQuestions();
-        int noOfPages = rows / (recordsPerPage + 1);
+        int noOfPages = rows / recordsPerPage;
 
         if(noOfPages % recordsPerPage > 0) {
             noOfPages++;
