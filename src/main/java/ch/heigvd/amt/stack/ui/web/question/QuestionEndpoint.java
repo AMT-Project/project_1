@@ -47,7 +47,7 @@ public class QuestionEndpoint extends HttpServlet {
         int rows = answerFacade.countAnswersToQuestion(questionUUID);
         int noOfPages = rows / recordsPerPage;
 
-        if(noOfPages % recordsPerPage > 0) {
+        if(rows % recordsPerPage > 0) {
             noOfPages++;
         }
 
