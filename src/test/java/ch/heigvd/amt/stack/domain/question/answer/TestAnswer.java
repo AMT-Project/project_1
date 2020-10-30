@@ -1,4 +1,4 @@
-package ch.heigvd.amt.stack.domain;
+package ch.heigvd.amt.stack.domain.question.answer;
 
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;

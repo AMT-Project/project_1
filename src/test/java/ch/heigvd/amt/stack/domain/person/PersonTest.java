@@ -10,7 +10,7 @@ public class PersonTest {
     private static final String FIRSTNAME = "Olivier";
     private static final String LASTNAME = "Liechti";
     private static final String EMAIL = "oliechti@heigvd.ch";
-    private static final String PASSWORD = "pwd";
+    private static final String PASSWORD = "pwd234XXX";
 
     @Test
     public void mandatoryPassword(){
@@ -102,7 +102,88 @@ public class PersonTest {
                     .build();
 
         });
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            Person p = Person.builder()
+                    .clearTextPassword(PASSWORD)
+                    .username(USER)
+                    .firstName(FIRSTNAME)
+                    .lastName(LASTNAME)
+                    .email("notAnEmail@email")
+                    .build();
+
+        });
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            Person p = Person.builder()
+                    .clearTextPassword(PASSWORD)
+                    .username(USER)
+                    .firstName(FIRSTNAME)
+                    .lastName(LASTNAME)
+                    .email("notAnEmail@.ch")
+                    .build();
+
+        });
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            Person p = Person.builder()
+                    .clearTextPassword(PASSWORD)
+                    .username(USER)
+                    .firstName(FIRSTNAME)
+                    .lastName(LASTNAME)
+                    .email("@nope.ch")
+                    .build();
+
+        });
     }
+
+    @Test
+    public void pwdFormatting(){
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            Person p = Person.builder()
+                    .clearTextPassword("1Passwd")
+                    .username(USER)
+                    .firstName(FIRSTNAME)
+                    .lastName(LASTNAME)
+                    .email(EMAIL)
+                    .build();
+
+        });
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            Person p = Person.builder()
+                    .clearTextPassword("password1")
+                    .username(USER)
+                    .firstName(FIRSTNAME)
+                    .lastName(LASTNAME)
+                    .email(EMAIL)
+                    .build();
+
+        });
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            Person p = Person.builder()
+                    .clearTextPassword("PASSWORD1")
+                    .username(USER)
+                    .firstName(FIRSTNAME)
+                    .lastName(LASTNAME)
+                    .email(EMAIL)
+                    .build();
+
+        });
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            Person p = Person.builder()
+                    .clearTextPassword("Password")
+                    .username(USER)
+                    .firstName(FIRSTNAME)
+                    .lastName(LASTNAME)
+                    .email(EMAIL)
+                    .build();
+
+        });
+    }
+
 
     @Test
     public void validCreation(){

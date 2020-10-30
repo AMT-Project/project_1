@@ -13,14 +13,14 @@ const lastName = "JS";
 const userFullName = firstName + " " + lastName;
 const uniqueUsername = "6profile_test-" + uniqueId;
 const uniqueEmail = "sixprofile@" + uniqueId + ".ch";
-const pwd = "pwd";
+const pwd = "passWord123";
 
 const newFirstName = "Apache";
 const newLastName = "JMeter";
 const newUserFullName = newFirstName + " " + newLastName;
 const newUniqueUsername = "6newprofile_test-" + uniqueId;
 const newUniqueEmail = "newsixprofile@" + uniqueId + ".ch";
-const newPwd = "new";
+const newPwd = "newPWD123";
 
 const questionTitle = "How to browse stack.ch?";
 const questionDescription = "I am really lost there, any help?";

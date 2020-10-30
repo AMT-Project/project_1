@@ -90,7 +90,7 @@ We choose not to implement a tagging mechanism, or a searching bar, the only nav
 
 ### Password policy
 
-Passwords are hashed when stored in the DB, and need to be a minimum of 3 characters (we know it's a bit weak, but we could easily add more security if necessary/asked).
+Passwords are hashed when stored in the DB, and must be at least 8 characters long, include an uppercase, a lowercase letter and a number.
 
 # Possible improvements
 To run integration tests, you need an instance of the website before running IT tests inside intelliJ. You can deploy this website by `cd`'ing in `\scripts` and run:
@@ -105,3 +105,7 @@ Through our various test plans, we didn't find any major issues or problems, but
 - Factoring JSP components into fragments (we didn't have the time to do that before the project_1 deadline).
 - Implementing a tagging mechanism nor a search bar for easier navigation through large amount of data.
 - Improving the CSS.
+
+# What has been added since the presentation
+
+Password policy has been updated.

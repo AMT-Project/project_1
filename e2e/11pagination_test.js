@@ -10,7 +10,7 @@ const firstName = "Codecept";
 const lastName = "JS";
 const uniqueUsername = "11pagination_test-" + uniqueId;
 const uniqueEmail = "elevenprofile@" + uniqueId + ".ch";
-const pwd = "pwd";
+const pwd = "passWord123";
 
 const questionTitle = "How to browse stack.ch?";
 const questionDescription = "I am really lost there, any help?";

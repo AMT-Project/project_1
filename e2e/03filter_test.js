@@ -7,7 +7,7 @@ const loginURL = "/login";
 const uniqueId = new Date().getTime();
 const uniqueUsername = "3filter_test-" + uniqueId;
 const uniqueEmail = "threefilter@" + uniqueId + ".ch";
-const pwd = "pwd";
+const pwd = "passWord123";
 const firstName = "Codecept";
 const lastName = "JS";
 
