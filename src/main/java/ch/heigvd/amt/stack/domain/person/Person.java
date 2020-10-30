@@ -42,8 +42,8 @@ public class Person implements IEntity<Person, PersonId> {
             if(clearTextPassword == null || clearTextPassword.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Password is mandatory");
             }
-            else if(!clearTextPassword.matches("^(?=.*?[a-z])(?=.*?[A-Z])[a-zA-Z0-9]{6,}$")){
-                throw new java.lang.IllegalArgumentException("Password invalid (must be at least 6 characters, include an uppercase, a lowercase letter and a number)");
+            else if(!clearTextPassword.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")){
+                throw new java.lang.IllegalArgumentException("Password invalid (must be at least 8 characters, include an uppercase, a lowercase letter and a number)");
             }
 
             encryptedPassword = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());

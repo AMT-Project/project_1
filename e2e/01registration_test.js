@@ -14,6 +14,8 @@ const emptyStr = "";
 
 const wrongEmail = "CodeceptJS.ch"
 
+const invalidPwdMsg = "Password invalid (must be at least 8 characters, include an uppercase, a lowercase letter and a number"
+
 Scenario("Test valid registration", (I) => {
     I.amOnPage("http://stack.ch:9080/stack" + registerURL);
     I.register(uniqueUsername1, firstName, lastName, uniqueEmail, pwd);
@@ -31,4 +33,16 @@ Scenario("Test wrongly formatted email registration", (I) => {
     I.amOnPage("http://stack.ch:9080/stack" + registerURL);
     I.register(uniqueUsername2, firstName, lastName, wrongEmail, pwd);
     I.see("Email is misformatted");
+});
+
+Scenario("Test wrongly formatted password", (I) => {
+    I.amOnPage("http://stack.ch:9080/stack" + registerURL);
+    I.register(uniqueUsername2, firstName, lastName, uniqueEmail, "1Passwd");       //Too short
+    I.see(invalidPwdMsg);
+    I.register(uniqueUsername2, firstName, lastName, uniqueEmail, "password1");     //No uppercase
+    I.see(invalidPwdMsg);
+    I.register(uniqueUsername2, firstName, lastName, uniqueEmail, "PASSWORD1");     //No lowercase
+    I.see(invalidPwdMsg);
+    I.register(uniqueUsername2, firstName, lastName, uniqueEmail, "Password");     //No number
+    I.see(invalidPwdMsg);
 });
