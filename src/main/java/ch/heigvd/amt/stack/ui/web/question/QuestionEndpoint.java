@@ -44,7 +44,7 @@ public class QuestionEndpoint extends HttpServlet {
 
 
         // Count rows in DB and calculate the nb of pages to display
-        int rows = answerFacade.countAnswers();
+        int rows = answerFacade.countAnswersToQuestion(questionUUID);
         int noOfPages = rows / (recordsPerPage + 1);
 
         if(noOfPages % recordsPerPage > 0) {

@@ -150,6 +150,37 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
         return null;
     }
 
+    @Override
+    public int countAnswersToQuestion(QuestionId questionId) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        try {
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement("SELECT COUNT(*) AS nbAnswersToQuestion FROM Answer WHERE question_uuid=?");
+            preparedStatement.setString(1, questionId.asString());
+            rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("nbAnswersToQuestion");
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                if(rs != null) rs.close();
+            } catch(Exception e) {
+            }
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } catch(Exception e) {
+            }
+            try {
+                if(conn != null) conn.close();
+            } catch(Exception e) {
+            }
+        }
+        return 0;
+    }
+
     private Collection<Answer> getAnswers(ResultSet rs) throws SQLException {
         LinkedList<Answer> answers = new LinkedList<>();
 

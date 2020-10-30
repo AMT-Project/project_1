@@ -10,4 +10,5 @@ public interface IAnswerRepository extends IRepository<Answer,AnswerId> {
     public Collection<Answer> find(AnswersQuery query);
 
     public Collection<Answer> getAnswersPagination(int currentPage, int recordsPerPage, QuestionId id);
+    public int countAnswersToQuestion(QuestionId questionId);
 }
