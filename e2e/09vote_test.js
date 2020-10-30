@@ -34,7 +34,7 @@ const downvoteBtn = {name: 'downvoteBtn'};
 
 const upvoteAnswer = locate('button').withAttr(upvoteBtn).inside('.answers-list__answer--row');
 const downvoteAnswer = locate('button').withAttr(downvoteBtn).inside('.answers-list__answer--row');
-const locateVoteCountAnswer = locate('.question-details__vote-count').inside("answers-list__answer--row");
+const locateVoteCountAnswer = locate('.question-details__vote-count').inside(".answers-list__answer--row");
 
 
 Scenario("Only logged users can vote", (I) => {
@@ -137,33 +137,31 @@ Scenario("Control vote logic on answer", (I) => {
     I.see(questionDescription);
     I.see(answer);
 
-    //I.seeElement(locateVoteCountAnswer.withText('0'));
 
-    //TODO complete logic
+    I.seeElement(locateVoteCountAnswer.withText('0'));
+
     //Upvote
     I.click(upvoteAnswer);
-    //I.seeElement(locateVoteCountAnswer.withText('1'));
+    I.seeElement(locateVoteCountAnswer.withText('1'));
     //Cancel upvote
     I.click(upvoteAnswer);
-    //I.seeElement(locateVoteCount.withText('0'));
+    I.seeElement(locateVoteCountAnswer.withText('0'));
 
     //Downvote
     I.click(downvoteAnswer);
-    //I.seeElement(locateVoteCount.withText('-1'));
+    I.seeElement(locateVoteCountAnswer.withText('-1'));
     //Cancel downvote
     I.click(downvoteAnswer);
-    //I.seeElement(locateVoteCount.withText('0'));
+    I.seeElement(locateVoteCountAnswer.withText('0'));
 
     //Upvote
     I.click(upvoteAnswer);
-    //I.seeElement(locateVoteCount.withText('1'));
+    I.seeElement(locateVoteCountAnswer.withText('1'));
     //Invert vote
     I.click(downvoteAnswer);
-    //I.seeElement(locateVoteCount.withText('-1'));
+    I.seeElement(locateVoteCountAnswer.withText('-1'));
     //Invert vote
     I.click(upvoteAnswer);
-   // I.seeElement(locateVoteCount.withText('1'));
+    I.seeElement(locateVoteCountAnswer.withText('1'));
 
 });
-
-
