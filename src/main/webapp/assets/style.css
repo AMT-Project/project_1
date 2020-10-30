@@ -291,6 +291,7 @@ p {
 .question-details__question__description {
     font-family: Roboto;
     font-size: 16px;
+    white-space: pre-line;
 }
 
 .question-details__question__author {
@@ -377,6 +378,7 @@ p {
 .answer__description {
     font-family: Roboto;
     font-size: 16px;
+    white-space: pre-line;
 }
 
 .answer__author {
