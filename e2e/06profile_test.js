@@ -5,6 +5,7 @@ const profileURL = "/profile";
 const loginPage = stackURL + "/login";
 const questionsPage = stackURL + "/questions";
 const registerPage = stackURL + "/register";
+const profilePage = stackURL + profileURL;
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";
@@ -13,6 +14,13 @@ const userFullName = firstName + " " + lastName;
 const uniqueUsername = "6profile_test-" + uniqueId;
 const uniqueEmail = "sixprofile@" + uniqueId + ".ch";
 const pwd = "pwd";
+
+const newFirstName = "Apache";
+const newLastName = "JMeter";
+const newUserFullName = newFirstName + " " + newLastName;
+const newUniqueUsername = "6newprofile_test-" + uniqueId;
+const newUniqueEmail = "newsixprofile@" + uniqueId + ".ch";
+const newPwd = "new";
 
 const questionTitle = "How to browse stack.ch?";
 const questionDescription = "I am really lost there, any help?";
@@ -86,15 +94,36 @@ Scenario("I see questions from other users as anon", (I) => {
     I.see("List of questions");
 });
 
-Scenario("Questions from other users are not shown on my profile page", (I) => {
-    I.amOnPage(registerPage);
-    I.register(uniqueUsername + "ha", firstName, lastName, uniqueEmail + "e", pwd);
+Scenario("After editing my user info, I see my updated profile and I can login with new credentials", (I) => {
+    I.amOnPage(loginPage);
+    I.login(uniqueUsername, pwd);
 
-    I.click("#profile");
+    I.click(userFullName);
+    I.see(userFullName + "'s " + "profile");
+    I.see("Username : " + uniqueUsername);
+    I.see("First name : " + firstName);
+    I.see("Last name : " + lastName);
+    I.see("Email : " + uniqueEmail);
+
+    I.fillField("username", newUniqueUsername);
+    I.fillField("email", newUniqueEmail);
+    I.fillField("firstName", newFirstName);
+    I.fillField("lastName", newLastName);
+    I.fillField("oldPassword", pwd);
+    I.fillField("newPassword", newPwd);
+    I.fillField("repeatPassword", newPwd);
+    I.click("Update");
+
     I.seeInCurrentUrl(profileURL);
 
-    I.dontSee(questionTitle);
-    I.dontSee(questionDescription);
-    I.dontSee(questionTitle2);
-    I.dontSee(questionDescription2);
+    I.see("Username : " + newUniqueUsername);
+    I.see("First name : " + newFirstName);
+    I.see("Last name : " + newLastName);
+    I.see("Email : " + newUniqueEmail);
+
+    I.click("Logout");
+
+    I.amOnPage(loginPage);
+    I.login(newUniqueUsername, newPwd);
+    I.see(newUserFullName);
 });
