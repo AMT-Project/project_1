@@ -1,6 +1,7 @@
 package ch.heigvd.amt.stack.application.identitymgmt;
 
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
+import ch.heigvd.amt.stack.application.identitymgmt.login.RegistrationFailedException;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.JdbcPersonRepository;
 import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.helper.DataSourceProvider;
