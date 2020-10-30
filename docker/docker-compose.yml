@@ -20,7 +20,7 @@ services:
       TZ: "Europe/Zurich"
   web:
     image: ghcr.io/pabloheigvd/flow
-    container_name: stack_overflow
+    container_name: stackoverflow
     ports:
       - "9080:9080"
       - "9443:9443" # HTTPS listener
