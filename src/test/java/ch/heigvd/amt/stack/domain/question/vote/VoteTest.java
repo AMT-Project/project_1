@@ -13,7 +13,7 @@ class VoteTest {
     public void voteThrowsExceptionWhenHasNoAuthor(){
         Person pq = Person.builder()
                 .username("oi")
-                .clearTextPassword("pwd123XX")
+                .clearTextPassword("Password1234")
                 .firstName("toto")
                 .lastName("dupont")
                 .email("toto@example.com").build();

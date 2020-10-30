@@ -13,7 +13,7 @@ class CommentTest {
                 .firstName("OIjo")
                 .lastName("wqeuq")
                 .email("ti@example.com")
-                .clearTextPassword("pwd123XX")
+                .clearTextPassword("Password1234")
                 .build();
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Comment.builder()
