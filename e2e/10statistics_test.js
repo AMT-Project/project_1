@@ -11,7 +11,7 @@ const firstName = "Codecept";
 const lastName = "JS";
 const uniqueUsername = "10statistics_test-" + uniqueId;
 const uniqueEmail = "tenprofile@" + uniqueId + ".ch";
-const pwd = "pwd";
+const pwd = "passWord123";
 
 const questionTitle = "How to browse stack.ch?";
 const questionDescription = "I am really lost there, any help?";

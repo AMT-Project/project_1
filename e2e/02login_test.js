@@ -6,7 +6,7 @@ const registerURL = "/register";
 const uniqueId = new Date().getTime();
 const uniqueUsername = "2login_test-" + uniqueId;
 const uniqueEmail = "twologin@" + uniqueId + ".ch";
-const pwd = "pwd";
+const pwd = "passWord123";
 const firstName = "Codecept";
 const lastName = "JS";
 
