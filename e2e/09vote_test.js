@@ -31,6 +31,12 @@ const locateAloneVoteCount = locate('.question-details__vote-count--alone')
 const upvoteBtn = {name: 'upvoteBtn'};
 const downvoteBtn = {name: 'downvoteBtn'};
 
+
+const upvoteAnswer = locate('button').withAttr(upvoteBtn).inside('.answers-list__answer--row');
+const downvoteAnswer = locate('button').withAttr(downvoteBtn).inside('.answers-list__answer--row');
+const locateVoteCountAnswer = locate('.question-details__vote-count').inside("answers-list__answer--row");
+
+
 Scenario("Only logged users can vote", (I) => {
     //Logged user
     I.amOnPage(registerPage);
@@ -120,16 +126,8 @@ Scenario("Control vote logic on answer", (I) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername,pwd);
 
-    I.click("New Question");
-    I.seeInCurrentUrl(submitQuestionURL);
-
-    I.fillField('title', questionTitle);
-    I.fillField('description', questionDescription);
-    I.click("Submit");
-
-    I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
-    I.click(questionDescription);
+    I.click(myQuestion);
 
     I.see("Reply with an answer");
     I.fillField('Write your answer', answer);
@@ -139,14 +137,33 @@ Scenario("Control vote logic on answer", (I) => {
     I.see(questionDescription);
     I.see(answer);
 
-
-    let upvoteAnswer = locate('button').withAttr(upvoteBtn).inside('form').inside('.answer__votes');
-    I.click(upvoteAnswer);
-    let downvoteAnswer = locate('button').withAttr(downvoteBtn).inside('form').inside('.answer__votes');
-    I.click(downvoteAnswer);
+    //I.seeElement(locateVoteCountAnswer.withText('0'));
 
     //TODO complete logic
-    I.click();
+    //Upvote
+    I.click(upvoteAnswer);
+    //I.seeElement(locateVoteCountAnswer.withText('1'));
+    //Cancel upvote
+    I.click(upvoteAnswer);
+    //I.seeElement(locateVoteCount.withText('0'));
+
+    //Downvote
+    I.click(downvoteAnswer);
+    //I.seeElement(locateVoteCount.withText('-1'));
+    //Cancel downvote
+    I.click(downvoteAnswer);
+    //I.seeElement(locateVoteCount.withText('0'));
+
+    //Upvote
+    I.click(upvoteAnswer);
+    //I.seeElement(locateVoteCount.withText('1'));
+    //Invert vote
+    I.click(downvoteAnswer);
+    //I.seeElement(locateVoteCount.withText('-1'));
+    //Invert vote
+    I.click(upvoteAnswer);
+   // I.seeElement(locateVoteCount.withText('1'));
+
 });
 
 
