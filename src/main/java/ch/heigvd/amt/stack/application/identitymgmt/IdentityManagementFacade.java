@@ -2,14 +2,12 @@ package ch.heigvd.amt.stack.application.identitymgmt;
 
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.*;
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
+import ch.heigvd.amt.stack.application.identitymgmt.login.RegistrationFailedException;
 import ch.heigvd.amt.stack.application.identitymgmt.profile.UpdateUserCommand;
 import ch.heigvd.amt.stack.application.identitymgmt.profile.UpdateUserFailedException;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
 import org.mindrot.jbcrypt.BCrypt;
-
-import javax.faces.component.UpdateModelException;
-import java.util.Optional;
 
 public class IdentityManagementFacade {
 

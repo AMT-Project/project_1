@@ -2,7 +2,7 @@ package ch.heigvd.amt.stack.ui.web.login;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
-import ch.heigvd.amt.stack.application.identitymgmt.RegistrationFailedException;
+import ch.heigvd.amt.stack.application.identitymgmt.login.RegistrationFailedException;
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
 import lombok.SneakyThrows;
 

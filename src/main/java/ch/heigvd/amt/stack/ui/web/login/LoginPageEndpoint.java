@@ -1,5 +1,7 @@
 package ch.heigvd.amt.stack.ui.web.login;
 
+import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,10 @@ public class LoginPageEndpoint extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       if (request.getSession().getAttribute("currentUser") != null){
+           response.sendRedirect(request.getContextPath() + "/questions");
+       }
+
         Object errors = request.getSession().getAttribute("errors");
         request.setAttribute("errors", errors);
         request.getSession().removeAttribute("errors");

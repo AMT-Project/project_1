@@ -42,6 +42,9 @@ public class Person implements IEntity<Person, PersonId> {
             if(clearTextPassword == null || clearTextPassword.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Password is mandatory");
             }
+            else if(clearTextPassword.length() < 3){
+                throw new java.lang.IllegalArgumentException("Password is too short (must be at least 3 characters)");
+            }
 
             encryptedPassword = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;

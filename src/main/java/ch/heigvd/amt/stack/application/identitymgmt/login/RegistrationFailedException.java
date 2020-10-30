@@ -1,4 +1,4 @@
-package ch.heigvd.amt.stack.application.identitymgmt;
+package ch.heigvd.amt.stack.application.identitymgmt.login;
 
 import ch.heigvd.amt.stack.application.BusinessException;
 import lombok.Value;
