@@ -79,7 +79,7 @@ We choose not to implement a tagging mechanism, or a searching bar, the only nav
 
 ### Password policy
 
-Passwords are hashed when stored in the DB, and need to be a minimum of 3 characters.
+Passwords are hashed when stored in the DB, and must be at least 6 characters long, include an uppercase, a lowercase letter and a number.
 
 # What doesn't function quite right
 To run integration tests, you need an instance of the website before running IT tests inside intelliJ. You can deploy this website by `cd`'ing in `\scripts` and run:
