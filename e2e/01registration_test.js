@@ -6,7 +6,7 @@ const uniqueId = new Date().getTime();
 const uniqueUsername1 = "1registration_test1-" + uniqueId;
 const uniqueUsername2 = "1registration_test2-" + uniqueId;
 const uniqueEmail = "oneregister@" + uniqueId + ".ch";
-const pwd = "pwd";
+const pwd = "passWord123";
 const firstName = "Codecept";
 const lastName = "JS";
 

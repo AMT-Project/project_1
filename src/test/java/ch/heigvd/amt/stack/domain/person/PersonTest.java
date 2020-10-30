@@ -10,7 +10,7 @@ public class PersonTest {
     private static final String FIRSTNAME = "Olivier";
     private static final String LASTNAME = "Liechti";
     private static final String EMAIL = "oliechti@heigvd.ch";
-    private static final String PASSWORD = "pwd";
+    private static final String PASSWORD = "pwd234XXX";
 
     @Test
     public void mandatoryPassword(){

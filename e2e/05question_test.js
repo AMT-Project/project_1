@@ -5,7 +5,7 @@ const submitQuestionURL = "/submitQuestion";
 const uniqueId = new Date().getTime();
 const uniqueUsername = "5question_test-" + uniqueId;
 const uniqueEmail = "fivequestion@" + uniqueId + ".ch";
-const pwd = "pwd";
+const pwd = "passWord123";
 
 Scenario("/submitQuestion redirects to /login for anonymous user", (I) => {
     I.amOnPage("http://stack.ch:9080/stack" + submitQuestionURL);

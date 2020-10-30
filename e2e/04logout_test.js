@@ -5,7 +5,7 @@ const registerURL = "/register";
 const uniqueId = new Date().getTime();
 const uniqueUsername = "4logout_test-" + uniqueId;
 const uniqueEmail = "fourlogin@" + uniqueId + ".ch";
-const pwd = "pwd";
+const pwd = "passWord123";
 const firstName = "Codecept";
 const lastName = "JS";
 
