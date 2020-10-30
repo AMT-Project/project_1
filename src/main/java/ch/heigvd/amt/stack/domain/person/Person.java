@@ -66,7 +66,7 @@ public class Person implements IEntity<Person, PersonId> {
             }
             if(email == null || email.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Email is mandatory");
-            } else if(!email.matches("^.*(?=.{8,})[\\w.]+@[\\w.-]+[.][a-zA-Z0-9]+$")) {
+            } else if(!email.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+")) {
                 throw new java.lang.IllegalArgumentException("Email is misformatted");
             }
 
