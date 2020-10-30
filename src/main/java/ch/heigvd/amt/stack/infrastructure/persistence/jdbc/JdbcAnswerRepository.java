@@ -22,9 +22,40 @@ import java.util.Optional;
 @ApplicationScoped
 @Named("JdbcAnswerRepository")
 public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> implements IAnswerRepository {
-
     @Resource(lookup = "jdbc/StackDS")
     DataSource dataSource;
+
+    @Override
+    public void save(Answer answer) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            conn = dataSource.getConnection();
+            preparedStatement = conn.prepareStatement(
+                "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_on)" +
+                    "VALUES (?,?,?,?,?)");
+            preparedStatement.setString(1, answer.getUuid().asString());
+            preparedStatement.setString(2, answer.getContent());
+            preparedStatement.setString(3, answer.getQuestionUUID().asString());
+            preparedStatement.setString(4, answer.getAuthorUUID().asString());
+
+            Date date = new Date(System.currentTimeMillis());
+            preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
+
+            preparedStatement.executeUpdate();
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } catch(Exception e) {
+            }
+            try {
+                if(conn != null) conn.close();
+            } catch(Exception e) {
+            }
+        }
+    }
 
     @Override
     public Collection<Answer> find(AnswersQuery query) {
@@ -51,42 +82,51 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
 
         } catch(SQLException throwables) {
             throwables.printStackTrace();
-        }
-        finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {}
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        } finally {
+            try {
+                if(rs != null) rs.close();
+            } catch(Exception e) {
+            }
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } catch(Exception e) {
+            }
+            try {
+                if(conn != null) conn.close();
+            } catch(Exception e) {
+            }
         }
         return null;
     }
 
     @Override
-    public void save(Answer answer) {
+    public int count() {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
             conn = dataSource.getConnection();
-            preparedStatement = conn.prepareStatement(
-                "INSERT INTO Answer (uuid, content, question_uuid, person_uuid, created_on)" +
-                    "VALUES (?,?,?,?,?)");
-            preparedStatement.setString(1, answer.getUuid().asString());
-            preparedStatement.setString(2, answer.getContent());
-            preparedStatement.setString(3, answer.getQuestionUUID().asString());
-            preparedStatement.setString(4, answer.getAuthorUUID().asString());
-            // TODO : DATETIME - 2_Utilise un timestamp
-            Date date = new Date(System.currentTimeMillis());
-            preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
-
-            // TODO : DATETIME - 1_Ancienne version
-            //preparedStatement.setDate(5, new Date(System.currentTimeMillis()));
-            preparedStatement.executeUpdate();
+            preparedStatement = conn.prepareStatement("SELECT COUNT(*) AS nbAnswers FROM Answer");
+            rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("nbAnswers");
         } catch(SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                if(rs != null) rs.close();
+            } catch(Exception e) {
+            }
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } catch(Exception e) {
+            }
+            try {
+                if(conn != null) conn.close();
+            } catch(Exception e) {
+            }
         }
-        finally {
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
-        }
+        return 0;
     }
 
     @Override
@@ -111,44 +151,6 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
         return null;
     }
 
-    // TODO : implement all below
-    @Override
-    public void remove(AnswerId uuid) {
-
-    }
-
-    @Override
-    public Optional<Answer> findById(AnswerId uuid) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Collection<Answer> findAll() {
-        return null;
-    }
-
-    @Override
-    public int count() {
-        Connection conn = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-        try {
-            conn = dataSource.getConnection();
-            preparedStatement = conn.prepareStatement("SELECT COUNT(*) AS nbAnswers FROM Answer");
-            rs = preparedStatement.executeQuery();
-            rs.next();
-            return rs.getInt("nbAnswers");
-        } catch(SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {}
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
-        }
-        return 0;
-    }
-
     private Collection<Answer> getAnswers(ResultSet rs) throws SQLException {
         LinkedList<Answer> answers = new LinkedList<>();
 
@@ -163,5 +165,21 @@ public class JdbcAnswerRepository extends JdbcRepository<Answer, AnswerId> imple
             answers.add(answer);
         }
         return answers;
+    }
+
+    // TODO : implement all below
+    @Override
+    public void remove(AnswerId uuid) {
+
+    }
+
+    @Override
+    public Optional<Answer> findById(AnswerId uuid) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Collection<Answer> findAll() {
+        return null;
     }
 }

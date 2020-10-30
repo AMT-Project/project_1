@@ -30,64 +30,6 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
         this.dataSource = dataSource;
     }
 
-    public Collection<Question> find(QuestionsQuery query) {
-        Connection conn = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-        try {
-            conn = dataSource.getConnection();
-            if(query.getAuthorUUID() != null) {
-                preparedStatement = conn.prepareStatement(
-                    "SELECT * FROM Question WHERE person_uuid=? ORDER BY created_on DESC");
-                preparedStatement.setString(1, query.getAuthorUUID().asString());
-            } else {
-                preparedStatement = conn.prepareStatement(
-                    "SELECT * FROM Question ORDER BY created_on DESC");
-            }
-            rs = preparedStatement.executeQuery();
-
-            return getQuestions(rs);
-
-        } catch(SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {}
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
-        }
-        return null;
-    }
-
-    @Override
-    public Collection<Question> getQuestionsPagination(int currentPage, int recordsPerPage) {
-        Connection conn = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-        try {
-            conn = dataSource.getConnection();
-            int start = currentPage * recordsPerPage - recordsPerPage;
-
-            preparedStatement = conn.prepareStatement(
-                "SELECT * FROM Question ORDER BY created_on DESC LIMIT ?, ?");
-            preparedStatement.setInt(1, start);
-            preparedStatement.setInt(2, recordsPerPage);
-
-            rs = preparedStatement.executeQuery();
-
-            return getQuestions(rs);
-
-        } catch(SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        finally {
-            try { if (rs != null) rs.close();} catch (Exception e) {}
-            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
-        }
-        return null;
-    }
-
     @Override
     public void save(Question question) throws SQLIntegrityConstraintViolationException {
         Connection conn = null;
@@ -101,9 +43,10 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             preparedStatement.setString(2, question.getTitle());
             preparedStatement.setString(3, question.getDescription());
             preparedStatement.setString(4, question.getAuthorUUID().asString());
-            // TODO : DATETIME - 2_Utilise un timestamp
+
             Date date = new Date(System.currentTimeMillis());
             preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
+
             preparedStatement.executeUpdate();
         } catch(SQLException throwables) {
             throwables.printStackTrace();
@@ -206,6 +149,64 @@ public class JdbcQuestionRepository extends JdbcRepository<Question, QuestionId>
             try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return 0;
+    }
+
+    public Collection<Question> find(QuestionsQuery query) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        try {
+            conn = dataSource.getConnection();
+            if(query.getAuthorUUID() != null) {
+                preparedStatement = conn.prepareStatement(
+                    "SELECT * FROM Question WHERE person_uuid=? ORDER BY created_on DESC");
+                preparedStatement.setString(1, query.getAuthorUUID().asString());
+            } else {
+                preparedStatement = conn.prepareStatement(
+                    "SELECT * FROM Question ORDER BY created_on DESC");
+            }
+            rs = preparedStatement.executeQuery();
+
+            return getQuestions(rs);
+
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
+        return null;
+    }
+
+    @Override
+    public Collection<Question> getQuestionsPagination(int currentPage, int recordsPerPage) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        try {
+            conn = dataSource.getConnection();
+            int start = currentPage * recordsPerPage - recordsPerPage;
+
+            preparedStatement = conn.prepareStatement(
+                "SELECT * FROM Question ORDER BY created_on DESC LIMIT ?, ?");
+            preparedStatement.setInt(1, start);
+            preparedStatement.setInt(2, recordsPerPage);
+
+            rs = preparedStatement.executeQuery();
+
+            return getQuestions(rs);
+
+        } catch(SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        finally {
+            try { if (rs != null) rs.close();} catch (Exception e) {}
+            try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
+        }
+        return null;
     }
 
     private Collection<Question> getQuestions(ResultSet rs) throws SQLException {

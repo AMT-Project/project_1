@@ -38,9 +38,10 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
                 preparedStatement.setString(2, comment.getQuestionUUID().asString());
                 preparedStatement.setString(3, comment.getAuthorUUID().asString());
                 preparedStatement.setString(4, comment.getContent());
-                // TODO : DATETIME - 2_Utilise un timestamp
+
                 Date date = new Date(System.currentTimeMillis());
                 preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
+
                 preparedStatement.executeUpdate();
             } else if(comment.getAnswerUUID() != null) {
                  preparedStatement = conn.prepareStatement(
@@ -50,9 +51,10 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
                 preparedStatement.setString(2, comment.getAnswerUUID().asString());
                 preparedStatement.setString(3, comment.getAuthorUUID().asString());
                 preparedStatement.setString(4, comment.getContent());
-                // TODO : DATETIME - 2_Utilise un timestamp
+
                 Date date = new Date(System.currentTimeMillis());
                 preparedStatement.setTimestamp(5, new Timestamp(date.getTime()));
+
                 preparedStatement.executeUpdate();
             }
         } catch(SQLException throwables) {
@@ -62,38 +64,6 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
             try { if (preparedStatement != null) preparedStatement.close();} catch (Exception e) {}
             try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
-    }
-
-    // TODO : implement
-    @Override
-    public void remove(CommentId uuid) {
-
-    }
-
-    @Override
-    public Optional<Comment> findById(CommentId uuid) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Collection<Comment> findAll() {
-        return null;
-    }
-
-    @Override
-    public int count() {
-        return 0;
-    }
-
-    private Comment commentBuilder(ResultSet res, QuestionId qid, AnswerId aid) throws SQLException {
-        return Comment.builder()
-            .uuid(new CommentId(res.getString("uuid")))
-            .authorUUID(new PersonId(res.getString("person_uuid")))
-            .content(res.getString("content"))
-            .questionUUID(qid)
-            .answerUUID(aid)
-            .createdOn(LocalDateTime.parse(res.getString("created_on"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-            .build();
     }
 
     @Override
@@ -149,5 +119,37 @@ public class JdbcCommentRepository extends JdbcRepository<Comment, CommentId> im
             try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
         return answerComments;
+    }
+
+    private Comment commentBuilder(ResultSet res, QuestionId qid, AnswerId aid) throws SQLException {
+        return Comment.builder()
+            .uuid(new CommentId(res.getString("uuid")))
+            .authorUUID(new PersonId(res.getString("person_uuid")))
+            .content(res.getString("content"))
+            .questionUUID(qid)
+            .answerUUID(aid)
+            .createdOn(LocalDateTime.parse(res.getString("created_on"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+            .build();
+    }
+
+    // TODO : implement
+    @Override
+    public void remove(CommentId uuid) {
+
+    }
+
+    @Override
+    public Optional<Comment> findById(CommentId uuid) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Collection<Comment> findAll() {
+        return null;
+    }
+
+    @Override
+    public int count() {
+        return 0;
     }
 }

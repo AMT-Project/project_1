@@ -40,7 +40,6 @@ public class LoginCommandEndpoint extends HttpServlet {
             targetUrl = (targetUrl != null) ? targetUrl : (request.getContextPath() + "/questions");
             response.sendRedirect(targetUrl);
         } catch(AuthenticationFailedException e) {
-            // TODO : Issue GitHub #13. Le problème est-il encore d'actualité?
             request.getSession().setAttribute("errors", List.of(e.getMessage()));
             response.sendRedirect(request.getContextPath() + "/login");
         }

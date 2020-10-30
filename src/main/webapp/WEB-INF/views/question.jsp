@@ -8,28 +8,28 @@
     <!-- QUESTION -->
     <div class="question-details__question">
         <div class="question-details__question--row">
-            <!-- TODO : VOTES -->
-            <!-- TODO : Nice to have - Mettre dans un fragment -->
-            <c:choose>
-                <c:when test="${currentUser != null}">
-                    <form action="vote.do" method="post">
-                        <input name="voteType" type="hidden" value="up"/>
-                        <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
-                        <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                        <button name="upvoteBtn" class="form-btn" type="submit">+</button>
-                    </form>
-                    <div class="question-details__vote-count">${question.votes.count}</div>
-                    <form action="vote.do" method="post">
-                        <input name="voteType" type="hidden" value="down"/>
-                        <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
-                        <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                        <button name="downvoteBtn" class="form-btn" type="submit">-</button>
-                    </form>
-                </c:when>
-                <c:otherwise>
-                    <div class="question-details__vote-count">${question.votes.count}</div>
-                </c:otherwise>
-            </c:choose>
+            <div class="votes__container">
+                <c:choose>
+                    <c:when test="${currentUser != null}">
+                        <form class="form-vote" action="vote.do" method="post">
+                            <input name="voteType" type="hidden" value="up"/>
+                            <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                            <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                            <button name="upvoteBtn" class="form-vote-btn" type="submit">+</button>
+                        </form>
+                        <div class="question-details__vote-count">${question.votes.count}</div>
+                        <form class="form-vote" action="vote.do" method="post">
+                            <input name="voteType" type="hidden" value="down"/>
+                            <input name="questionUuid" type="hidden" value="${question.uuid.asString()}"/>
+                            <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
+                            <button name="downvoteBtn" class="form-vote-btn" type="submit">-</button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <div id="voteCount" class="question-details__vote-count--alone">${question.votes.count}</div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
             <div class="question-details__question--content">
                 <div class="question-details__question__title">
                     ${question.title}
@@ -82,25 +82,25 @@
             <!-- ANSWER -->
             <li class="answers-list__list-element">
                 <div class="answers-list__answer--row">
-                    <div class="answer__votes">
+                    <div class="votes__container">
                         <c:choose>
                             <c:when test="${currentUser != null}">
-                                <form action="vote.do" method="post">
+                                <form class="form-vote" action="vote.do" method="post">
                                     <input name="voteType" type="hidden" value="up"/>
                                     <input name="answerUuid" type="hidden" value="${answer.uuid.asString()}"/>
                                     <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                                    <button name="upvoteBtn" type="submit">+</button>
+                                    <button class="form-vote-btn" name="upvoteBtn" type="submit">+</button>
                                 </form>
                                 <div class="question-details__vote-count">${answer.votes.count}</div>
-                                <form action="vote.do" method="post">
+                                <form class="form-vote" action="vote.do" method="post">
                                     <input name="voteType" type="hidden" value="down"/>
                                     <input name="answerUuid" type="hidden" value="${answer.uuid.asString()}"/>
                                     <input name="redirectUuid" type="hidden" value="${question.uuid.asString()}"/>
-                                    <button name="downvoteBtn" type="submit">-</button>
+                                    <button class="form-vote-btn" name="downvoteBtn" type="submit">-</button>
                                 </form>
                             </c:when>
                             <c:otherwise>
-                                <div class="question-details__vote-count">${question.votes.count}</div>
+                                <div class="question-details__vote-count--alone">${question.votes.count}</div>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -162,7 +162,6 @@
             <p class="answer-forms--not-logged-in">You must be logged in to be able to reply to this question</p>
         </c:otherwise>
     </c:choose>
-    <!-- TODO : Nice to have, factorize forms in fragment -->
 
     <nav>
         <ul class="pagination">

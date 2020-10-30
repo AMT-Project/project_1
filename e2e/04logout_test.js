@@ -1,12 +1,18 @@
 Feature("logout");
 
+const registerURL = "/register";
+
+const uniqueId = new Date().getTime();
+const uniqueUsername = "4logout_test-" + uniqueId;
+const uniqueEmail = "fourlogin@" + uniqueId + ".ch";
+const pwd = "pwd";
+const firstName = "Codecept";
+const lastName = "JS";
+
 Scenario("Logout after a successful register", (I) => {
-  const uniqueId = new Date().getTime();
-  const uniqueUsername = "CodeceptJS-" + uniqueId;
-  const uniqueEmail = "CodeceptJS@" + uniqueId + ".ch";
-  I.amOnPage("http://stack.ch:9080/stack/register");
-  I.register(uniqueUsername, "Codecept", "JS", uniqueEmail, "pwd");
-  I.seeInTitle("Questions");
-  I.click("Logout");
-  I.seeInTitle("Questions");
+    I.amOnPage("http://stack.ch:9080/stack" + registerURL);
+    I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
+    I.seeInTitle("Questions");
+    I.click("Logout");
+    I.seeInTitle("Questions");
 });
