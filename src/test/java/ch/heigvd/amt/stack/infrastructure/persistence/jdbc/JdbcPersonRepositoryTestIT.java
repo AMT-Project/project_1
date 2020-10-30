@@ -22,7 +22,7 @@ class JdbcPersonRepositoryTestIT {
                 .username(name)
                 .lastName("Dupont")
                 .firstName("Dupont")
-                .clearTextPassword("1234")
+                .clearTextPassword("Password1234")
                 .email(name + "@example.com").build();
 
         return person;

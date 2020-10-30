@@ -30,7 +30,7 @@ class IdentityManagementFacadeTestIT {
                 .firstName(TEST_NAME)
                 .lastName(TEST_NAME)
                 .email(TEST_NAME+"@example.com")
-                .clearTextPassword("pwd")
+                .clearTextPassword("Password1234")
                 .build();
         try {
             identityManagementFacade.register(registerCommand);
