@@ -1,4 +1,17 @@
-# StackOverflow
+# S7ack Application
+
+Stack is a question and answer site for all, based on the famous programming Q&A website Stack Overflow. It's built using the MVC pattern on the server side, using Java EE APIs (Servlets, JSPs, JSTL, JDBC), runs on Open Liberty Application server and runs in a Dockerised environment.
+
+#### Students
+
+| Student          | GitHub username |
+| ---------------- | --------------- |
+| Ludovic Bonzon   | bonzonlu        |
+| Claire Delhomme  | Kleeer          |
+| Pablo Mercado    | pabloheigvd     |
+| Vitor Vaz Afonso | vitorva         |
+
+## Prerequisites
 
 Do not forget to edit your `/etc/hosts` file to add:
 ```
@@ -38,9 +51,7 @@ Before starting the test, deploy a website by `cd`'ing into `/scripts` folder an
 ```
 And checkout out the votes at stack.ch:9080/stack/
 
-# S7ack Application
-
-Stack is a question and answer site for all, based on the famous programming Q&A website Stack Overflow. It's built using the MVC pattern on the server side, using Java EE APIs (Servlets, JSPs, JSTL, JDBC), runs on Open Liberty Application server and runs in a Dockerised environment.
+## Application
 
 ### Pages list
 
@@ -81,12 +92,19 @@ We choose not to implement a tagging mechanism, or a searching bar, the only nav
 
 Passwords are hashed when stored in the DB, and must be at least 8 characters long, include an uppercase, a lowercase letter and a number.
 
-# What doesn't function quite right
+# Possible improvements
 To run integration tests, you need an instance of the website before running IT tests inside intelliJ. You can deploy this website by `cd`'ing in `\scripts` and run:
 ```bash
   ./runDocker.sh
 ```
 then run the tests.
+
+Through our various test plans, we didn't find any major issues or problems, but there is always things to tweak and improve, other than the bugs that might have made their way through, we can think of the following improvements :
+
+- Adding more tests (especially JMeter load tests, but all kinds of tests are always welcome, and also tests using Arquillian are not yet implemented) and thus improving coverage.
+- Factoring JSP components into fragments (we didn't have the time to do that before the project_1 deadline).
+- Implementing a tagging mechanism nor a search bar for easier navigation through large amount of data.
+- Improving the CSS.
 
 # What has been added since the presentation
 
