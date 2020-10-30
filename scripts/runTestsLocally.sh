@@ -9,6 +9,7 @@ sleep 30s
 echo "================================="
 echo "= Installing test environnement ="
 echo "================================="
+cd ..
 npm install
 
 echo "================================="

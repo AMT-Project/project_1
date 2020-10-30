@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ..
 # taken from sharks demo
 mvn liberty:stop
 
