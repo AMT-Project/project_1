@@ -87,3 +87,7 @@ To run integration tests, you need an instance of the website before running IT 
   ./runDocker.sh
 ```
 then run the tests.
+
+# What has been added since the presentation
+
+Password policy has been updated.
