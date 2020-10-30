@@ -1,6 +1,5 @@
 package ch.heigvd.amt.stack.domain.question.vote;
 
-import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
 import ch.heigvd.amt.stack.application.question.vote.VotesQuery;
 import ch.heigvd.amt.stack.domain.IRepository;
 

@@ -3,7 +3,6 @@ package ch.heigvd.amt.stack.ui.web.question;
 import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.QuestionsDTO;
-import ch.heigvd.amt.stack.application.question.QuestionsQuery;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;

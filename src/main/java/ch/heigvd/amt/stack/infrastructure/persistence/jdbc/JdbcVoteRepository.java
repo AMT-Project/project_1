@@ -1,11 +1,8 @@
 package ch.heigvd.amt.stack.infrastructure.persistence.jdbc;
 
-import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
 import ch.heigvd.amt.stack.application.question.vote.VotesQuery;
 import ch.heigvd.amt.stack.domain.person.PersonId;
-import ch.heigvd.amt.stack.domain.question.Question;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
-import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 import ch.heigvd.amt.stack.domain.question.vote.IVoteRepository;
 import ch.heigvd.amt.stack.domain.question.vote.Vote;
@@ -15,9 +12,10 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
-import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -220,7 +218,6 @@ public class JdbcVoteRepository implements IVoteRepository {
         return 0;
     }
 
-    // TODO : implement all below
     @Override
     public Optional<Vote> findById(VoteId id) {
         return Optional.empty();

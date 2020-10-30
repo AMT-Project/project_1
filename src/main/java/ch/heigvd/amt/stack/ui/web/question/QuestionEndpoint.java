@@ -1,17 +1,10 @@
 package ch.heigvd.amt.stack.ui.web.question;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
-import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.GetQuestionQuery;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.QuestionsDTO;
-import ch.heigvd.amt.stack.application.question.QuestionsQuery;
 import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
-import ch.heigvd.amt.stack.application.question.answer.AnswersDTO;
-import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
-import ch.heigvd.amt.stack.application.question.comment.CommentsDTO;
-import ch.heigvd.amt.stack.application.question.comment.CommentsQuery;
-import ch.heigvd.amt.stack.application.question.comment.GetCommentQuery;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 
 import javax.inject.Inject;

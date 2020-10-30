@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

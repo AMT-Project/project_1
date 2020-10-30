@@ -1,16 +1,14 @@
 package ch.heigvd.amt.stack.application.question.answer;
 
-import ch.heigvd.amt.stack.application.question.QuestionsDTO;
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
 import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
 import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
-import ch.heigvd.amt.stack.domain.question.Question;
-import ch.heigvd.amt.stack.domain.question.QuestionId;
-import ch.heigvd.amt.stack.domain.question.answer.Answer;
-import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
+import ch.heigvd.amt.stack.domain.question.QuestionId;
+import ch.heigvd.amt.stack.domain.question.answer.Answer;
+import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 
 import java.util.Collection;
 import java.util.List;

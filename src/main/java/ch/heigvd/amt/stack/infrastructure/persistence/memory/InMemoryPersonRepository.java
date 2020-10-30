@@ -7,7 +7,6 @@ import ch.heigvd.amt.stack.infrastructure.persistence.exception.DataCorruptionEx
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

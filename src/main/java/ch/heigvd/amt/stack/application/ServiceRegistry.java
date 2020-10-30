@@ -1,17 +1,16 @@
 package ch.heigvd.amt.stack.application;
 
-import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
 import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
+import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
 import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
-import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;
+import ch.heigvd.amt.stack.domain.question.answer.IAnswerRepository;
 import ch.heigvd.amt.stack.domain.question.comment.ICommentRepository;
 import ch.heigvd.amt.stack.domain.question.vote.IVoteRepository;
 
-import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

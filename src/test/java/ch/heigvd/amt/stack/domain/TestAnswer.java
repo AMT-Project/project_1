@@ -3,7 +3,6 @@ package ch.heigvd.amt.stack.domain;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
 import ch.heigvd.amt.stack.domain.question.answer.Answer;
-import ch.heigvd.amt.stack.domain.question.comment.Comment;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

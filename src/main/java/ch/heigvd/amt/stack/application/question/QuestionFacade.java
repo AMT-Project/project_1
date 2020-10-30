@@ -1,11 +1,9 @@
 package ch.heigvd.amt.stack.application.question;
 
 import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
-import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
 import ch.heigvd.amt.stack.application.question.comment.CommentFacade;
 import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
 import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
-import ch.heigvd.amt.stack.application.question.vote.VotesQuery;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
 import ch.heigvd.amt.stack.domain.question.IQuestionRepository;

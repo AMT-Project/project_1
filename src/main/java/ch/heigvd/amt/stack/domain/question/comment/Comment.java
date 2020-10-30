@@ -3,7 +3,6 @@ package ch.heigvd.amt.stack.domain.question.comment;
 import ch.heigvd.amt.stack.domain.IEntity;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import ch.heigvd.amt.stack.domain.question.QuestionId;
-import ch.heigvd.amt.stack.domain.question.answer.Answer;
 import ch.heigvd.amt.stack.domain.question.answer.AnswerId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

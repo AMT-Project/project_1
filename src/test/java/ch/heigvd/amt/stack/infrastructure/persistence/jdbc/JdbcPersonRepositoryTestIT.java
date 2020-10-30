@@ -6,10 +6,8 @@ import ch.heigvd.amt.stack.infrastructure.persistence.jdbc.helper.DataSourceProv
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class JdbcPersonRepositoryTestIT {
 
@@ -64,38 +62,4 @@ class JdbcPersonRepositoryTestIT {
         String expected = repository.findByUsername(p.getUsername()).get().getUsername();
         assertEquals(p.getUsername(), expected);
     }
-
-
-    // FIXME https://github.com/AMT-Project/project_1/issues/42
-//    @Test
-//    public void findAll(){
-//        LinkedList<Person> persons = new LinkedList();
-//        for(int i = 0; i < 10; i++){
-//            Person p = getPerson("findAll" + i);
-//            persons.add(p);
-//            repository.save(p);
-//        }
-//
-//        Person p1 = getPerson("oijj");
-//        Person p2 = p1.deepClone();
-//        if (!p1.equals(p2)){
-//            fail();
-//        }
-//
-//        Collection<Person> allPersons = repository.findAll();
-//        System.out.println(allPersons);
-//        System.out.println(persons);
-//
-//        for(Person p: persons) {
-//            boolean found = false;
-//            for(Person pA: allPersons){
-//               if (found = p.equals(pA)){
-//                   break;
-//               }
-//            }
-//            if (!found){
-//                fail();
-//            }
-//        }
-//    }
 }

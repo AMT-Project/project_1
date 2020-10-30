@@ -1,18 +1,13 @@
 Feature("Pagination");
 
 const stackURL = "http://stack.ch:9080/stack";
-const profileURL = "/profile";
-const loginPage = stackURL + "/login";
 const questionsPage = stackURL + "/questions";
-const singleQuestionPage = stackURL + "/question";
 const registerPage = stackURL + "/register";
 const submitQuestionURL = stackURL + "/submitQuestion";
-const statisticsURL = stackURL + "/statistics";
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";
 const lastName = "JS";
-const userFullName = firstName + " " + lastName;
 const uniqueUsername = "11pagination_test-" + uniqueId;
 const uniqueEmail = "elevenprofile@" + uniqueId + ".ch";
 const pwd = "pwd";

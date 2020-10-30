@@ -1,6 +1,8 @@
 package ch.heigvd.amt.stack.application.identitymgmt;
 
-import ch.heigvd.amt.stack.application.identitymgmt.authenticate.*;
+import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticateCommand;
+import ch.heigvd.amt.stack.application.identitymgmt.authenticate.AuthenticationFailedException;
+import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegisterCommand;
 import ch.heigvd.amt.stack.application.identitymgmt.login.RegistrationFailedException;
 import ch.heigvd.amt.stack.application.identitymgmt.profile.UpdateUserCommand;
