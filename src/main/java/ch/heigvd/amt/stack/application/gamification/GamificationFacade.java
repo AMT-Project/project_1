@@ -21,7 +21,7 @@ public class GamificationFacade {
         System.out.println(appAuthKey);
 
         if (appAuthKey.equals("")) {
-            // TODO make call
+            // FIXME body formatted
 
             var client = HttpClient.newHttpClient();
             var values = new HashMap<String, String>() {{
@@ -33,7 +33,7 @@ public class GamificationFacade {
                         .writeValueAsString(values);
                 // create a request
                 var request = HttpRequest.newBuilder(
-                        URI.create("http://localhost:8080/applications"))
+                        URI.create("http://api:8080/applications"))
                         .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                         .build();
 
@@ -53,6 +53,7 @@ public class GamificationFacade {
                 e.printStackTrace();
             }
 
+            // TODO Choose
 //            OkHttpClient client = new OkHttpClient();
 //            RequestBody formBody = new FormBody.Builder()
 //                    .add("name", "stack")
