@@ -47,7 +47,7 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
         int id = 0;
 
         Request httpRequest = new Request.Builder()
-                .url("http://80.218.235.185:8080/pointscale/" + id)
+                .url("http://localhost:8080/pointscale/" + id)
                 .build();
         try (Response httpResponse = client.newCall(httpRequest).execute()){
             if (!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + response);

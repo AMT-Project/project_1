@@ -2,6 +2,11 @@ version: "3.7"
 
 # https://medium.com/@hantsy/put-your-jakarta-ee-8-applications-to-production-77756d1967bf
 
+networks:
+  default:
+    external:
+      name: project_2_web
+
 services:
   db:
     image: mysql:8.0.18
