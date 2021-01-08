@@ -42,9 +42,10 @@ public class Person implements IEntity<Person, PersonId> {
             if(clearTextPassword == null || clearTextPassword.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Password is mandatory");
             }
-            else if(!clearTextPassword.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")){
-                throw new java.lang.IllegalArgumentException("Password invalid (must be at least 8 characters, include an uppercase, a lowercase letter and a number)");
-            }
+            // TODO reenable
+//            else if(!clearTextPassword.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")){
+//                throw new java.lang.IllegalArgumentException("Password invalid (must be at least 8 characters, include an uppercase, a lowercase letter and a number)");
+//            }
 
             encryptedPassword = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
@@ -69,9 +70,11 @@ public class Person implements IEntity<Person, PersonId> {
             }
             if(email == null || email.isEmpty()) {
                 throw new java.lang.IllegalArgumentException("Email is mandatory");
-            } else if(!email.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+")) {
-                throw new java.lang.IllegalArgumentException("Email is misformatted");
             }
+            // TODO reenable
+//            else if(!email.matches("[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+")) {
+//                throw new java.lang.IllegalArgumentException("Email is misformatted");
+//            }
 
             return new Person(uuid, username, email, firstName, lastName, encryptedPassword);
         }

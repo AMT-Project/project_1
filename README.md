@@ -27,6 +27,11 @@ Open: stack.ch:9080/stack/
 # Dev
 
 ## Package and deploy website
+### Use application authentification key
+...such that the application interacts with the gamification engine. Modify in `src/main/liberty/config/server.env`:
+```
+APP_KEY=<your gamification application authentification key>
+```
 You can `cd` into `/scripts` folder and run:
 ```bash
   ./runDocker.sh

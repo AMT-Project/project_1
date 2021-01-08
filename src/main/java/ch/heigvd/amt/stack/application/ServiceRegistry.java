@@ -1,5 +1,6 @@
 package ch.heigvd.amt.stack.application;
 
+import ch.heigvd.amt.stack.application.gamification.GamificationFacade;
 import ch.heigvd.amt.stack.application.identitymgmt.IdentityManagementFacade;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
@@ -40,7 +41,6 @@ public class ServiceRegistry {
     @Named("JdbcVoteRepository")
     IVoteRepository voteRepository;
 
-
     public IdentityManagementFacade getIdentityManagementFacade() {
         return new IdentityManagementFacade(personRepository);
     }
@@ -59,5 +59,9 @@ public class ServiceRegistry {
 
     public VoteFacade getVoteFacade() {
         return new VoteFacade(voteRepository);
+    }
+
+    public GamificationFacade getGamificationFacade() {
+        return new GamificationFacade();
     }
 }

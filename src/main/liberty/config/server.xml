@@ -3,7 +3,6 @@
         <feature>webProfile-8.0</feature>
         <feature>appSecurity-3.0</feature>
         <feature>restConnector-2.0</feature>
-        <feature>jdbc-4.2</feature>
     </featureManager>
 
     <quickStartSecurity userName="admin" userPassword="admin"/> // DEBUG : Access ibm/api

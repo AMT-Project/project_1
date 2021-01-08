@@ -2,6 +2,10 @@ version: "3.7"
 
 # https://medium.com/@hantsy/put-your-jakarta-ee-8-applications-to-production-77756d1967bf
 
+networks:
+  project_2_web:
+    external: true
+
 services:
   db:
     image: mysql:8.0.18
@@ -18,6 +22,8 @@ services:
       MYSQL_USER: stackusr
       MYSQL_PASSWORD: stackpwd
       TZ: "Europe/Zurich"
+    networks:
+      - default
   web:
     build: .
     image: openliberty/stack
@@ -29,4 +35,7 @@ services:
       - ./src/main/liberty/config/server.env:/config/server.env
     depends_on:
       - db
+    networks:
+      - project_2_web
+      - default
 
