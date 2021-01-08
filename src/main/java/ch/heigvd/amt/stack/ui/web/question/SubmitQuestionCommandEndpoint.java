@@ -1,6 +1,7 @@
 package ch.heigvd.amt.stack.ui.web.question;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
+import ch.heigvd.amt.stack.application.gamification.GamificationFacade;
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.SubmitQuestionCommand;
@@ -9,14 +10,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @WebServlet(name = "SubmitQuestionCommandEndpoint", urlPatterns = "/submitQuestion.do")
 public class SubmitQuestionCommandEndpoint extends HttpServlet {
@@ -40,19 +39,20 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/questions");
 
         // TODO participation point scale user increase
-        String appAuthKey = serviceRegistry.getGamificationFacade().getAppAuthKey();
+        GamificationFacade g = serviceRegistry.getGamificationFacade();
+        String appAuthKey = g.getAppAuthKey();
+        String backendUrl = g.getBackendUrl();
 
         OkHttpClient client = new OkHttpClient();
-
-        int id = 0;
-
         Request httpRequest = new Request.Builder()
-                .url("http://api:8080/pointscale/" + id)
+                .get()
+                .url(backendUrl + "/pointscale/")
+                .header("X-API-KEY", appAuthKey)
                 .build();
         try (Response httpResponse = client.newCall(httpRequest).execute()){
             if (!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-            System.out.println("\n\n\n\n"+httpResponse.body());
+            System.out.println("\n\n\n\n"+httpResponse.body().string());
         } catch (IOException e) {
             e.printStackTrace();
         }
