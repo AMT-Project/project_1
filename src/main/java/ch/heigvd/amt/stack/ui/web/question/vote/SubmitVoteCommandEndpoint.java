@@ -1,6 +1,7 @@
 package ch.heigvd.amt.stack.ui.web.question.vote;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
+import ch.heigvd.amt.stack.application.gamification.GamificationFacade;
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.vote.VoteCommand;
 import ch.heigvd.amt.stack.application.question.vote.VoteFacade;
@@ -23,6 +24,7 @@ public class SubmitVoteCommandEndpoint extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         VoteFacade voteFacade = serviceRegistry.getVoteFacade();
+        GamificationFacade gamificationFacade = serviceRegistry.getGamificationFacade();
 
         CurrentUserDTO currentUserDTO = (CurrentUserDTO) request.getSession().getAttribute("currentUser");
 
@@ -35,6 +37,8 @@ public class SubmitVoteCommandEndpoint extends HttpServlet {
                 .build();
             try {
                 voteFacade.registerVote(command);
+                // FIXME upvoting several times causes several participation events
+                gamificationFacade.postParticipationEvent(currentUserDTO.getUuid(), 1);
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -49,6 +53,8 @@ public class SubmitVoteCommandEndpoint extends HttpServlet {
                 .build();
             try {
                 voteFacade.registerVote(command);
+                // FIXME upvoting several times causes several participation events
+                gamificationFacade.postParticipationEvent(currentUserDTO.getUuid(), 1);
             } catch(Exception e) {
                 e.printStackTrace();
             }

@@ -1,13 +1,9 @@
 package ch.heigvd.amt.stack.ui.web.question;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
-import ch.heigvd.amt.stack.application.gamification.GamificationFacade;
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.SubmitQuestionCommand;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -38,24 +34,6 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
         questionFacade.registerQuestion(command);
         response.sendRedirect(request.getContextPath() + "/questions");
 
-        // TODO participation point scale user increase
-        GamificationFacade g = serviceRegistry.getGamificationFacade();
-        String appAuthKey = g.getAppAuthKey();
-        String backendUrl = g.getBackendUrl();
-
-        OkHttpClient client = new OkHttpClient();
-        Request httpRequest = new Request.Builder()
-                .get()
-                .url(backendUrl + "/pointscale/")
-                .header("X-API-KEY", appAuthKey)
-                .build();
-        try (Response httpResponse = client.newCall(httpRequest).execute()){
-            if (!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-            System.out.println("\n\n\n\n"+httpResponse.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        serviceRegistry.getGamificationFacade().postParticipationEvent(currentUserDTO.getUuid(), 1);
     }
 }
