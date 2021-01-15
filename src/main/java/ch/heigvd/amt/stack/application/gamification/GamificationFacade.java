@@ -24,11 +24,10 @@ public class GamificationFacade {
         return backendUrl;
     }
 
-    public void postParticipationEvent(PersonId personId, int participation) {
+    public void postParticipationEvent(PersonId personId, String eventType) {
         OkHttpClient client = new OkHttpClient();
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        String eventType = "lol"; // FIXME
-        String subType = "subtype"; // FIXME
+
         // Input
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);
@@ -38,27 +37,24 @@ public class GamificationFacade {
         sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         sdf.setTimeZone(TimeZone.getTimeZone("CET"));
         String time = sdf.format(date);
+
         // json body formatting validation: https://jsonformatter.curiousconcept.com/#
         String bodyString =
-                "{\"appUserId\":\"" + personId.asString() + "\","
+            "{\"appUserId\":\"" + personId.asString() + "\","
                 + "\"eventType\":\"" + eventType + "\","
-                + "\"properties\": {"
-                    + "\"quantity\":" + participation + ","
-                    + "\"subType\":\"" + subType + "\""
-                + "},"
                 + "\"timestamp\":\"" + time + "\""
                 + "}";
         System.out.println(bodyString); // TODO remove
         RequestBody body = RequestBody.create(JSON, bodyString);
         Request httpRequest = new Request.Builder()
-                .post(body)
-                .url(backendUrl + "/events")
-                .header("X-API-KEY", appAuthKey)
-                .build();
-        try (Response httpResponse = client.newCall(httpRequest).execute()){
-            if (!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + httpResponse);
+            .post(body)
+            .url(backendUrl + "/events")
+            .header("X-API-KEY", appAuthKey)
+            .build();
+        try(Response httpResponse = client.newCall(httpRequest).execute()) {
+            if(!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + httpResponse);
             System.out.println("status code: " + httpResponse.code());
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }

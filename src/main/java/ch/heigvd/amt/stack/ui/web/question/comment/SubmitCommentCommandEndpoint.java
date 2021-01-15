@@ -44,6 +44,6 @@ public class SubmitCommentCommandEndpoint extends HttpServlet {
         }
 
         response.sendRedirect(request.getContextPath() + "/question?uuid=" + request.getParameter("redirectUuid"));
-        serviceRegistry.getGamificationFacade().postParticipationEvent(currentUserDTO.getUuid(), 1);
+        serviceRegistry.getGamificationFacade().postParticipationEvent(currentUserDTO.getUuid(), "comment");
     }
 }

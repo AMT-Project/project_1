@@ -34,6 +34,6 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
         questionFacade.registerQuestion(command);
         response.sendRedirect(request.getContextPath() + "/questions");
 
-        serviceRegistry.getGamificationFacade().postParticipationEvent(currentUserDTO.getUuid(), 1);
+        serviceRegistry.getGamificationFacade().postParticipationEvent(currentUserDTO.getUuid(), "question");
     }
 }

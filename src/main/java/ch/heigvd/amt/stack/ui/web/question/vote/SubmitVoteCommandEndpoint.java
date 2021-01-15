@@ -38,7 +38,7 @@ public class SubmitVoteCommandEndpoint extends HttpServlet {
             try {
                 voteFacade.registerVote(command);
                 // FIXME upvoting several times causes several participation events
-                gamificationFacade.postParticipationEvent(currentUserDTO.getUuid(), 1);
+                gamificationFacade.postParticipationEvent(currentUserDTO.getUuid(), "vote");
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -54,7 +54,7 @@ public class SubmitVoteCommandEndpoint extends HttpServlet {
             try {
                 voteFacade.registerVote(command);
                 // FIXME upvoting several times causes several participation events
-                gamificationFacade.postParticipationEvent(currentUserDTO.getUuid(), 1);
+                gamificationFacade.postParticipationEvent(currentUserDTO.getUuid(), "vote");
             } catch(Exception e) {
                 e.printStackTrace();
             }
