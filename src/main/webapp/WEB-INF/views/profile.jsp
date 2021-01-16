@@ -54,6 +54,23 @@
                 </div>
             </div>
         </div>
+
+        <div class="badges__wrapper">
+            <h3>Badges received</h3>
+            <div class="badges__row">
+
+                <c:forEach var="badge" items="${badges.badges}">
+                    <div class="badge__item">
+                        <h4 class="profile__stat__badge">${badge.badgeName}</h4>
+                        <p class="profile__infos--text">${badge.badgeDesc}</p>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+
+        <div class="pointscales__row">
+
+        </div>
     </div>
 </div>
 

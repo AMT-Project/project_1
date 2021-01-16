@@ -1,6 +1,7 @@
 package ch.heigvd.amt.stack.ui.web.profile;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
+import ch.heigvd.amt.stack.application.gamification.BadgesDTO;
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.QuestionsDTO;
@@ -8,6 +9,7 @@ import ch.heigvd.amt.stack.application.question.QuestionsQuery;
 import ch.heigvd.amt.stack.application.question.answer.AnswerFacade;
 import ch.heigvd.amt.stack.application.question.answer.AnswersDTO;
 import ch.heigvd.amt.stack.application.question.answer.AnswersQuery;
+import org.json.JSONArray;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "ProfileEndpoint", urlPatterns = "/profile")
 public class ProfileEndpoint extends HttpServlet {
@@ -39,6 +43,24 @@ public class ProfileEndpoint extends HttpServlet {
         request.setAttribute("user", currentUserDTO);
         request.setAttribute("userAnswersCount", userAnswers.getAnswers().size());
         request.setAttribute("userQuestionsCount", userQuestions.getQuestions().size());
+
+        // Badges
+        JSONArray Jbadges = serviceRegistry.getGamificationFacade().getUserBadges(currentUserDTO.getUuid().asString());
+        List<BadgesDTO.BadgeDTO> badgesList = new ArrayList<>();
+        for(int i = 0; i < Jbadges.length(); ++i) {
+            badgesList.add(BadgesDTO.BadgeDTO.builder()
+                .badgeName((String) Jbadges.getJSONObject(i).get("name"))
+                .badgeDesc((String) Jbadges.getJSONObject(i).get("description"))
+                .build());
+        }
+
+        BadgesDTO badges = BadgesDTO.builder()
+            .badges(badgesList)
+            .build();
+
+        // TODO : pointScales
+
+        request.setAttribute("badges", badges);
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);
     }
 }

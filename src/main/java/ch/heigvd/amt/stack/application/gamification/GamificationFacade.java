@@ -112,4 +112,56 @@ public class GamificationFacade {
 
         return Jarray;
     }
+
+    public JSONArray getUserBadges(String appUserId) {
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        Request httpRequest = new Request.Builder()
+            .get()
+            .url(backendUrl + "/users/" + appUserId + "/badges")
+            .header("X-API-KEY", appAuthKey)
+            .build();
+
+        JSONArray Jarray = null;
+
+        try(Response httpResponse = client.newCall(httpRequest).execute()) {
+            if(!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + httpResponse);
+            System.out.println("status code: " + httpResponse.code());
+            String responseBody = httpResponse.body().string();
+            System.out.print(responseBody); // TODO remove
+
+            Jarray = new JSONArray(responseBody);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        return Jarray;
+    }
+
+    public JSONArray getUserPointScales(String appUserId) {
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        Request httpRequest = new Request.Builder()
+            .get()
+            .url(backendUrl + "/users/" + appUserId + "/scores")
+            .header("X-API-KEY", appAuthKey)
+            .build();
+
+        JSONArray Jarray = null;
+
+        try(Response httpResponse = client.newCall(httpRequest).execute()) {
+            if(!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + httpResponse);
+            System.out.println("status code: " + httpResponse.code());
+            String responseBody = httpResponse.body().string();
+            System.out.print(responseBody); // TODO remove
+
+            Jarray = new JSONArray(responseBody);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        return Jarray;
+    }
 }
