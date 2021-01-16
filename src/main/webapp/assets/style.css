@@ -457,24 +457,24 @@ p {
 }
 
 /* Leaderboards */
-.leaderboard__item {
+.leaderboard__item, .pointsscore__item {
     padding: 16px;
 }
 
-.leaderboard__table {
+.leaderboard__table, .pointsscore__table {
     border: 7px solid #272c40;
     width: 100%;
     color: #ffffff;
 }
 
-.leaderboard__table--tr-th {
+.leaderboard__table--tr-th, .pointsscore__table--tr-th {
     font-size: 20px;
     font-weight: bold;
     background-color: #272c40;
     padding: 10px;
 }
 
-.leaderboard__table--tr-td {
+.leaderboard__table--tr-td, .pointsscore__table--tr-td {
     background-color: #091739;
     font-size: 18px;
 }
@@ -484,11 +484,11 @@ p {
     box-shadow: inset 0 0 10px black;
 }
 
-.leaderboard__table--th {
+.leaderboard__table--th, .pointsscore__table--th {
     padding: 10px;
 }
 
-.leaderboard__table--td {
+.leaderboard__table--td, .pointsscore__table--td {
     padding: 8px;
 }
 
@@ -565,7 +565,7 @@ p {
     border-top: 1px solid #272c40;
 }
 
-.badges__row {
+.badges__row, .pointsscores__row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -577,12 +577,17 @@ p {
     padding: 16px;
 }
 
+.pointsscore__item {
+    max-width: 300px;
+}
+
 .profile__stat__badge {
     color: white;
     border: 7px solid #091739;
     padding: 8px;
     background-color: #272c40;
 }
+
 
 /* Footer */
 .footer {

@@ -2,6 +2,7 @@ package ch.heigvd.amt.stack.ui.web.profile;
 
 import ch.heigvd.amt.stack.application.ServiceRegistry;
 import ch.heigvd.amt.stack.application.gamification.BadgesDTO;
+import ch.heigvd.amt.stack.application.gamification.PointsScoresDTO;
 import ch.heigvd.amt.stack.application.identitymgmt.authenticate.CurrentUserDTO;
 import ch.heigvd.amt.stack.application.question.QuestionFacade;
 import ch.heigvd.amt.stack.application.question.QuestionsDTO;
@@ -59,10 +60,27 @@ public class ProfileEndpoint extends HttpServlet {
                 .badges(badgesList)
                 .build();
 
-            // TODO : pointScales
-
             request.setAttribute("badges", badges);
         }
+
+        // TODO : pointsScores
+        JSONArray JpointsScores = serviceRegistry.getGamificationFacade().getUserPointsScores(currentUserDTO.getUuid().asString());
+        if(JpointsScores != null) {
+            List<PointsScoresDTO.PointsScoreDTO> pointsScoreList = new ArrayList<>();
+            for(int i = 0; i < JpointsScores.length(); ++i) {
+                pointsScoreList.add(PointsScoresDTO.PointsScoreDTO.builder()
+                    .pointScaleName((String) JpointsScores.getJSONObject(i).get("pointScale"))
+                    .score((Integer) JpointsScores.getJSONObject(i).get("score"))
+                    .build());
+            }
+
+            PointsScoresDTO pointsScores = PointsScoresDTO.builder()
+                .pointsScores(pointsScoreList)
+                .build();
+
+            request.setAttribute("pointsScores", pointsScores);
+        }
+
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);
     }
 }
