@@ -55,16 +55,22 @@
             </div>
         </div>
 
+        <hr class="hr--solid">
+
         <div class="badges__wrapper">
             <h3>Badges received</h3>
             <div class="badges__row">
-
-                <c:forEach var="badge" items="${badges.badges}">
-                    <div class="badge__item">
-                        <h4 class="profile__stat__badge">${badge.badgeName}</h4>
-                        <p class="profile__infos--text">${badge.badgeDesc}</p>
-                    </div>
-                </c:forEach>
+                <c:if test="${badges != null}" var="condition">
+                    <c:forEach var="badge" items="${badges.badges}">
+                        <div class="badge__item">
+                            <h4 class="profile__stat__badge">${badge.badgeName}</h4>
+                            <p class="profile__infos--text">${badge.badgeDesc}</p>
+                        </div>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${!condition}">
+                    <h4>No badges yet. Continue to use the app to recieve some !</h4>
+                </c:if>
             </div>
         </div>
 

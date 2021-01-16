@@ -46,21 +46,23 @@ public class ProfileEndpoint extends HttpServlet {
 
         // Badges
         JSONArray Jbadges = serviceRegistry.getGamificationFacade().getUserBadges(currentUserDTO.getUuid().asString());
-        List<BadgesDTO.BadgeDTO> badgesList = new ArrayList<>();
-        for(int i = 0; i < Jbadges.length(); ++i) {
-            badgesList.add(BadgesDTO.BadgeDTO.builder()
-                .badgeName((String) Jbadges.getJSONObject(i).get("name"))
-                .badgeDesc((String) Jbadges.getJSONObject(i).get("description"))
-                .build());
+        if(Jbadges != null) {
+            List<BadgesDTO.BadgeDTO> badgesList = new ArrayList<>();
+            for(int i = 0; i < Jbadges.length(); ++i) {
+                badgesList.add(BadgesDTO.BadgeDTO.builder()
+                    .badgeName((String) Jbadges.getJSONObject(i).get("name"))
+                    .badgeDesc((String) Jbadges.getJSONObject(i).get("description"))
+                    .build());
+            }
+
+            BadgesDTO badges = BadgesDTO.builder()
+                .badges(badgesList)
+                .build();
+
+            // TODO : pointScales
+
+            request.setAttribute("badges", badges);
         }
-
-        BadgesDTO badges = BadgesDTO.builder()
-            .badges(badgesList)
-            .build();
-
-        // TODO : pointScales
-
-        request.setAttribute("badges", badges);
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);
     }
 }

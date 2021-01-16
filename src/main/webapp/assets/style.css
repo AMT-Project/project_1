@@ -557,6 +557,10 @@ p {
     overflow: hidden;
 }
 
+.hr--solid {
+    border-top: 1px solid #272c40;
+}
+
 .badges__row {
     display: flex;
     flex-direction: row;

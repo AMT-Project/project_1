@@ -126,7 +126,9 @@ public class GamificationFacade {
         JSONArray Jarray = null;
 
         try(Response httpResponse = client.newCall(httpRequest).execute()) {
-            if(!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + httpResponse);
+            if(!httpResponse.isSuccessful())
+                return Jarray;
+                //throw new IOException("Unexpected code " + httpResponse);
             System.out.println("status code: " + httpResponse.code());
             String responseBody = httpResponse.body().string();
             System.out.print(responseBody); // TODO remove
