@@ -2,9 +2,10 @@ package ch.heigvd.amt.stack.application.gamification;
 
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import okhttp3.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,6 +47,7 @@ public class GamificationFacade {
                 + "}";
         System.out.println(bodyString); // TODO remove
         RequestBody body = RequestBody.create(JSON, bodyString);
+
         Request httpRequest = new Request.Builder()
             .post(body)
             .url(backendUrl + "/events")
@@ -57,5 +59,57 @@ public class GamificationFacade {
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public JSONArray getLeaderboard(String pointScale, int limit) {
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        Request httpRequest = new Request.Builder()
+            .get()
+            .url(backendUrl + "/leaderboards/" + pointScale + "?limit=" + limit)
+            .header("X-API-KEY", appAuthKey)
+            .build();
+
+        JSONArray Jarray = null;
+
+        try(Response httpResponse = client.newCall(httpRequest).execute()) {
+            if(!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + httpResponse);
+            System.out.println("status code: " + httpResponse.code());
+            String responseBody = httpResponse.body().string();
+            System.out.print(responseBody); // TODO remove
+
+            Jarray = new JSONArray(responseBody);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        return Jarray;
+    }
+
+    public JSONArray getPointScales() {
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        Request httpRequest = new Request.Builder()
+            .get()
+            .url(backendUrl + "/pointScales")
+            .header("X-API-KEY", appAuthKey)
+            .build();
+
+        JSONArray Jarray = null;
+
+        try(Response httpResponse = client.newCall(httpRequest).execute()) {
+            if(!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + httpResponse);
+            System.out.println("status code: " + httpResponse.code());
+            String responseBody = httpResponse.body().string();
+            System.out.print(responseBody); // TODO remove
+
+            Jarray = new JSONArray(responseBody);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        return Jarray;
     }
 }

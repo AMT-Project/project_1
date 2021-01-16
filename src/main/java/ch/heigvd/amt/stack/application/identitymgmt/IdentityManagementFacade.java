@@ -9,6 +9,7 @@ import ch.heigvd.amt.stack.application.identitymgmt.profile.UpdateUserCommand;
 import ch.heigvd.amt.stack.application.identitymgmt.profile.UpdateUserFailedException;
 import ch.heigvd.amt.stack.domain.person.IPersonRepository;
 import ch.heigvd.amt.stack.domain.person.Person;
+import ch.heigvd.amt.stack.domain.person.PersonId;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class IdentityManagementFacade {
@@ -58,6 +59,19 @@ public class IdentityManagementFacade {
             .build();
 
         return currentUser;
+    }
+
+    public PublicUserDTO getPublicUser(PersonId personId) {
+        Person person = personRepository.findById(personId).orElse(null);
+
+        if(person == null) { // ID doesn't belong to any user
+            return null;
+        }
+
+        return  PublicUserDTO.builder()
+            .personId(person.getUuid())
+            .username(person.getUsername())
+            .build();
     }
 
     public CurrentUserDTO update(UpdateUserCommand updateUserCommand) throws UpdateUserFailedException {
