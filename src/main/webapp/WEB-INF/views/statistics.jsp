@@ -7,6 +7,7 @@
     <h1>Application statistics</h1>
     <div class="statistics">
         <div class="statistics__general">
+            <h3 class="statistics--sectiontitle">Global app statistics</h3>
             <div class="stat">
                 <div class="circle">${usersCount}</div>
                 <p class="stat__text">Registered users</p>
@@ -22,6 +23,7 @@
         </div>
 
         <div class="statistics__leaderboards">
+            <h3 class="statistics--sectiontitle">Leaderboards for all pointscales</h3>
             <c:forEach var="leaderboard" items="${leaderboards.leaderboards}">
                 <div class="leaderboard__item">
                     <h2>${leaderboard.pointScale.pointScaleName}</h2>

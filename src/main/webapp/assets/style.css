@@ -420,6 +420,10 @@ p {
 }
 
 /* Statistics */
+.statistics--sectiontitle {
+    text-align: center;
+}
+
 .statistics {
     display: flex;
     flex-direction: row;
