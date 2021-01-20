@@ -34,7 +34,7 @@ APP_KEY=<your gamification application authentification key>
 ```
 You can `cd` into `/scripts` folder and run:
 ```bash
-  ./runDocker.sh
+  ./startDocker.sh
 ```
 Open: stack.ch:9080/stack/
 ## Testing
@@ -46,7 +46,7 @@ You can `cd` into `/scripts` folder and run:
 ```
 After testing, you can still consult it at: stack.ch:9080/stack/
 
-**Note**: You may want to rerun the script since the script assumes you already have downloaded *openliberty/open-liberty:kernel-java11-openj9-ubi* image. The script waits 30s for the image to be built and launches the server. 
+**Note**: You may want to rerun the script since the script assumes you already have downloaded *openliberty/open-liberty:kernel-java11-openj9-ubi* image. The script waits 30s for the image to be built and launches the server.
 ### JMeter
 We have a load test plan you can open at `jmeter/stack_test_plan.jmx` with JMeter.
 
@@ -81,7 +81,7 @@ Once an anonymous user is registered, he can log in. He has then access to the s
 
 ### Votes policy
 
-A user must be logged-in to be able to vote. Only supported entities are questions and answers, a user can't vote on a comment. 
+A user must be logged-in to be able to vote. Only supported entities are questions and answers, a user can't vote on a comment.
 
 A user can only vote once on an entity, once he has made a vote, he can cancel it by re-clicking the vote button or can switch to the opposite vote by clicking the opposite vote button. Vote count can be negative.
 
