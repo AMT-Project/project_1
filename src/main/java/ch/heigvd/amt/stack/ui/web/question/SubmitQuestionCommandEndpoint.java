@@ -32,7 +32,7 @@ public class SubmitQuestionCommandEndpoint extends HttpServlet {
             .build();
 
         questionFacade.registerQuestion(command);
-        response.sendRedirect(request.getContextPath() + "/questions");
+        response.sendRedirect(request.getContextPath() + "/login");
 
         serviceRegistry.getGamificationFacade().postParticipationEvent(currentUserDTO.getUuid(), "question");
     }

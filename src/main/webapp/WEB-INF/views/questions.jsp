@@ -41,7 +41,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="page-item"><a class="page-link"
-                                                 href="${pageContext.request.contextPath}/currentPage=${i}">${i}</a>
+                                                 href="${pageContext.request.contextPath}/?currentPage=${i}">${i}</a>
                         </li>
                     </c:otherwise>
                 </c:choose>

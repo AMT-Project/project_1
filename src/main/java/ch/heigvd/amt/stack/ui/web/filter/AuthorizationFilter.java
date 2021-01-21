@@ -41,11 +41,28 @@ public class AuthorizationFilter implements Filter {
     }
 
     boolean isPublicRessource(String URI) {
-        if(URI.startsWith("/stack/profile")
-        || URI.startsWith("/stack/ibm")){
-            return false;
+        if(URI.startsWith("/stack/assets")) {
+            return true;
         }
-        return URI.startsWith("/stack/");
+        if(URI.startsWith("/stack/login")) {
+            return true;
+        }
+        if(URI.startsWith("/stack/logout")) {
+            return true;
+        }
+        if(URI.startsWith("/stack/register")) {
+            return true;
+        }
+        if(URI.startsWith("/stack/question")) {
+            return true;
+        }
+        if(URI.startsWith("/stack/statistics")) {
+            return true;
+        }
+        if(URI.startsWith("/stack/")) {
+            return true;
+        }
+        return false;
 
     }
 }
