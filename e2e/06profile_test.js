@@ -3,7 +3,7 @@ Feature("Profile");
 const stackURL = "http://stack.ch:9080/stack";
 const profileURL = "/profile";
 const loginPage = stackURL + "/login";
-const questionsPage = stackURL + "/questions";
+const questionsPage = stackURL ; //+ "/questions";
 const registerPage = stackURL + "/register";
 const profilePage = stackURL + profileURL;
 
