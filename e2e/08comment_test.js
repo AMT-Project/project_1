@@ -2,7 +2,7 @@ Feature("Comment");
 
 const stackURL = "http://stack.ch:9080/stack";
 const loginPage = stackURL + "/login";
-const questionsPage = stackURL ; //+ "/questions";
+const questionsPage = stackURL + "/";
 const registerPage = stackURL + "/register";
 const submitQuestionURL = stackURL + "/submitQuestion";
 const singleQuestionPage = stackURL + "/question";

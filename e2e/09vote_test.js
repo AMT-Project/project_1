@@ -2,7 +2,7 @@ Feature("Vote");
 
 const stackURL = "http://stack.ch:9080/stack";
 const loginPage = stackURL + "/login";
-const questionsPage = stackURL ; //+ "/questions";
+const questionsPage = stackURL + "/";
 const singleQuestionPage = stackURL + "/question";
 const registerPage = stackURL + "/register";
 const submitQuestionURL = stackURL + "/submitQuestion";

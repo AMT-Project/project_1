@@ -59,7 +59,10 @@ public class AuthorizationFilter implements Filter {
         if(URI.startsWith("/stack/statistics")) {
             return true;
         }
-        if(URI.endsWith("/stack")) {
+        if(URI.startsWith("/stack/ibm")) {
+            return true;
+        }
+        if(URI.endsWith("/stack/")) {
             return true;
         }
         return false;
