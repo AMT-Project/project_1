@@ -5,7 +5,6 @@ const profileURL = "/profile";
 const loginPage = stackURL + "/login";
 const questionsPage = stackURL + "/";
 const registerPage = stackURL + "/register";
-const profilePage = stackURL + profileURL;
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";
@@ -50,10 +49,7 @@ Scenario("After posting a question, I see my question statistic has changed", ({
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
-    I.click("New Question");
-    I.fillField("title", questionTitle);
-    I.fillField("description", questionDescription);
-    I.click("Submit");
+    I.submitQuestion(questionTitle, questionDescription);
 
     I.click("#profile");
     I.seeInCurrentUrl(profileURL);
@@ -65,10 +61,7 @@ Scenario("I see that my question statistic is the same when I logged back in", (
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
-    I.click("New Question");
-    I.fillField("title", questionTitle2);
-    I.fillField("description", questionDescription2);
-    I.click("Submit");
+    I.submitQuestion(questionTitle, questionDescription);
 
     I.seeInTitle("Questions");
 

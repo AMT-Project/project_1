@@ -3,7 +3,6 @@ Feature("Gamification");
 const stackURL = "http://stack.ch:9080/stack";
 const questionsPage = stackURL + "/";
 const registerPage = stackURL + "/register";
-const submitQuestionURL = stackURL + "/submitQuestion";
 const statisticsURL = stackURL + "/statistics";
 const profilePage = stackURL + "/profile";
 
@@ -24,10 +23,10 @@ const commentAns = "I don't know what to reply to this"
 const locateLeaderBoardComment = locate(".leaderboard__item").withChild("h2").withText("Commentaires");
 const locateLeaderBoardQuestion = locate(".leaderboard__item").withChild("h2").withText("Questions");
 const locateLeaderBoardAnswer = locate(".leaderboard__item").withChild("h2").withText("Réponses");
-const locateNbUser = locate(".circle").inside(locateLeaderBoardComment);
+
 const locatePointsScore = locate(".pointsscore__table--td");
-const locateNbAnswer = locate(".circle").inside(locateLeaderBoardAnswer);
 const locateBadge = locate(".profile__stat__badge");
+
 const leaderBoardUser = locate(".leaderboard__table--tr-td").withChild(".leaderboard__table--td").withText(uniqueUsername);
 
 
@@ -43,7 +42,7 @@ Scenario("Stats updated", async({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
-    //Badge for question
+    //Badge and pointScale for question
     I.submitQuestion(questionTitle, questionDescription);
 
     I.amOnPage(profilePage);
@@ -51,7 +50,7 @@ Scenario("Stats updated", async({ I }) => {
     I.seeElement(locatePointsScore.withText("Questions"))
     I.seeElement(locate(".pointsscore__table--td").withText("1"));
 
-    //Badge for comment
+    //Badge and pointScale for comment
     I.amOnPage(questionsPage);
     I.see(questionDescription);
     I.click(questionDescription);
@@ -62,6 +61,7 @@ Scenario("Stats updated", async({ I }) => {
     I.seeElement(locateBadge.withText("First"));
     I.seeElement(locatePointsScore.withText("Commentaires"))
 
+    // pointScale for answers
     I.amOnPage(questionsPage);
     I.see(questionDescription);
     I.click(questionDescription);

@@ -3,7 +3,6 @@ Feature("Answer");
 const stackURL = "http://stack.ch:9080/stack";
 const questionsPage = stackURL + "/";
 const registerPage = stackURL + "/register";
-const submitQuestionURL = stackURL + "/submitQuestion";
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";
@@ -23,20 +22,14 @@ Scenario("after logging in, I can answer to a question", ({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
-    I.click("New Question");
-    I.seeInCurrentUrl(submitQuestionURL);
-
-    I.fillField('title', questionTitle);
-    I.fillField('description', questionDescription);
-    I.click("Submit");
+    I.submitQuestion(questionTitle, questionDescription);
 
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
     I.click(myQuestion);
 
     I.see("Reply with an answer");
-    I.fillField('Write your answer', answer);
-    I.click("#submitAnswer");
+    I.submitAnswer(answer);
 
     I.seeInCurrentUrl("/question");
     I.see(questionDescription);

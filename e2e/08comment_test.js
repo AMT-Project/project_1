@@ -4,7 +4,6 @@ const stackURL = "http://stack.ch:9080/stack";
 const loginPage = stackURL + "/login";
 const questionsPage = stackURL + "/";
 const registerPage = stackURL + "/register";
-const submitQuestionURL = stackURL + "/submitQuestion";
 const singleQuestionPage = stackURL + "/question";
 
 const uniqueId = new Date().getTime();
@@ -27,23 +26,14 @@ Scenario("after logging in, I can comment a question", ({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
-    I.click("New Question");
-    I.seeInCurrentUrl(submitQuestionURL);
-
-    I.fillField('title', questionTitle);
-    I.fillField('description', questionDescription);
-    I.click("Submit");
-
+    I.submitQuestion(questionTitle, questionDescription);
     I.seeInCurrentUrl(questionsPage);
 
-
     I.seeElement(myQuestion);
-
     I.see(questionDescription);
     I.click(myQuestion);
 
-    I.fillField('content', comment);
-    I.click("Submit");
+    I.submitComment(comment);
 
     I.seeInCurrentUrl("/question");
     I.see(questionDescription);
@@ -58,12 +48,9 @@ Scenario("after logging in, I can comment an answer", ({ I }) => {
     I.see(questionDescription);
     I.click(myQuestion);
 
-    I.see("Reply with an answer");
-    I.fillField('Write your answer', answer);
-    I.click("#submitAnswer");
+    I.submitAnswer(answer)
 
-    I.fillField('#commentAnswer', commentAns);
-    I.click("#submitCommentAnswer");
+   I.submitCommentAnswer(commentAns);
 
     I.seeInCurrentUrl(singleQuestionPage);
     I.see(commentAns);
