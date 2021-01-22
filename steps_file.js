@@ -6,6 +6,8 @@ module.exports = function() {
   const questionsPage = stackURL + "/";
   const registerPage = stackURL + "/register";
   const submitQuestionURL = stackURL + "/submitQuestion";
+  const profileURL = "/profile";
+  const profilePage = stackURL + profileURL;
 
 
   return actor({
@@ -35,9 +37,19 @@ module.exports = function() {
     },
 
     submitAnswer: function(answer) {
-      I.fillField('Write your answer', answer);
-      I.click("#submitAnswer");
-    }
+      this.fillField('Write your answer', answer);
+      this.click("#submitAnswer");
+    },
+
+    submitComment: function(comment) {
+      this.fillField('content', comment);
+      this.click("Submit");
+    },
+
+    submitCommentAnswer: function(commentAns) {
+      this.fillField('#commentAnswer', commentAns);
+      this.click("#submitCommentAnswer");
+    },
 
 
 

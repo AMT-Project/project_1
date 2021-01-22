@@ -32,7 +32,6 @@ Scenario("after logging in, I can answer to a question", ({ I }) => {
 
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
-    //I.click(questionDescription);
     I.click(myQuestion);
 
     I.see("Reply with an answer");
@@ -47,7 +46,6 @@ Scenario("after logging in, I can answer to a question", ({ I }) => {
 Scenario("anonymous user can't answer question", ({ I }) => {
     I.amOnPage(questionsPage);
     I.see(questionDescription);
-    //I.click(questionDescription);
     I.click(myQuestion);
 
     I.seeInCurrentUrl("/question");

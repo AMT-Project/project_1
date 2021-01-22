@@ -5,6 +5,7 @@ const questionsPage = stackURL + "/";
 const registerPage = stackURL + "/register";
 const submitQuestionURL = stackURL + "/submitQuestion";
 const statisticsURL = stackURL + "/statistics";
+const profilePage = stackURL + "/profile";
 
 const uniqueId = new Date().getTime();
 const firstName = "Codecept";
@@ -13,24 +14,27 @@ const uniqueUsername = "12gamification_test-" + uniqueId;
 const uniqueEmail = "twelveprofile@" + uniqueId + ".ch";
 const pwd = "passWord123";
 
-const questionTitle = "How to browse stack.ch?";
-const questionDescription = "I am really lost there, any help?";
+const questionTitle = "I want to know";
+const questionDescription = "How to gamify";
 
 const answer = "Sorry I have no idea im just fishing for votes"
 const comment = "THIS IS MY COMMENT"
 const commentAns = "I don't know what to reply to this"
 
-const locateLeaderBoardUser = locate(".leaderboard__item").withChild("h2").withText("Commentaires");
+const locateLeaderBoardComment = locate(".leaderboard__item").withChild("h2").withText("Commentaires");
 const locateLeaderBoardQuestion = locate(".leaderboard__item").withChild("h2").withText("Questions");
 const locateLeaderBoardAnswer = locate(".leaderboard__item").withChild("h2").withText("Réponses");
-const locateNbUser = locate(".circle").inside(locateLeaderBoardUser);
-const locateNbQuestion = locate(".circle").inside(locateLeaderBoardQuestion);
+const locateNbUser = locate(".circle").inside(locateLeaderBoardComment);
+const locatePointsScore = locate(".pointsscore__table--td");
 const locateNbAnswer = locate(".circle").inside(locateLeaderBoardAnswer);
+const locateBadge = locate(".profile__stat__badge");
+const leaderBoardUser = locate(".leaderboard__table--tr-td").withChild(".leaderboard__table--td").withText(uniqueUsername);
+
 
 Scenario("Anonymous user can consult leaerboards", ({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateLeaderBoardQuestion);
-    I.seeElement(locateLeaderBoardUser);
+    I.seeElement(locateLeaderBoardComment);
     I.seeElement(locateLeaderBoardAnswer);
 });
 
@@ -39,16 +43,45 @@ Scenario("Stats updated", async({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
+    //Badge for question
     I.submitQuestion(questionTitle, questionDescription);
 
-    I.seeInCurrentUrl(questionsPage);
+    I.amOnPage(profilePage);
+    I.seeElement(locateBadge.withText("Besoin d'aide"));
+    I.seeElement(locatePointsScore.withText("Questions"))
+    I.seeElement(locate(".pointsscore__table--td").withText("1"));
+
+    //Badge for comment
+    I.amOnPage(questionsPage);
+    I.see(questionDescription);
+    I.click(questionDescription);
+
+    I.submitComment(comment);
+
+    I.amOnPage(profilePage);
+    I.seeElement(locateBadge.withText("First"));
+    I.seeElement(locatePointsScore.withText("Commentaires"))
+
+    I.amOnPage(questionsPage);
     I.see(questionDescription);
     I.click(questionDescription);
     I.submitAnswer(answer);
 
+    I.amOnPage(questionsPage);
+    I.see(questionDescription);
+    I.click(questionDescription);
+    I.submitAnswer(answer);
 
-    I.click("See stack statistics")
-    I.see((Number(nbUser) + 1).toString());
-    I.see((Number(nbQuestion) + 1).toString());
-    I.see((Number(nbAnswer) + 1).toString());
+    I.submitCommentAnswer(commentAns);
+
+    I.amOnPage(profilePage);
+    I.seeElement(locatePointsScore.withText("Réponses"));
+    I.seeElement(locate(".pointsscore__table--td").withText("2"));
+
+
+
+    //Appear on leaderboard
+    I.amOnPage(statisticsURL);
+    I.seeElement(leaderBoardUser);
+
 });
