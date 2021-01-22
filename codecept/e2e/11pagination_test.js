@@ -1,7 +1,7 @@
 Feature("Pagination");
 
 const stackURL = "http://stack.ch:9080/stack";
-const questionsPage = stackURL + "/questions";
+const questionsPage = stackURL + "/";
 const registerPage = stackURL + "/register";
 const submitQuestionURL = stackURL + "/submitQuestion";
 
@@ -15,7 +15,7 @@ const pwd = "passWord123";
 const questionTitle = "How to browse stack.ch?";
 const questionDescription = "I am really lost there, any help?";
 
-Scenario("Pagination on question list", (I) => {
+Scenario("Pagination on question list", ({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 

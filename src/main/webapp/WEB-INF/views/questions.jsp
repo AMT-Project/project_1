@@ -28,7 +28,7 @@
         <ul class="pagination">
             <c:if test="${currentPage != 1}">
                 <li class="page-item"><a class="page-link"
-                                         href="${pageContext.request.contextPath}/questions?currentPage=${currentPage-1}">Previous</a>
+                                         href="${pageContext.request.contextPath}/?currentPage=${currentPage-1}">Previous</a>
                 </li>
             </c:if>
 
@@ -41,7 +41,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="page-item"><a class="page-link"
-                                                 href="${pageContext.request.contextPath}/questions?currentPage=${i}">${i}</a>
+                                                 href="${pageContext.request.contextPath}/?currentPage=${i}">${i}</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -49,7 +49,7 @@
 
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item"><a class="page-link"
-                                         href="${pageContext.request.contextPath}/questions?currentPage=${currentPage+1}">Next</a>
+                                         href="${pageContext.request.contextPath}/?currentPage=${currentPage+1}">Next</a>
                 </li>
             </c:if>
         </ul>

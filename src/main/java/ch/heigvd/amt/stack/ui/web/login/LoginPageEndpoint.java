@@ -15,7 +15,7 @@ public class LoginPageEndpoint extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        if (request.getSession().getAttribute("currentUser") != null){
-           response.sendRedirect(request.getContextPath() + "/questions");
+           response.sendRedirect(request.getContextPath() + "/");
        }
 
         Object errors = request.getSession().getAttribute("errors");

@@ -1,7 +1,7 @@
 Feature("Statistics");
 
 const stackURL = "http://stack.ch:9080/stack";
-const questionsPage = stackURL + "/questions";
+const questionsPage = stackURL + "/";
 const registerPage = stackURL + "/register";
 const submitQuestionURL = stackURL + "/submitQuestion";
 const statisticsURL = stackURL + "/statistics";
@@ -27,14 +27,14 @@ const locateNbUser = locate(".circle").inside(locateStatUser);
 const locateNbQuestion = locate(".circle").inside(locateStatQuestion);
 const locateNbAnswer = locate(".circle").inside(locateStatAnswer);
 
-Scenario("Anonymous user can consult statistics", (I) => {
+Scenario("Anonymous user can consult statistics", ({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateStatUser);
     I.seeElement(locateStatQuestion);
     I.seeElement(locateStatAnswer);
 });
 
-Scenario("Stats updated", async(I) => {
+Scenario("Stats updated", async({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateNbUser);
     const nbUser = await I.grabTextFrom(locateNbUser);

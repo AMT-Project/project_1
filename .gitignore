@@ -38,3 +38,6 @@ Temporary Items
 # E2E testing
 output
 /stack.iml
+/codecept/node_modules/
+/codecept/output/
+/codecept/output/

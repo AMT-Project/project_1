@@ -53,9 +53,6 @@ public class AuthorizationFilter implements Filter {
         if(URI.startsWith("/stack/register")) {
             return true;
         }
-        if(URI.startsWith("/stack/questions")) {
-            return true;
-        }
         if(URI.startsWith("/stack/question")) {
             return true;
         }
@@ -65,6 +62,10 @@ public class AuthorizationFilter implements Filter {
         if(URI.startsWith("/stack/ibm")) {
             return true;
         }
+        if(URI.endsWith("/stack/")) {
+            return true;
+        }
         return false;
+
     }
 }

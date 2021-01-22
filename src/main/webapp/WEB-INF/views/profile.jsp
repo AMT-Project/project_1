@@ -54,6 +54,52 @@
                 </div>
             </div>
         </div>
+
+        <hr class="hr--solid">
+
+        <div class="badges__wrapper">
+            <h3>Badges received</h3>
+            <div class="badges__row">
+                <c:if test="${badges != null}" var="condition">
+                    <c:forEach var="badge" items="${badges.badges}">
+                        <div class="badge__item">
+                            <h4 class="profile__stat__badge">${badge.badgeName}</h4>
+                            <p class="profile__infos--text">${badge.badgeDesc}</p>
+                        </div>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${!condition}">
+                    <h4>No badges yet. Continue to use the app to recieve some !</h4>
+                </c:if>
+            </div>
+        </div>
+
+        <hr class="hr--solid">
+
+        <div class="pointsscores__wrapper">
+            <h3>Points scores on active point scales</h3>
+            <div class="pointsscores__row">
+                <c:if test="${pointsScores != null}" var="condition">
+                    <c:forEach var="pointsScore" items="${pointsScores.pointsScores}">
+                        <div class="pointsscore__item">
+                            <table class="pointsscore__table">
+                                <tr class="pointsscore__table--tr-th">
+                                    <th class="pointsscore__table--th">Point scale</th>
+                                    <th class="pointsscore__table--th">Points</th>
+                                </tr>
+                                <tr class="pointsscore__table--tr-td">
+                                    <td class="pointsscore__table--td">${pointsScore.pointScaleName}</td>
+                                    <td class="pointsscore__table--td">${pointsScore.score}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${!condition}">
+                    <h4>No point scales yet. Continue to use the app and score some points !</h4>
+                </c:if>
+            </div>
+        </div>
     </div>
 </div>
 

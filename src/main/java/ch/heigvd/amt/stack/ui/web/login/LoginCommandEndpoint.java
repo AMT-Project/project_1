@@ -37,7 +37,7 @@ public class LoginCommandEndpoint extends HttpServlet {
             currentUser = identityManagementFacade.authenticate(authenticateCommand);
             request.getSession().setAttribute("currentUser", currentUser);
             String targetUrl = (String) request.getSession().getAttribute("targetUrl");
-            targetUrl = (targetUrl != null) ? targetUrl : (request.getContextPath() + "/questions");
+            targetUrl = (targetUrl != null) ? targetUrl : (request.getContextPath() + "/");
             response.sendRedirect(targetUrl);
         } catch(AuthenticationFailedException e) {
             request.getSession().setAttribute("errors", List.of(e.getMessage()));

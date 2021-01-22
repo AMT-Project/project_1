@@ -33,5 +33,6 @@ public class SubmitAnswerCommandEndpoint extends HttpServlet {
 
         answerFacade.registerAnswer(command);
         response.sendRedirect(request.getContextPath() + "/question?uuid=" + questionUUID.asString());
+        serviceRegistry.getGamificationFacade().postParticipationEvent(currentUserDTO.getUuid(), "answer");
     }
 }

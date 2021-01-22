@@ -2,7 +2,7 @@ Feature("Vote");
 
 const stackURL = "http://stack.ch:9080/stack";
 const loginPage = stackURL + "/login";
-const questionsPage = stackURL + "/questions";
+const questionsPage = stackURL + "/";
 const singleQuestionPage = stackURL + "/question";
 const registerPage = stackURL + "/register";
 const submitQuestionURL = stackURL + "/submitQuestion";
@@ -33,7 +33,7 @@ const downvoteAnswer = locate('button').withAttr(downvoteBtn).inside('.answers-l
 const locateVoteCountAnswer = locate('.question-details__vote-count').inside(".answers-list__answer--row");
 
 
-Scenario("Only logged users can vote", (I) => {
+Scenario("Only logged users can vote", ({ I }) => {
     //Logged user
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
@@ -63,11 +63,11 @@ Scenario("Only logged users can vote", (I) => {
     I.dontSeeElement(downvoteBtn);
 });
 
-Scenario("Control vote logic on question", (I) => {
+Scenario("Control vote logic on question", ({ I }) => {
     helperCtrlVoteLogic(I, upvoteBtn, downvoteBtn, locateVoteCount);
 });
 
-Scenario("Votes from multiple users are accounted", async(I) => {
+Scenario("Votes from multiple users are accounted", async({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername + "doppel", firstName, lastName, uniqueEmail + "doppel", pwd);
 
@@ -82,7 +82,7 @@ Scenario("Votes from multiple users are accounted", async(I) => {
     I.seeElement(locateVoteCount.withText('0'));
 });
 
-Scenario("TEST Control vote logic on answer", (I) => {
+Scenario("TEST Control vote logic on answer", ({ I }) => {
     helperCtrlVoteLogic(I, upvoteAnswer, downvoteAnswer, locateVoteCountAnswer);
 });
 

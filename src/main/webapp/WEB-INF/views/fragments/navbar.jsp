@@ -2,7 +2,7 @@
     <c:choose>
         <c:when test="${currentUser != null}">
             <div class="navbar__buttons">
-                <button class="navbar__link--dark" onclick="window.location.href='/stack/questions';">Home</button>
+                <button class="navbar__link--dark" onclick="window.location.href='/stack/';">Home</button>
                 <button class="navbar__link--dark" onclick="window.location.href='/stack/submitQuestion';">New
                     Question
                 </button>
@@ -17,7 +17,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <button class="navbar__link--dark" onclick="window.location.href='/stack/questions';">Home</button>
+            <button class="navbar__link--dark" onclick="window.location.href='/stack/';">Home</button>
             <div class="navbar__user-interaction">
                 <button class="navbar__link--dark" onclick="window.location.href='/stack/login';">Sign-in</button>
                 <button class="navbar__link--dark" onclick="window.location.href='/stack/register';">Registration</button>
