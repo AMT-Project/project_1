@@ -27,7 +27,7 @@ const locateNbUser = locate(".circle").inside(locateLeaderBoardUser);
 const locateNbQuestion = locate(".circle").inside(locateLeaderBoardQuestion);
 const locateNbAnswer = locate(".circle").inside(locateLeaderBoardAnswer);
 
-Scenario("Anonymous user can consult statistics", ({ I }) => {
+Scenario("Anonymous user can consult leaerboards", ({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateLeaderBoardQuestion);
     I.seeElement(locateLeaderBoardUser);
@@ -36,33 +36,15 @@ Scenario("Anonymous user can consult statistics", ({ I }) => {
 
 
 Scenario("Stats updated", async({ I }) => {
-    I.amOnPage(statisticsURL);
-    I.seeElement(locateNbUser);
-    const nbUser = await I.grabTextFrom(locateNbUser);
-    const nbQuestion = await I.grabTextFrom(locateNbQuestion);
-    const nbAnswer = await I.grabTextFrom(locateNbAnswer);
-
-    I.see(nbUser.toString());
-    I.see(nbQuestion.toString());
-    I.see(nbAnswer.toString());
-
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
-    I.click("New Question");
-    I.seeInCurrentUrl(submitQuestionURL);
-
-    I.fillField('title', questionTitle);
-    I.fillField('description', questionDescription);
-    I.click("Submit");
+    I.submitQuestion(questionTitle, questionDescription);
 
     I.seeInCurrentUrl(questionsPage);
     I.see(questionDescription);
     I.click(questionDescription);
-
-    I.see("Reply with an answer");
-    I.fillField('Write your answer', answer);
-    I.click("#submitAnswer");
+    I.submitAnswer(answer);
 
 
     I.click("See stack statistics")
