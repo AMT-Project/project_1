@@ -105,7 +105,7 @@ Passwords are hashed when stored in the DB, and must be at least 8 characters lo
 # Possible improvements
 To run integration tests, you need an instance of the website before running IT tests inside intelliJ. You can deploy this website by `cd`'ing in `\scripts` and run:
 ```bash
-  ./runDocker.sh
+  ./startDocker.sh
 ```
 then run the tests.
 
