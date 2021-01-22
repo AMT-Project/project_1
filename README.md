@@ -32,6 +32,11 @@ Open: stack.ch:9080/stack/
 ```
 APP_KEY=<your gamification application authentification key>
 ```
+in the same file, write down the url of the gamification engine at:
+```bash
+BACKEND_URL=<your gamification engine URL>
+```
+
 You can `cd` into `/scripts` folder and run:
 ```bash
   ./startDocker.sh
