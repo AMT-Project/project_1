@@ -45,10 +45,15 @@ Open: stack.ch:9080/stack/
 ## Testing
 
 ### End-to-end tests
-You can `cd` into `/scripts` folder and run:
+Prerequisite : the application must be running. See [run instructions](#prerequisites).
+
+From project base folder, run
 ```bash
-./runTestsLocally.sh
+  cd codecept
+  npm install
+  npx codeceptjs run --steps
 ```
+
 After testing, you can still consult it at: stack.ch:9080/stack/
 
 **Note**: You may want to rerun the script since the script assumes you already have downloaded *openliberty/open-liberty:kernel-java11-openj9-ubi* image. The script waits 30s for the image to be built and launches the server.
