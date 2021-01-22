@@ -27,7 +27,7 @@ const locateNbUser = locate(".circle").inside(locateLeaderBoardUser);
 const locateNbQuestion = locate(".circle").inside(locateLeaderBoardQuestion);
 const locateNbAnswer = locate(".circle").inside(locateLeaderBoardAnswer);
 
-Scenario("Anonymous user can consult statistics", (I) => {
+Scenario("Anonymous user can consult statistics", ({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateLeaderBoardQuestion);
     I.seeElement(locateLeaderBoardUser);
@@ -35,7 +35,7 @@ Scenario("Anonymous user can consult statistics", (I) => {
 });
 
 
-Scenario("Stats updated", async(I) => {
+Scenario("Stats updated", async({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateNbUser);
     const nbUser = await I.grabTextFrom(locateNbUser);
