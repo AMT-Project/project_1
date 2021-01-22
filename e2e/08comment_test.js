@@ -23,7 +23,7 @@ const commentAns = "I don't know what to reply to this"
 
 const myQuestion = locate(".questions-list__list-element").withText(questionTitle);
 
-Scenario("after logging in, I can comment a question", (I) => {
+Scenario("after logging in, I can comment a question", ({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
@@ -50,7 +50,7 @@ Scenario("after logging in, I can comment a question", (I) => {
     I.see(comment);
 });
 
-Scenario("after logging in, I can comment an answer", (I) => {
+Scenario("after logging in, I can comment an answer", ({ I }) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
@@ -69,7 +69,7 @@ Scenario("after logging in, I can comment an answer", (I) => {
     I.see(commentAns);
 });
 
-Scenario("anonymous user can't comment question", (I) => {
+Scenario("anonymous user can't comment question", ({ I }) => {
     I.amOnPage(questionsPage);
     I.see(questionDescription);
     I.click(myQuestion);

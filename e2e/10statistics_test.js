@@ -27,14 +27,14 @@ const locateNbUser = locate(".circle").inside(locateStatUser);
 const locateNbQuestion = locate(".circle").inside(locateStatQuestion);
 const locateNbAnswer = locate(".circle").inside(locateStatAnswer);
 
-Scenario("Anonymous user can consult statistics", (I) => {
+Scenario("Anonymous user can consult statistics", ({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateStatUser);
     I.seeElement(locateStatQuestion);
     I.seeElement(locateStatAnswer);
 });
 
-Scenario("Stats updated", async(I) => {
+Scenario("Stats updated", async({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateNbUser);
     const nbUser = await I.grabTextFrom(locateNbUser);

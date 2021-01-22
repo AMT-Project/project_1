@@ -27,7 +27,7 @@ const questionDescription = "I am really lost there, any help?";
 const questionTitle2 = "How do I uppercase in java?";
 const questionDescription2 = "genuine question";
 
-Scenario("after registering, I can see my own profile page", (I) => {
+Scenario("after registering, I can see my own profile page", ({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
@@ -46,7 +46,7 @@ Scenario("after registering, I can see my own profile page", (I) => {
     I.see("0");
 });
 
-Scenario("After posting a question, I see my question statistic has changed", (I) => {
+Scenario("After posting a question, I see my question statistic has changed", ({ I }) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
@@ -61,7 +61,7 @@ Scenario("After posting a question, I see my question statistic has changed", (I
     I.see("1");
 });
 
-Scenario("I see that my question statistic is the same when I logged back in", (I) => {
+Scenario("I see that my question statistic is the same when I logged back in", ({ I }) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 
@@ -88,13 +88,13 @@ Scenario("I see that my question statistic is the same when I logged back in", (
     I.see("2");
 });
 
-Scenario("I see questions from other users as anon", (I) => {
+Scenario("I see questions from other users as anon", ({ I }) => {
     I.amOnPage(questionsPage);
 
     I.see("List of questions");
 });
 
-Scenario("After editing my user info, I see my updated profile and I can login with new credentials", (I) => {
+Scenario("After editing my user info, I see my updated profile and I can login with new credentials", ({ I }) => {
     I.amOnPage(loginPage);
     I.login(uniqueUsername, pwd);
 

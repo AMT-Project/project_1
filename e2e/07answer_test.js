@@ -19,7 +19,7 @@ const answer = "Sorry I have no idea im just fishing for votes"
 
 const myQuestion = locate(".questions-list__list-element").withText(questionTitle);
 
-Scenario("after logging in, I can answer to a question", (I) => {
+Scenario("after logging in, I can answer to a question", ({ I }) => {
     I.amOnPage(registerPage);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
@@ -44,7 +44,7 @@ Scenario("after logging in, I can answer to a question", (I) => {
     I.see(answer);
 });
 
-Scenario("anonymous user can't answer question", (I) => {
+Scenario("anonymous user can't answer question", ({ I }) => {
     I.amOnPage(questionsPage);
     I.see(questionDescription);
     //I.click(questionDescription);

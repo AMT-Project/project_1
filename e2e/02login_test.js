@@ -13,7 +13,7 @@ const lastName = "JS";
 const wrongUsername = "wrongusername";
 const wrongPwd = "wrongpwd";
 
-Scenario("test valid login", (I) => {
+Scenario("test valid login", ({ I }) => {
     I.amOnPage("http://stack.ch:9080/stack" + registerURL);
     I.register(uniqueUsername, firstName, lastName, uniqueEmail, pwd);
 
@@ -28,13 +28,13 @@ Scenario("test valid login", (I) => {
     I.see("List of questions");
 });
 
-Scenario("test wrong username login", (I) => {
+Scenario("test wrong username login", ({ I }) => {
     I.amOnPage("http://stack.ch:9080/stack" + loginURL);
     I.login(wrongUsername, pwd);
     I.see("User not found");
 });
 
-Scenario("test wrong password login", (I) => {
+Scenario("test wrong password login", ({ I }) => {
     I.amOnPage("http://stack.ch:9080/stack" + loginURL);
     I.login(uniqueUsername, wrongPwd);
     I.see("Credentials verification failed");
