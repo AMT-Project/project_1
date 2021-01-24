@@ -1,7 +1,7 @@
 Feature("Pagination");
 
 const stackURL = "http://stack.ch:9080/stack";
-const questionsPage = stackURL + "/";
+const questionsPage = stackURL + "/questions";
 const registerPage = stackURL + "/register";
 const submitQuestionURL = stackURL + "/submitQuestion";
 

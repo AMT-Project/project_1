@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "QuestionQueryEndpoint", urlPatterns = "/")
+@WebServlet(name = "QuestionQueryEndpoint", urlPatterns = "/questions")
 public class QuestionsListEndpoint extends HttpServlet {
     @Inject
     ServiceRegistry serviceRegistry;

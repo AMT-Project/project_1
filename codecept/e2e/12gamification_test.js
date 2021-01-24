@@ -1,7 +1,7 @@
 Feature("Gamification");
 
 const stackURL = "http://stack.ch:9080/stack";
-const questionsPage = stackURL + "/";
+const questionsPage = stackURL + "/questions";
 const registerPage = stackURL + "/register";
 const statisticsURL = stackURL + "/statistics";
 const profilePage = stackURL + "/profile";
@@ -30,7 +30,7 @@ const locateBadge = locate(".profile__stat__badge");
 const leaderBoardUser = locate(".leaderboard__table--tr-td").withChild(".leaderboard__table--td").withText(uniqueUsername);
 
 
-Scenario("Anonymous user can consult leaerboards", ({ I }) => {
+Scenario("Anonymous user can consult leaderboards", ({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateLeaderBoardQuestion);
     I.seeElement(locateLeaderBoardComment);
