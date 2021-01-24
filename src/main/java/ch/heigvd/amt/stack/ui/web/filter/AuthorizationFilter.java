@@ -54,32 +54,5 @@ public class AuthorizationFilter implements Filter {
                 || URI.startsWith("/stack/question")
                 || URI.startsWith("/stack/statistics")
                 || URI.endsWith("/stack/");
-        /*
-        if(URI.startsWith("/stack/assets")) {
-            return true;
-        }
-        if(URI.startsWith("/stack/login")) {
-            return true;
-        }
-        if(URI.startsWith("/stack/logout")) {
-            return true;
-        }
-        if(URI.startsWith("/stack/register")) {
-            return true;
-        }
-        if(URI.startsWith("/stack/question")) {
-            return true;
-        }
-        if(URI.startsWith("/stack/statistics")) {
-            return true;
-        }
-        if(URI.startsWith("/stack/questions")) {
-            return true;
-        }
-        if(URI.endsWith("/stack/")) {
-            return true;
-        }
-        return false;*/
-
     }
 }
