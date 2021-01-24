@@ -30,7 +30,7 @@ const locateBadge = locate(".profile__stat__badge");
 const leaderBoardUser = locate(".leaderboard__table--tr-td").withChild(".leaderboard__table--td").withText(uniqueUsername);
 
 
-Scenario("Anonymous user can consult leaerboards", ({ I }) => {
+Scenario("Anonymous user can consult leaderboards", ({ I }) => {
     I.amOnPage(statisticsURL);
     I.seeElement(locateLeaderBoardQuestion);
     I.seeElement(locateLeaderBoardComment);
