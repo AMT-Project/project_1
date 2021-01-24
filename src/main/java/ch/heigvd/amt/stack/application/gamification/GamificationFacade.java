@@ -3,7 +3,6 @@ package ch.heigvd.amt.stack.application.gamification;
 import ch.heigvd.amt.stack.domain.person.PersonId;
 import okhttp3.*;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -45,7 +44,6 @@ public class GamificationFacade {
                 + "\"eventType\":\"" + eventType + "\","
                 + "\"timestamp\":\"" + time + "\""
                 + "}";
-        System.out.println(bodyString); // TODO remove
         RequestBody body = RequestBody.create(JSON, bodyString);
 
         Request httpRequest = new Request.Builder()
@@ -55,7 +53,6 @@ public class GamificationFacade {
             .build();
         try(Response httpResponse = client.newCall(httpRequest).execute()) {
             if(!httpResponse.isSuccessful()) throw new IOException("Unexpected code " + httpResponse);
-            System.out.println("status code: " + httpResponse.code());
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -76,10 +73,7 @@ public class GamificationFacade {
         try(Response httpResponse = client.newCall(httpRequest).execute()) {
             if(!httpResponse.isSuccessful())
                 return Jarray;
-                //throw new IOException("Unexpected code " + httpResponse);
-            System.out.println("status code: " + httpResponse.code());
             String responseBody = httpResponse.body().string();
-            System.out.print(responseBody); // TODO remove
 
             Jarray = new JSONArray(responseBody);
         } catch(IOException e) {
@@ -104,10 +98,7 @@ public class GamificationFacade {
         try(Response httpResponse = client.newCall(httpRequest).execute()) {
             if(!httpResponse.isSuccessful())
                 return Jarray;
-                //throw new IOException("Unexpected code " + httpResponse);
-            System.out.println("status code: " + httpResponse.code());
             String responseBody = httpResponse.body().string();
-            System.out.print(responseBody); // TODO remove
 
             Jarray = new JSONArray(responseBody);
         } catch(IOException e) {
@@ -132,10 +123,7 @@ public class GamificationFacade {
         try(Response httpResponse = client.newCall(httpRequest).execute()) {
             if(!httpResponse.isSuccessful())
                 return Jarray;
-                //throw new IOException("Unexpected code " + httpResponse);
-            System.out.println("status code: " + httpResponse.code());
             String responseBody = httpResponse.body().string();
-            System.out.print(responseBody); // TODO remove
 
             Jarray = new JSONArray(responseBody);
         } catch(IOException e) {
@@ -160,10 +148,7 @@ public class GamificationFacade {
         try(Response httpResponse = client.newCall(httpRequest).execute()) {
             if(!httpResponse.isSuccessful())
                 return Jarray;
-                //throw new IOException("Unexpected code " + httpResponse);
-            System.out.println("status code: " + httpResponse.code());
             String responseBody = httpResponse.body().string();
-            System.out.print(responseBody); // TODO remove
 
             Jarray = new JSONArray(responseBody);
         } catch(IOException e) {

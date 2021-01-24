@@ -63,7 +63,7 @@ public class ProfileEndpoint extends HttpServlet {
             request.setAttribute("badges", badges);
         }
 
-        // TODO : pointsScores
+        // PointsScores
         JSONArray JpointsScores = serviceRegistry.getGamificationFacade().getUserPointsScores(currentUserDTO.getUuid().asString());
         if(JpointsScores != null) {
             List<PointsScoresDTO.PointsScoreDTO> pointsScoreList = new ArrayList<>();
