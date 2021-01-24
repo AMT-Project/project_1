@@ -12,6 +12,7 @@ Stack is a question and answer site for all, based on the famous programming Q&A
 | Vitor Vaz Afonso | vitorva         |
 
 ## Prerequisites
+Open your installation folder and clone this repository.
 
 Do not forget to edit your `/etc/hosts` file to add:
 ```
@@ -45,16 +46,41 @@ Open: stack.ch:9080/stack/
 ## Testing
 
 ### End-to-end tests
-Prerequisite : the application must be running. See [run instructions](#prerequisites).
+Using CodeceptJS and Puppeteer.
+
+Prerequisites : 
+- The application must be running. See [run instructions](#prerequisites).
+- You must have installed the required dependencies by running from project base folder :
+```bash
+  cd codecept
+  npm install
+  node node_modules/puppeteer/install.js
+```
+- For test #12 gamification to succeed, the [gamification project](https://github.com/AMT-Project/project_2) must be running as well. 
 
 From project base folder, run
 ```bash
   cd codecept
-  npm install
   npx codeceptjs run --steps
 ```
 
+All tests can be succesfully run on their own with ``npx codeceptjs run --steps e2e/<TEST_NAME>``.
+
 After testing, you can still consult it at: stack.ch:9080/stack/
+
+The following features have been tested :
+- Registration
+- Login
+- Filter (on pages reserved to logged users)
+- Logout
+- Question submission
+- User profile
+- Answer submission
+- Comment submission
+- Vote submission
+- Statistics
+- Pagination
+- Gamification
 
 **Note**: You may want to rerun the script since the script assumes you already have downloaded *openliberty/open-liberty:kernel-java11-openj9-ubi* image. The script waits 30s for the image to be built and launches the server.
 ### JMeter
@@ -122,5 +148,5 @@ Through our various test plans, we didn't find any major issues or problems, but
 - Improving the CSS.
 
 # What has been added since the presentation
-
-Password policy has been updated.
+- CSS was fixed.
+- Password and email format verification have been re-enabled.
