@@ -1,7 +1,7 @@
 Feature("Answer");
 
 const stackURL = "http://stack.ch:9080/stack";
-const questionsPage = stackURL + "/";
+const questionsPage = stackURL + "/questions";
 const registerPage = stackURL + "/register";
 
 const uniqueId = new Date().getTime();

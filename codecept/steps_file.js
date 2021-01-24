@@ -1,13 +1,7 @@
-// in this file you can append custom step methods to 'I' object
-
 module.exports = function() {
 
   const stackURL = "http://stack.ch:9080/stack";
-  const questionsPage = stackURL + "/";
-  const registerPage = stackURL + "/register";
   const submitQuestionURL = stackURL + "/submitQuestion";
-  const profileURL = "/profile";
-  const profilePage = stackURL + profileURL;
 
 
   return actor({

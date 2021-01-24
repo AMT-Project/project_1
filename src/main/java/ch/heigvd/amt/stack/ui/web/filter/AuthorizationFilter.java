@@ -20,6 +20,11 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        if(request.getRequestURI().endsWith("/stack/")){
+            response.sendRedirect(request.getContextPath() + "/questions");
+            return;
+        }
+
         if(isPublicRessource(request.getRequestURI())) {
             filterChain.doFilter(request, response);
             return;
@@ -41,6 +46,15 @@ public class AuthorizationFilter implements Filter {
     }
 
     boolean isPublicRessource(String URI) {
+        return URI.startsWith("/stack/assets")
+                || URI.startsWith("/stack/login")
+                || URI.startsWith("/stack/logout")
+                || URI.startsWith("/stack/register")
+                || URI.startsWith("/stack/questions")
+                || URI.startsWith("/stack/question")
+                || URI.startsWith("/stack/statistics")
+                || URI.endsWith("/stack/");
+        /*
         if(URI.startsWith("/stack/assets")) {
             return true;
         }
@@ -59,13 +73,13 @@ public class AuthorizationFilter implements Filter {
         if(URI.startsWith("/stack/statistics")) {
             return true;
         }
-        if(URI.startsWith("/stack/ibm")) {
+        if(URI.startsWith("/stack/questions")) {
             return true;
         }
         if(URI.endsWith("/stack/")) {
             return true;
         }
-        return false;
+        return false;*/
 
     }
 }
